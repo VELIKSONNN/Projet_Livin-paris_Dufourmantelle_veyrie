@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "vAHLD1DsaPEKmmTNQW6Y2QLaAJa+zP/twDDBmQru2zrChc5HWdjF8OVQ1NZGC5/4O1VTJAb2FIHMCBlReUprpw==",
+  "dgSpecHash": "Iyls3aufDH9fnvqzsc35sOHNMWXaPN/j5fTIcg9bV0FCoxnOZFBUFBM+isEhzsETWSoHXLKvUL+L5shbkLWXbw==",
   "success": true,
   "projectFilePath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\joach\\.nuget\\packages\\system.drawing.common\\9.0.2\\system.drawing.common.9.0.2.nupkg.sha512",
     "C:\\Users\\joach\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.27\\microsoft.windowsdesktop.app.ref.6.0.27.nupkg.sha512",
     "C:\\Users\\joach\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.27\\microsoft.netcore.app.ref.6.0.27.nupkg.sha512",
     "C:\\Users\\joach\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.27\\microsoft.aspnetcore.app.ref.6.0.27.nupkg.sha512",

@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace PROJET_étudiant
 {
-    internal class lien
+    internal class Lien
     {
-        public noeud Noeud1 { get; }
-        public noeud Noeud2 { get; }
-        public lien(noeud n1, noeud n2)
+        public int Source { get; set; }
+        public int Destination { get; set; }
+
+        public Lien(int source, int destination)
         {
-            Noeud1 = n1;
-            Noeud2 = n2;
+            Source = source;
+            Destination = destination;
         }
     }
 }
