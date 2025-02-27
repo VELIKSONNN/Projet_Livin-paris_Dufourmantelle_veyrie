@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProjetCsharplivin_paris")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c025aa01668ce3b907cebd0a21a4844867727930")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProjetCsharplivin_paris")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProjetCsharplivin_paris")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

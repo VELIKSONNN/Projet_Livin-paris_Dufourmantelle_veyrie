@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ProjetCsharplivin_paris
-build_property.ProjectDir = C:\ECOLE\GITHUB\Projet_Livin-paris\ProjetCsharplivin_paris\
+build_property.ProjectDir = C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\ProjetCsharplivin_paris\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
