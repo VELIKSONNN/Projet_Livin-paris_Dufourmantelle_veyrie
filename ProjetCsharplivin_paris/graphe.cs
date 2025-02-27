@@ -10,6 +10,7 @@ namespace PROJET_étudiant
         private int NombreSommets;
         private List<int>[] ListeAdjacence;
         private int[,] MatriceAdjacence;
+        private List<Lien> Liens;
 
         public graphe(int n)
         {
@@ -94,14 +95,18 @@ namespace PROJET_étudiant
                         (float)(largeur / 2 + rayon * Math.Cos(angle)),
                         (float)(hauteur / 2 + rayon * Math.Sin(angle)));
                 }
-                foreach (var lien in Liens)
-                    g.DrawLine(pen, positions[lien.Source], positions[lien.Destination]);
-                for (int i = 1; i <= NombreSommets; i++)
+                while (Liens != null)
                 {
-                    g.FillEllipse(brush, positions[i].X - rayonNoeud, positions[i].Y - rayonNoeud, rayonNoeud * 2, rayonNoeud * 2);
-                    g.DrawString(i.ToString(), font, textBrush, positions[i].X - 6, positions[i].Y - 6);
+                    foreach (var lien in Liens)
+                        g.DrawLine(pen, positions[lien.Source], positions[lien.Destination]);
+                    for (int i = 1; i <= NombreSommets; i++)
+                    {
+                        g.FillEllipse(brush, positions[i].X - rayonNoeud, positions[i].Y - rayonNoeud, rayonNoeud * 2, rayonNoeud * 2);
+                        g.DrawString(i.ToString(), font, textBrush, positions[i].X - 6, positions[i].Y - 6);
+                    }
+                    bmp.Save(cheminImage);
                 }
-                bmp.Save(cheminImage);
             }
         }
     }
+}

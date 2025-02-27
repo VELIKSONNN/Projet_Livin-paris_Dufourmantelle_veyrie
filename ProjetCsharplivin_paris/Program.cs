@@ -1,26 +1,52 @@
-﻿namespace PROJET_étudiant
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
+class Program
 {
-    internal class Program
+    static void Main()
     {
-        static void Main(string[] args)
+        string cheminFichier = "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\soc-karate.mtx";
+        string cheminImage = "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\graphe.png";
+
+      
+        List<Tuple<int, int>> liens = ChargerLiens(cheminFichier);
+        if (liens.Count == 0)
         {
-            graphe g = new graphe(34);
-            g.ChargerDepuisFichier();
-            Console.WriteLine("Parcours en largeur :");
-            g.ParcoursLargeur(1);
-
-            Console.WriteLine("\nParcours en profondeur :");
-            bool[] visite = new bool[35];
-            g.ParcoursProfondeur(1, visite);
-
-            Console.WriteLine("\nLe graphe est connexe ? " + g.EstConnexe());
-            Console.WriteLine("Le graphe contient un cycle ? " + g.ContientCycle());
-
-            g.DessinerGraphe("graphe.png");
-            Console.WriteLine("Image du graphe générée : graphe.png");
-            Console.WriteLine("Hello, World!");
-
+            Console.WriteLine("❌ Aucun lien trouvé, arrêt du programme.");
+            return;
         }
+
+        
+        GrapheVisualizer visualizer = new GrapheVisualizer(liens);
+        visualizer.DessinerEtAfficherGraphe(cheminImage);
+    }
+
+    static List<Tuple<int, int>> ChargerLiens(string cheminFichier)
+    {
+        List<Tuple<int, int>> liens = new List<Tuple<int, int>>();
+
+        if (!File.Exists(cheminFichier))
+        {
+            Console.WriteLine("❌ ERREUR : fichier introuvable !");
+            return liens;
+        }
+
+        foreach (string ligne in File.ReadLines(cheminFichier))
+        {
+            if (ligne.StartsWith("%")) continue; 
+
+            string[] valeurs = ligne.Split();
+            if (valeurs.Length < 2) continue;
+
+            int a = int.Parse(valeurs[0]);
+            int b = int.Parse(valeurs[1]);
+
+            liens.Add(Tuple.Create(a, b));
+        }
+
+        return liens;
     }
 }
+
+
