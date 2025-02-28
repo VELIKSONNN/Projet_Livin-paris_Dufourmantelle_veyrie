@@ -5,12 +5,22 @@ using System.Drawing;
 
 namespace PROJET_étudiant
 {
-    internal class graphe
+     class graphe
     {
         private int NombreSommets;
         private List<int>[] ListeAdjacence;
         private int[,] MatriceAdjacence;
         private List<Lien> Liens;
+        public int Nombresommets
+        {
+            get { return NombreSommets; }
+            set {  NombreSommets = value; }
+        }
+        public List<int>[] Listeadjacence
+        {
+            get { return ListeAdjacence; }
+            
+        }
 
         public graphe(int n)
         {
@@ -59,9 +69,53 @@ namespace PROJET_étudiant
             foreach (var voisin in ListeAdjacence[depart])
             {
                 if (!visite[voisin])
+                {
                     ParcoursProfondeur(voisin, visite);
+                }
             }
         }
+        public bool EstConnexe()
+        {
+            bool[] visite = new bool[NombreSommets + 1]; // Tableau pour marquer les sommets visités
+            Queue<int> file = new Queue<int>();
+
+            // Trouver un sommet de départ qui a des connexions
+            int premierSommet = -1;
+            for (int i = 1; i <= NombreSommets; i++)
+            {
+                if (ListeAdjacence[i].Count > 0)
+                {
+                    premierSommet = i;
+                    break;
+                }
+            }
+
+            if (premierSommet == -1) return false; // Si aucun sommet connecté n'est trouvé, graphe non connexe
+
+            // BFS pour explorer le graphe
+            file.Enqueue(premierSommet);
+            visite[premierSommet] = true;
+            int nbVisites = 1;
+
+            while (file.Count > 0)
+            {
+                int noeud = file.Dequeue();
+                foreach (var voisin in ListeAdjacence[noeud])
+                {
+                    if (!visite[voisin])
+                    {
+                        visite[voisin] = true;
+                        file.Enqueue(voisin);
+                        nbVisites++;
+                    }
+                }
+            }
+
+            // Vérifier si tous les sommets ont été visités
+            return nbVisites == NombreSommets;
+        }
+
+
 
         public void ChargerDepuisFichier(string chemin)
         {
@@ -71,9 +125,12 @@ namespace PROJET_étudiant
                 if (ligne.StartsWith("%")) continue;
                 string[] parties = ligne.Split();
                 if (parties.Length == 2)
+                {
                     AjouterLien(int.Parse(parties[0]), int.Parse(parties[1]));
+                }
             }
         }
+
        
     }
 }
