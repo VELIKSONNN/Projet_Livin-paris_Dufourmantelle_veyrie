@@ -1,17 +1,20 @@
 ﻿
+
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Diagnostics;
 using System.IO;
+using PROJET_étudiant;
 
-class GrapheVisualizer
+class VisualisationGraphe
 {
-    private List<Tuple<int, int>> liens;
+    private graphe _graphe;
 
-    public GrapheVisualizer(List<Tuple<int, int>> liens)
+    public VisualisationGraphe(graphe g)
     {
-        this.liens = liens;
+        _graphe = g;
     }
 
     public void DessinerEtAfficherGraphe(string cheminImage)
@@ -30,31 +33,30 @@ class GrapheVisualizer
         Dictionary<int, PointF> positions = new Dictionary<int, PointF>();
         Random rand = new Random();
 
-        // Placer les sommets aléatoirement
-        foreach (var lien in liens)
+        // Générer des positions aléatoires pour chaque sommet
+        for (int i = 1; i <= _graphe.Nombresommets; i++)
         {
-            if (!positions.ContainsKey(lien.Item1))
-                positions[lien.Item1] = new PointF(rand.Next(50, largeur - 50), rand.Next(50, hauteur - 50));
-
-            if (!positions.ContainsKey(lien.Item2))
-                positions[lien.Item2] = new PointF(rand.Next(50, largeur - 50), rand.Next(50, hauteur - 50));
+            positions[i] = new PointF(rand.Next(50, largeur - 50), rand.Next(50, hauteur - 50));
         }
 
-        // Dessiner les liens (traits entre sommets)
+        
         Pen pen = new Pen(Color.Black, 2);
-        foreach (var lien in liens)
+        for (int i = 1; i <= _graphe.Nombresommets; i++)
         {
-            g.DrawLine(pen, positions[lien.Item1], positions[lien.Item2]);
+            foreach (int voisin in _graphe.Listeadjacence[i])
+            {
+                g.DrawLine(pen, positions[i], positions[voisin]);
+            }
         }
 
-        // Dessiner les sommets (cercles bleus)
+    
+        Brush brush = Brushes.Blue;
         foreach (var kvp in positions)
         {
-            g.FillEllipse(Brushes.Blue, kvp.Value.X - 5, kvp.Value.Y - 5, 10, 10);
+            g.FillEllipse(brush, kvp.Value.X - 5, kvp.Value.Y - 5, 10, 10);
             g.DrawString(kvp.Key.ToString(), new Font("Arial", 10), Brushes.Black, kvp.Value);
         }
 
-        // Sauvegarder l'image
         bitmap.Save(cheminImage);
         g.Dispose();
         bitmap.Dispose();
@@ -64,16 +66,12 @@ class GrapheVisualizer
     {
         if (File.Exists(cheminImage))
         {
-            Console.WriteLine($"✅ Image générée et affichée : {cheminImage}");
+            Console.WriteLine($" Image générée et affichée : {cheminImage}");
             Process.Start(new ProcessStartInfo(cheminImage) { UseShellExecute = true });
         }
         else
         {
-            Console.WriteLine("❌ ERREUR : L'image n'a pas été créée.");
+            Console.WriteLine(" L'image n'a pas été créée.");
         }
     }
 }
-
-
-
-
