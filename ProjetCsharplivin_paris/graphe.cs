@@ -76,10 +76,10 @@ namespace PROJET_étudiant
         }
         public bool EstConnexe()
         {
-            bool[] visite = new bool[NombreSommets + 1]; // Tableau pour marquer les sommets visités
+            bool[] visite = new bool[NombreSommets + 1]; 
             Queue<int> file = new Queue<int>();
 
-            // Trouver un sommet de départ qui a des connexions
+           
             int premierSommet = -1;
             for (int i = 1; i <= NombreSommets; i++)
             {
@@ -90,9 +90,8 @@ namespace PROJET_étudiant
                 }
             }
 
-            if (premierSommet == -1) return false; // Si aucun sommet connecté n'est trouvé, graphe non connexe
-
-            // BFS pour explorer le graphe
+            if (premierSommet == -1) return false; 
+            
             file.Enqueue(premierSommet);
             visite[premierSommet] = true;
             int nbVisites = 1;
@@ -111,7 +110,7 @@ namespace PROJET_étudiant
                 }
             }
 
-            // Vérifier si tous les sommets ont été visités
+           
             return nbVisites == NombreSommets;
         }
 

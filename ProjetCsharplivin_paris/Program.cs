@@ -9,7 +9,7 @@ class Program
     {
         string cheminFichier = "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\soc-karate.mtx";
         string cheminImage = "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\graphe.png";
-        graphe g = new graphe(cheminFichier.Length);
+        graphe g = new graphe(34);
         g.ChargerDepuisFichier(cheminFichier);
         g.EstConnexe();
         
