@@ -7,16 +7,16 @@ namespace PROJET_étudiant
 {
      class graphe
     {
-        private int NombreSommets;
-        private List<int>[] ListeAdjacence;
-        private int[,] MatriceAdjacence;
-        private List<Lien> Liens;
-        public int Nombresommets
+        private int NombreSommets; // Nombre de sommets du graphe
+        private List<int>[] ListeAdjacence; // On utilise une liste d'adjacence pour stocker les voisins de chaque sommet 
+        private int[,] MatriceAdjacence; // Ici la matrice d'adjacence signifie qu'il existera un lien entre i et j
+        private List<Lien> Liens; //
+        public int Nombresommets // On passe Le Nombresommets en publique afin qu'elle puisse être utilisée dans les autres classes
         {
             get { return NombreSommets; }
             set {  NombreSommets = value; }
-        }
-        public List<int>[] Listeadjacence
+        } 
+        public List<int>[] Listeadjacence // On passe la liste d'adjacence en publique afin qu'elle puisse être utilisée dans les autres classes
         {
             get { return ListeAdjacence; }
             
@@ -25,14 +25,14 @@ namespace PROJET_étudiant
         public graphe(int n)
         {
             NombreSommets = n;
-            ListeAdjacence = new List<int>[n + 1];
-            MatriceAdjacence = new int[n + 1, n + 1];
-            for (int i = 1; i <= n; i++) { ListeAdjacence[i] = new List<int>(); }
+            ListeAdjacence = new List<int>[n + 1]; // On initialise la liste d'adjacence 
+            MatriceAdjacence = new int[n + 1, n + 1]; // On initialise la matrice d'adjacence
+            for (int i = 1; i <= n; i++) { ListeAdjacence[i] = new List<int>(); } // Chaque sommets va recevoir une liste vide 
 
             
         }
 
-        public void AjouterLien(int u, int v)
+        public void AjouterLien(int u, int v) // On va ajouter un lien au graphe et pour cela la liste d'adjacence et la matrice d'adjacence vont être mis à jour par l'intermédiaire de u et v
         {
             ListeAdjacence[u].Add(v);
             ListeAdjacence[v].Add(u);
@@ -40,10 +40,10 @@ namespace PROJET_étudiant
             MatriceAdjacence[v, u] = 1;
         }
 
-        public void ParcoursLargeur(int depart)
+        public void ParcoursLargeur(int depart) // On explore tout les voisins d'un sommet avant de passer aux suivants, cela permet de trouver le plus court chemin non pondéré
         {
-            bool[] visite = new bool[NombreSommets + 1];
-            Queue<int> file = new Queue<int>();
+            bool[] visite = new bool[NombreSommets + 1]; // On y marque les sommets visités
+            Queue<int> file = new Queue<int>(); // On utilise une file pour explorer les sommets
             file.Enqueue(depart);
             visite[depart] = true;
 
