@@ -1,4 +1,5 @@
-
+DROP DATABASE IF EXISTS baselivinparis;
+CREATE DATABASE baselivinparis;
 USE baselivinparis;
 
 DROP TABLE IF EXISTS inclue;
@@ -39,9 +40,9 @@ CREATE TABLE Pays(
 );
 
 CREATE TABLE Cuisinier(
-   cuisine INT,
+   id_cuisinier INT,
    id INT NOT NULL,
-   PRIMARY KEY(cuisine),
+   PRIMARY KEY(id_cuisinier),
    UNIQUE(id),
    FOREIGN KEY(id) REFERENCES utilisateur(id)
 );
@@ -68,13 +69,13 @@ CREATE TABLE custommer(
 
 CREATE TABLE Commande(
    commande INT,
-   adresse VARCHAR(50),
+   
    date_heure_commande DATETIME,
    id_client INT NOT NULL,
-   cuisine INT NOT NULL,
+   id_cuisinier INT NOT NULL,
    PRIMARY KEY(commande),
    FOREIGN KEY(id_client) REFERENCES custommer(id_client),
-   FOREIGN KEY(cuisine) REFERENCES Cuisinier(cuisine)
+   FOREIGN KEY(id_cuisinier) REFERENCES Cuisinier(id_cuisinier)
 );
 
 CREATE TABLE ingrédients(
@@ -368,6 +369,163 @@ VALUES
   (98,"Vasquez","Kimberley","09 25 24 76 75","eget.nisi@google.com","Ap #939-1679 Erat, St.","ipsum. Phasellus"),
   (99,"Davenport","Teegan","03 61 91 36 62","lacus.ut@google.com","3600 Phasellus Ave","Aliquam"),
   (100,"Johns","Neve","01 34 27 33 13","at.fringilla.purus@google.com","P.O. Box 621, 2997 Non, Av.","tempus risus. Donec egestas.");
+  
+  INSERT INTO custommer (id_client, id)
+VALUES
+(1,1),
+(2,2),
+(3,3),
+(4,4),
+(5,5),
+(6,6),
+(7,7),
+(8,8),
+(9,9),
+(10,10),
+(11,11),
+(12,12),
+(13,13),
+(14,14),
+(15,15),
+(16,16),
+(17,17),
+(18,18),
+(19,19),
+(20,20),
+(21,21),
+(22,22),
+(23,23),
+(24,24),
+(25,25),
+(26,26),
+(27,27),
+(28,28),
+(29,29),
+(30,30),
+(31,31),
+(32,32),
+(33,33),
+(34,34),
+(35,35),
+(36,36),
+(37,37),
+(38,38),
+(39,39),
+(40,40),
+(41,41),
+(42,42),
+(43,43),
+(44,44),
+(45,45),
+(46,46),
+(47,47),
+(48,48),
+(49,49),
+(50,50);
+
+INSERT INTO cuisinier (id_cuisinier, id)
+VALUES
+(1,1),
+(2,2),
+(3,3),
+(4,4),
+(5,5),
+(6,6),
+(7,7),
+(8,8),
+(9,9),
+(10,10),
+(11,11),
+(12,12),
+(13,13),
+(14,14),
+(15,15),
+(16,16),
+(17,17),
+(18,18),
+(19,19),
+(20,20),
+(21,21),
+(22,22),
+(23,23),
+(24,24),
+(25,25),
+(26,26),
+(27,27),
+(28,28),
+(29,29),
+(30,30),
+(31,31),
+(32,32),
+(33,33),
+(34,34),
+(35,35),
+(36,36),
+(37,37),
+(38,38),
+(39,39),
+(40,40),
+(41,41),
+(42,42),
+(43,43),
+(44,44),
+(45,45),
+(46,46),
+(47,47),
+(48,48),
+(49,49),
+(50,50),
+(51,51),
+(52,52),
+(53,53),
+(54,54),
+(55,55),
+(56,56),
+(57,57),
+(58,58),
+(59,59),
+(60,60),
+(61,61),
+(62,62),
+(63,63),
+(64,64),
+(65,65),
+(66,66),
+(67,67),
+(68,68),
+(69,69),
+(70,70),
+(71,71),
+(72,72),
+(73,73),
+(74,74),
+(75,75),
+(76,76),
+(77,77),
+(78,78),
+(79,79),
+(80,80),
+(81,81),
+(82,82),
+(83,83),
+(84,84),
+(85,85),
+(86,86),
+(87,87),
+(88,88),
+(89,89),
+(90,90),
+(91,91),
+(92,92),
+(93,93),
+(94,94),
+(95,95),
+(96,96),
+(97,97),
+(98,98),
+(99,99),
+(100,100);
+
 
 INSERT INTO ingrédients (id_ingr, nom_ingr, prix_kg, idpays) VALUES
 (1,  'Tomate',             2.50,  1),
@@ -1680,3 +1838,187 @@ INSERT INTO Contient (id, id_ingr, quantité) VALUES
   (100,98,110),
   (100,99,120),
   (100,100,130);
+  
+INSERT INTO Commande (commande, date_heure_commande, id_client, id_cuisinier)
+VALUES
+ (1,        '2025-02-27 10:00:00',  1, 1),
+ (2,  '2025-02-27 10:10:00',  2, 1),
+ (3,  '2025-02-27 10:20:00',  3, 1),
+ (4,  '2025-02-27 10:30:00',  4, 2),
+ (5,  '2025-02-27 10:40:00',  5, 2),
+ (6,  '2025-02-27 10:50:00',  6, 2),
+ (7,  '2025-02-27 11:00:00',  7, 3),
+ (8,       '2025-02-27 11:10:00',  8, 3),
+ (9,  '2025-02-27 11:20:00',  9, 3),
+ (10, '2025-02-27 11:30:00', 10, 4),
+ (11, '2025-02-27 11:40:00', 11, 4),
+ (12, '2025-02-27 11:50:00', 12, 4),
+ (13, '2025-02-27 12:00:00', 13, 1),
+ (14, '2025-02-27 12:10:00', 14, 1),
+ (15, '2025-02-27 12:20:00', 15, 2),
+ (16, '2025-02-27 12:30:00', 16, 2),
+ (17,       '2025-02-27 12:40:00', 17, 3),
+ (18, '2025-02-27 12:50:00', 18, 3),
+ (19, '2025-02-27 13:00:00', 19, 4),
+ (20, '2025-02-27 13:10:00', 20, 4);
+
+INSERT INTO livraison (id_livraison, date_heure_livraison)
+VALUES
+  (1, '2025-02-28 14:00:00'),
+  (2, '2025-02-28 15:00:00'), 
+  (99, NULL);                 
+
+
+            
+
+-- Commande 1 => lignes 1..4
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(1, 1, 1, 1),
+(2, 1, 1, 1),
+(3, 1, 1, 1),
+(4, 1, 1, 1);
+
+-- Commande 2 => lignes 5..8
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(5, 2, 2, 2),
+(6, 2, 2, 2),
+(7, 2, 2, 2),
+(8, 2, 2, 2);
+
+-- Commande 3 => lignes 9..12
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(9,  99, 3, 3),
+(10, 99, 3, 3),
+(11, 99, 3, 3),
+(12, 99, 3, 3);
+
+-- Commande 4 => lignes 13..16
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(13, 99, 4, 4),
+(14, 99, 4, 4),
+(15, 99, 4, 4),
+(16, 99, 4, 4);
+
+-- Commande 5 => lignes 17..20
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(17, 99, 5, 5),
+(18, 99, 5, 5),
+(19, 99, 5, 5),
+(20, 99, 5, 5);
+
+-- Commande 6 => lignes 21..24
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(21, 99, 6, 6),
+(22, 99, 6, 6),
+(23, 99, 6, 6),
+(24, 99, 6, 6);
+
+-- Commande 7 => lignes 25..28
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(25, 99, 7, 7),
+(26, 99, 7, 7),
+(27, 99, 7, 7),
+(28, 99, 7, 7);
+
+-- Commande 8 => lignes 29..32
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(29, 99, 8, 8),
+(30, 99, 8, 8),
+(31, 99, 8, 8),
+(32, 99, 8, 8);
+
+-- Commande 9 => lignes 33..36
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(33, 99, 9, 9),
+(34, 99, 9, 9),
+(35, 99, 9, 9),
+(36, 99, 9, 9);
+
+-- Commande 10 => lignes 37..40
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(37, 99, 10, 10),
+(38, 99, 10, 10),
+(39, 99, 10, 10),
+(40, 99, 10, 10);
+
+-- Commande 11 => lignes 41..44
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(41, 99, 11, 11),
+(42, 99, 11, 11),
+(43, 99, 11, 11),
+(44, 99, 11, 11);
+
+-- Commande 12 => lignes 45..48
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(45, 99, 12, 12),
+(46, 99, 12, 12),
+(47, 99, 12, 12),
+(48, 99, 12, 12);
+
+-- Commande 13 => lignes 49..52
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(49, 99, 13, 13),
+(50, 99, 13, 13),
+(51, 99, 13, 13),
+(52, 99, 13, 13);
+
+-- Commande 14 => lignes 53..56
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(53, 99, 14, 14),
+(54, 99, 14, 14),
+(55, 99, 14, 14),
+(56, 99, 14, 14);
+
+-- Commande 15 => lignes 57..60
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(57, 99, 15, 15),
+(58, 99, 15, 15),
+(59, 99, 15, 15),
+(60, 99, 15, 15);
+
+-- Commande 16 => lignes 61..64
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(61, 99, 16, 16),
+(62, 99, 16, 16),
+(63, 99, 16, 16),
+(64, 99, 16, 16);
+
+-- Commande 17 => lignes 65..68
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(65, 99, 17, 17),
+(66, 99, 17, 17),
+(67, 99, 17, 17),
+(68, 99, 17, 17);
+
+-- Commande 18 => lignes 69..72
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(69, 99, 18, 18),
+(70, 99, 18, 18),
+(71, 99, 18, 18),
+(72, 99, 18, 18);
+
+-- Commande 19 => lignes 73..76
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(73, 99, 19, 19),
+(74, 99, 19, 19),
+(75, 99, 19, 19),
+(76, 99, 19, 19);
+
+-- Commande 20 => lignes 77..80
+INSERT INTO Ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande) VALUES
+(77, 99, 20, 20),
+(78, 99, 20, 20),
+(79, 99, 20, 20),
+(80, 99, 20, 20);
+
+-- lister les plats
+SELECT * FROM plats; 
+
+-- lister les ingrédients avec leurs prix au kg
+SELECT nom_ingr, prix_kg FROM ingrédients;
+
+-- Trouver les plats inclus dans une ligne de commande spécifique
+SELECT p.nom 
+FROM plat p 
+JOIN inclue i ON p.id = i.id 
+WHERE i.id_ligne_de_commande = 5;
