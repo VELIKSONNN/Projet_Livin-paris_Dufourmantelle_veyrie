@@ -132,7 +132,7 @@ namespace ProjetCsharplivin_paris
         public bool EstConnexe()
         {
             bool[] visite = new bool[NombreSommets + 1];
-            ParcoursProfondeur(1, visite); // On démarre à partir du sommet 1
+            ParcoursProfondeur(1, visite); 
 
             foreach (bool estVisite in visite[1..])
             {
