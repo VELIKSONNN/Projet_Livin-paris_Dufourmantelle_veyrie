@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fNHQMFSNCAnnWcv8c4n19q7UvQdjVNVoABoNNiicqapsfq80UHfBRcUq6b1iGcv4dPrAsR+GcmsdOj5BW/zCVA==",
+  "dgSpecHash": "axV4n1SSy7iNcvX1P6h0DzphFNuWoalbu2bIOaVCU0RjihDxJyy4dh85ffeoV08PX3tK7Kfxwz+xY704trZkCw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\joach\\.nuget\\packages\\microsoft.win32.systemevents\\9.0.2\\microsoft.win32.systemevents.9.0.2.nupkg.sha512",
-    "C:\\Users\\joach\\.nuget\\packages\\system.drawing.common\\9.0.2\\system.drawing.common.9.0.2.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
