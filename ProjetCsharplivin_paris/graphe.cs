@@ -164,10 +164,12 @@ namespace PROJET_étudiant
                 if (!visite[voisin])
                 {
                     if (ContientCycleParcourslongueur(voisin, n, visite))
+                        Console.WriteLine("le parcours contient des cycles ");
                         return true;
                 }
                 else if (voisin != parent)
                 {
+                  
                     return true;
                 }
 
@@ -190,6 +192,7 @@ namespace PROJET_étudiant
                 }
             }
             RendreConnexe(); // On s'assure que le graphe est connexe après le chargement
+            ContientCycle();
         }
     }
 }
