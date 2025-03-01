@@ -9,14 +9,14 @@ namespace ProjetCsharplivin_paris
     {
         static void Main()
         {
-            // Récupérer le chemin du projet (dossier parent du dossier bin/Debug/netX.X)
+            
             string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            // Construire les chemins relatifs
+           
             string cheminFichier = Path.Combine(projectDirectory, "Data", "soc-karate.mtx");
             string cheminImage = Path.Combine(projectDirectory, "graphe.png");
 
-            // Vérifier si les fichiers existent (optionnel mais recommandé)
+            
             if (!File.Exists(cheminFichier))
             {
                 Console.WriteLine($"Erreur : Le fichier {cheminFichier} n'existe pas.");
