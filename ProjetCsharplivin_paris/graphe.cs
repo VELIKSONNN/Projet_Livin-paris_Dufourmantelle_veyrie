@@ -87,7 +87,7 @@ namespace ProjetCsharplivin_paris
             file.Enqueue(depart);
             visite[depart] = true;
 
-            Console.Write("BFS : ");
+            Console.WriteLine("Parcours en largeur");
 
             while (file.Count > 0)
             {
