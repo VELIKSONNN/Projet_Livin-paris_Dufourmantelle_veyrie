@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PROJET_étudiant
+namespace ProjetCsharplivin_paris
 {
-    internal class Lien
+    public class Lien
     {
         public int Source { get; set; } //représente le premier sommet de l'arête
         public int Destination { get; set; } // représente le deuxième sommet de l'arête
@@ -17,4 +17,5 @@ namespace PROJET_étudiant
             Destination = destination;
         }
     }
+
 }

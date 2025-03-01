@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PROJET_étudiant
+namespace ProjetCsharplivin_paris
 {
-    internal class Noeud
+    public class Noeud
     {
         public int Id { get; set; }  // L'ID du sommet
         public List<Lien> Liens { get; set; }  // La liste des liens (arêtes) sortants de ce sommet
