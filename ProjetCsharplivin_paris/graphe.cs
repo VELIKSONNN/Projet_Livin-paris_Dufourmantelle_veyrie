@@ -1,56 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Drawing;
 
 namespace PROJET_étudiant
 {
-     class graphe
+    class graphe
     {
-        private int NombreSommets; // Nombre de sommets du graphe
-        private List<int>[] ListeAdjacence; // On utilise une liste d'adjacence pour stocker les voisins de chaque sommet 
-        private int[,] MatriceAdjacence; // Ici la matrice d'adjacence signifie qu'il existera un lien entre i et j
-        private List<Lien> Liens; //
-        public int Nombresommets // On passe Le Nombresommets en publique afin qu'elle puisse être utilisée dans les autres classes
+        private int NombreSommets;
+        private List<Noeud> ListeNoeuds; 
+        private List<int>[] ListeAdjacence;
+        private int[,] MatriceAdjacence;
+
+        public int Nombresommets
         {
             get { return NombreSommets; }
-            set {  NombreSommets = value; }
-        } 
-        public List<int>[] Listeadjacence // On passe la liste d'adjacence en publique afin qu'elle puisse être utilisée dans les autres classes
+            set { NombreSommets = value; }
+        }
+
+        public List<int>[] Listeadjacence
         {
             get { return ListeAdjacence; }
-            
+            set { ListeAdjacence = value; }
         }
 
         public graphe(int n)
         {
             NombreSommets = n;
-            ListeAdjacence = new List<int>[n + 1]; // On initialise la liste d'adjacence 
-            MatriceAdjacence = new int[n + 1, n + 1]; // On initialise la matrice d'adjacence
-            for (int i = 1; i <= n; i++) { ListeAdjacence[i] = new List<int>(); } // Chaque sommets va recevoir une liste vide 
+            ListeAdjacence = new List<int>[n + 1];
+            MatriceAdjacence = new int[n + 1, n + 1];
 
-            
+
+            for (int i = 1; i <= n; i++)
+            {
+                ListeAdjacence[i] = new List<int>();
+            }
         }
 
-        public void AjouterLien(int u, int v) // On va ajouter un lien au graphe et pour cela la liste d'adjacence et la matrice d'adjacence vont être mis à jour par l'intermédiaire de u et v
+        public void AjouterLien(int u, int v)
         {
-            ListeAdjacence[u].Add(v);
-            ListeAdjacence[v].Add(u);
-            MatriceAdjacence[u, v] = 1;
-            MatriceAdjacence[v, u] = 1;
+            if (!ListeAdjacence[u].Contains(v))
+            {
+                ListeAdjacence[u].Add(v);
+                ListeAdjacence[v].Add(u);
+                MatriceAdjacence[u, v] = 1;
+                MatriceAdjacence[v, u] = 1;
+            }
         }
-
-        public void ParcoursLargeur(int depart) // On explore tout les voisins d'un sommet avant de passer aux suivants, cela permet de trouver le plus court chemin non pondéré
+        public void ParcoursLargeur(int depart)
         {
-            bool[] visite = new bool[NombreSommets + 1]; // On y marque les sommets visités
-            Queue<int> file = new Queue<int>(); // On utilise une file pour explorer les sommets
+            bool[] visite = new bool[NombreSommets + 1];
+            Queue<int> file = new Queue<int>();
             file.Enqueue(depart);
             visite[depart] = true;
+
+            Console.Write("BFS : ");
 
             while (file.Count > 0)
             {
                 int noeud = file.Dequeue();
                 Console.Write(noeud + " ");
+
                 foreach (var voisin in ListeAdjacence[noeud])
                 {
                     if (!visite[voisin])
@@ -60,12 +69,15 @@ namespace PROJET_étudiant
                     }
                 }
             }
+            Console.WriteLine();
         }
+
 
         public void ParcoursProfondeur(int depart, bool[] visite)
         {
             visite[depart] = true;
             Console.Write(depart + " ");
+
             foreach (var voisin in ListeAdjacence[depart])
             {
                 if (!visite[voisin])
@@ -74,46 +86,95 @@ namespace PROJET_étudiant
                 }
             }
         }
+
         public bool EstConnexe()
         {
-            bool[] visite = new bool[NombreSommets + 1]; 
-            Queue<int> file = new Queue<int>();
+            bool[] visite = new bool[NombreSommets + 1];
+            ParcoursProfondeur(1, visite); /// On démarre à partir du sommet 1
 
-           
-            int premierSommet = -1;
+            foreach (bool estVisite in visite[1..]) // On vérifie à partir du sommet à l'index 1 si chaque sommets est bien visité
+            {
+                if (!estVisite)
+                {
+                    Console.WriteLine("Le graphe n'est pas connexe.");
+                    return false;
+                }
+            }
+            Console.WriteLine("Le graphe est connexe.");
+            return true;
+        }
+
+        public void RendreConnexe()
+        {
+            if (EstConnexe()) return; /// Si le graphe est déjà connexe on ne touche à rien
+
+            bool[] visite = new bool[NombreSommets + 1];
+            List<int> representants = new List<int>();
+
             for (int i = 1; i <= NombreSommets; i++)
             {
-                if (ListeAdjacence[i].Count > 0)
+                if (!visite[i])
                 {
-                    premierSommet = i;
-                    break;
+                    List<int> composante = new List<int>();
+                    ParcoursprofondeurCollect(i, visite, composante);
+                    representants.Add(i);
                 }
             }
 
-            if (premierSommet == -1) return false; 
-            
-            file.Enqueue(premierSommet);
-            visite[premierSommet] = true;
-            int nbVisites = 1;
-
-            while (file.Count > 0)
+            for (int i = 1; i < representants.Count; i++)
             {
-                int noeud = file.Dequeue();
-                foreach (var voisin in ListeAdjacence[noeud])
+                AjouterLien(representants[i - 1], representants[i]);
+            }
+
+            Console.WriteLine("Graphe rendu connexe.");
+        }
+
+        private void ParcoursprofondeurCollect(int sommet, bool[] visite, List<int> composante)
+        {
+            Stack<int> pile = new Stack<int>();
+            pile.Push(sommet);
+
+            while (pile.Count > 0)
+            {
+                int current = pile.Pop();
+                if (!visite[current])
                 {
-                    if (!visite[voisin])
+                    visite[current] = true;
+                    composante.Add(current);
+
+                    foreach (int voisin in ListeAdjacence[current])
                     {
-                        visite[voisin] = true;
-                        file.Enqueue(voisin);
-                        nbVisites++;
+                        if (!visite[voisin])
+                            pile.Push(voisin);
                     }
                 }
             }
-
-           
-            return nbVisites == NombreSommets;
         }
+        public bool ContientCycle()
+        {
+            bool[] visite = new bool[NombreSommets + 1];
+            return ContientCycleParcourslongueur(1, -1, visite);
+        }
+        private bool ContientCycleParcourslongueur(int n, int parent, bool[] visite)
+        {
+            visite[n] = true;
 
+            foreach (var voisin in ListeAdjacence[n])
+            {
+                if (!visite[voisin])
+                {
+                    if (ContientCycleParcourslongueur(voisin, n, visite))
+                        return true;
+                }
+                else if (voisin != parent)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+            
 
 
         public void ChargerDepuisFichier(string chemin)
@@ -128,8 +189,8 @@ namespace PROJET_étudiant
                     AjouterLien(int.Parse(parties[0]), int.Parse(parties[1]));
                 }
             }
+            RendreConnexe(); // On s'assure que le graphe est connexe après le chargement
         }
-
-       
     }
 }
+

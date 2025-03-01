@@ -22,14 +22,31 @@ class Program
         }
 
         graphe g = new graphe(34);
-        g.ChargerDepuisFichier(cheminFichier);
-        g.EstConnexe();
+        Console.WriteLine("Parcours en largeur :");
+        g.ParcoursLargeur(25);
         
-        VisualisationGraphe visualizer = new VisualisationGraphe(g);
-        visualizer.DessinerEtAfficherGraphe(cheminImage);
+        Console.WriteLine(" \n Parcours en profondeur:");
+        bool[] visite = new bool[34];
+        g.ParcoursProfondeur(1, visite);
 
 
 
+
+
+
+
+        g. ChargerDepuisFichier(cheminFichier);
+            VisualisationGraphe visualizer = new VisualisationGraphe(g);
+            visualizer.DessinerEtAfficherGraphe(cheminImage);
+        
+        
+        
+       
+       
+
+
+        Console.WriteLine("Press any key to exit");
+        Console.ReadKey();
 
 
 

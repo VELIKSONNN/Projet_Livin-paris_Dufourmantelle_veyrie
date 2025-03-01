@@ -11,10 +11,12 @@ using PROJET_étudiant;
 class VisualisationGraphe
 {
     private graphe _graphe;
-
+    private graphe g;
     public VisualisationGraphe(graphe g)
     {
-        _graphe = g;
+   
+
+        this.g = g;
     }
 
     public void DessinerEtAfficherGraphe(string cheminImage)
@@ -34,16 +36,16 @@ class VisualisationGraphe
         Random rand = new Random();
 
         // Générer des positions aléatoires pour chaque sommet
-        for (int i = 1; i <= _graphe.Nombresommets; i++)
+        for (int i = 1; i <= this.g.Nombresommets; i++)
         {
             positions[i] = new PointF(rand.Next(50, largeur - 50), rand.Next(50, hauteur - 50));
         }
 
         
         Pen pen = new Pen(Color.Black, 2);
-        for (int i = 1; i <= _graphe.Nombresommets; i++)
+        for (int i = 1; i <= this.g.Nombresommets; i++)
         {
-            foreach (int voisin in _graphe.Listeadjacence[i])
+            foreach (int voisin in this.g.Listeadjacence[i])
             {
                 g.DrawLine(pen, positions[i], positions[voisin]);
             }
@@ -56,6 +58,10 @@ class VisualisationGraphe
             g.FillEllipse(brush, kvp.Value.X - 5, kvp.Value.Y - 5, 10, 10);
             g.DrawString(kvp.Key.ToString(), new Font("Arial", 10), Brushes.Black, kvp.Value);
         }
+        string texteConnexite = this.g.EstConnexe() ? "Graphe connexe: Oui" : "Graphe non connexe";
+        Font font = new Font("Arial", 12, FontStyle.Bold);
+        Brush brush2 = Brushes.Red;
+        g.DrawString(texteConnexite, font, brush, new PointF(10, hauteur - 40));
 
         bitmap.Save(cheminImage);
         g.Dispose();

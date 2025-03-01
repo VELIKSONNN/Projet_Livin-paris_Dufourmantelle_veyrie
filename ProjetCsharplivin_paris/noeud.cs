@@ -6,10 +6,21 @@ using System.Threading.Tasks;
 
 namespace PROJET_étudiant
 {
-    internal class noeud
+    internal class Noeud
     {
-        public int Id { get; set; }
-        public noeud(int id) => Id = id;
+        public int Id { get; set; }  // L'ID du sommet
+        public List<Lien> Liens { get; set; }  // La liste des liens (arêtes) sortants de ce sommet
 
+        public Noeud(int id)
+        {
+            Id = id;
+            Liens = new List<Lien>();  // Initialisation de la liste des liens
+        }
+
+        // Ajoute un lien à ce sommet
+        public void AjouterLien(Lien lien)
+        {
+            Liens.Add(lien);
+        }
     }
 }
