@@ -26,7 +26,7 @@ class Program
         g.ParcoursLargeur(25);
         
         Console.WriteLine(" \n Parcours en profondeur:");
-        bool[] visite = new bool[34];
+        bool[] visite = new bool[cheminFichier.Length];
         g.ParcoursProfondeur(1, visite);
 
 
