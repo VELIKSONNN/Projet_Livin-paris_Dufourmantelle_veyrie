@@ -3,32 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\affichagegraph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:affichagegraph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\projetcsharplivin_paris.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:projetcsharplivin_paris.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\bin\\Debug\\net8.0\\Data\\soc-karate.mtx||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:bin\\Debug\\net8.0\\Data\\soc-karate.mtx||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\affichagegraph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:affichagegraph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\bin\\Debug\\net8.0\\Data\\soc-karate.mtx||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:bin\\Debug\\net8.0\\Data\\soc-karate.mtx||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\projetcsharplivin_paris\\noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7B86B36-C0C8-4E8E-ACBA-C609EB9070D4}|ProjetCsharplivin_paris.csproj|solutionrelative:noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,7 +46,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "noeud.cs",
               "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\noeud.cs",
               "RelativeDocumentMoniker": "noeud.cs",
@@ -55,44 +55,43 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAABGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T14:17:31.973Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "soc-karate.mtx",
               "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\bin\\Debug\\net8.0\\Data\\soc-karate.mtx",
               "RelativeDocumentMoniker": "bin\\Debug\\net8.0\\Data\\soc-karate.mtx",
               "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\bin\\Debug\\net8.0\\Data\\soc-karate.mtx",
               "RelativeToolTip": "bin\\Debug\\net8.0\\Data\\soc-karate.mtx",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001794|",
               "WhenOpened": "2025-03-01T19:22:44.447Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Lien.cs",
               "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\Lien.cs",
               "RelativeDocumentMoniker": "Lien.cs",
               "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\Lien.cs",
               "RelativeToolTip": "Lien.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T14:17:38.513Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "affichagegraph.cs",
               "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\affichagegraph.cs",
               "RelativeDocumentMoniker": "affichagegraph.cs",
               "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\affichagegraph.cs",
               "RelativeToolTip": "affichagegraph.cs",
-              "ViewState": "AQIAACAAAAAAAAAAAAAgwDsAAAAMAAAA",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAgwFAAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T15:22:42.631Z",
               "EditorCaption": ""
@@ -112,13 +111,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAswCAAAAAAAAAA",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAxwAkAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T13:25:24.186Z",
               "EditorCaption": ""
@@ -131,7 +130,7 @@
               "RelativeDocumentMoniker": "graphe.cs",
               "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\graphe.cs",
               "RelativeToolTip": "graphe.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "ViewState": "AQIAAKAAAAAAAAAAAAAcwLgAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T14:17:41.777Z",
               "EditorCaption": ""

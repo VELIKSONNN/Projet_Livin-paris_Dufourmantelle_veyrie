@@ -7,14 +7,14 @@ class Program
 {
     static void Main()
     {
-        // Récupérer le chemin du projet (dossier parent du dossier bin/Debug/netX.X)
+        /// Récupérer le chemin du projet (dossier parent du dossier bin/Debug/netX.X)
         string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-        // Construire les chemins relatifs
+        /// Construire les chemins relatifs
         string cheminFichier = Path.Combine(projectDirectory, "Data", "soc-karate.mtx");
         string cheminImage = Path.Combine(projectDirectory, "graphe.png");
 
-        // Vérifier si les fichiers existent (optionnel mais recommandé)
+        /// Vérifier si les fichiers existent
         if (!File.Exists(cheminFichier))
         {
             Console.WriteLine($"Erreur : Le fichier {cheminFichier} n'existe pas.");

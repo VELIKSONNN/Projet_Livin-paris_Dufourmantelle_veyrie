@@ -69,10 +69,10 @@ class VisualisationGraphe
         Brush brush3 = Brushes.Green;
         g.DrawString(texteCycle, font2, brush3, new PointF(10, hauteur - 20));
 
-        // Sauvegarde de l'image
+        /// Sauvegarde de l'image
         bitmap.Save(cheminImage);
 
-        // Libération des ressources graphiques
+        /// Libération des ressources graphiques
         g.Dispose();
         bitmap.Dispose();
     }
