@@ -7,7 +7,7 @@ namespace PROJET_étudiant
     class graphe
     {
         private int NombreSommets;
-        private List<Noeud> ListeNoeuds; 
+
         private List<int>[] ListeAdjacence;
         private int[,] MatriceAdjacence;
 
