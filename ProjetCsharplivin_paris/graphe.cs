@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjetCsharplivin_paris
 {
-    internal class graphe
+    public class graphe
     {
         private int NombreSommets;
 
@@ -48,17 +48,7 @@ namespace ProjetCsharplivin_paris
         /// Constructeur de la classe graphe qui initialise la liste et la matrice d'adjacence.
         /// </summary>
         /// <param name="n">Nombre de sommets dans le graphe.</param>
-        public graphe(int n)
-        {
-            NombreSommets = n;
-            ListeAdjacence = new List<int>[n + 1];
-            MatriceAdjacence = new int[n + 1, n + 1];
-
-            for (int i = 1; i <= n; i++)
-            {
-                ListeAdjacence[i] = new List<int>();
-            }
-        }
+      
 
         /// <summary>
         /// Ajoute un lien entre deux sommets du graphe.
@@ -237,6 +227,23 @@ namespace ProjetCsharplivin_paris
                 }
             }
             return false;
+        }
+        public void ChargerDepuisFichier(string chemin)
+        {
+            string[] lignes = File.ReadAllLines(chemin);
+            foreach (string ligne in lignes)
+            {
+                if (ligne.StartsWith("%")) continue;
+                string[] parties = ligne.Split();
+                if (parties.Length == 2)
+                {
+                    AjouterLien(int.Parse(parties[0]), int.Parse(parties[1]));
+                }
+            }
+            EstConnexe();
+            RendreConnexe(); // On s'assure que le graphe est connexe après le chargement
+            ContientCycle();
+
         }
     }
 }
