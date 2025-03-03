@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\TestProject1\\TestProject1.csproj": {}
+    "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\TestProject1\\TestProject1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj": {
+    "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
+        "projectUniqueName": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
         "projectName": "ProjetCsharplivin_paris",
-        "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
-        "packagesPath": "C:\\Users\\joach\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\obj\\",
+        "projectPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
+        "packagesPath": "C:\\Users\\nilsd\\.nuget\\packages\\",
+        "outputPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\joach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nilsd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,46 +38,11 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "Microsoft.NET.Test.Sdk": {
-              "target": "Package",
-              "version": "[17.7.1, )"
-            },
-            "SkiaSharp": {
-              "target": "Package",
-              "version": "[3.116.1, )"
-            },
-            "System.Drawing.Common": {
-              "target": "Package",
-              "version": "[9.0.2, )"
-            },
-            "coverlet.collector": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.2.0, )"
-            },
-            "xunit": {
-              "target": "Package",
-              "version": "[2.4.2, )"
-            },
-            "xunit.runner.visualstudio": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.4.5, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -85,26 +54,25 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\TestProject1\\TestProject1.csproj": {
+    "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\TestProject1\\TestProject1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\TestProject1\\TestProject1.csproj",
+        "projectUniqueName": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\TestProject1\\TestProject1.csproj",
         "projectName": "TestProject1",
-        "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\TestProject1\\TestProject1.csproj",
-        "packagesPath": "C:\\Users\\joach\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\TestProject1\\obj\\",
+        "projectPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\TestProject1\\TestProject1.csproj",
+        "packagesPath": "C:\\Users\\nilsd\\.nuget\\packages\\",
+        "outputPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\TestProject1\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\joach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nilsd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -118,8 +86,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj": {
-                "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj"
+              "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj": {
+                "projectPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj"
               }
             }
           }
@@ -128,38 +96,11 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "Microsoft.NET.Test.Sdk": {
-              "target": "Package",
-              "version": "[17.7.1, )"
-            },
-            "coverlet.collector": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.2.0, )"
-            },
-            "xunit": {
-              "target": "Package",
-              "version": "[2.4.2, )"
-            },
-            "xunit.runner.visualstudio": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.4.5, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -171,12 +112,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

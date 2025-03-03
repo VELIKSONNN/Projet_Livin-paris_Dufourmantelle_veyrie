@@ -13,7 +13,7 @@ namespace ProjetCsharplivin_paris
             string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
            
-            string cheminFichier = Path.Combine(projectDirectory, "");
+            string cheminFichier = Path.Combine(projectDirectory, "Data", "soc-karate.mtx");
             string cheminImage = Path.Combine(projectDirectory, "graphe.png");
 
             
@@ -23,7 +23,7 @@ namespace ProjetCsharplivin_paris
                 return;
             }
 
-            graphe g = new graphe(25);
+            graphe g = new graphe(34);
             Console.WriteLine("Parcours en largeur :");
             g.ParcoursLargeur(25);
 
