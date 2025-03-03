@@ -95,7 +95,7 @@ namespace ProjetCsharplivin_paris
         /// Ouvre l'image générée à l'aide de la visionneuse par défaut.
         /// </summary>
         /// <param name="cheminImage">Chemin de l'image à ouvrir.</param>
-        private void OuvrirImage(string cheminImage)
+        static void OuvrirImage(string cheminImage)
         {
             if (File.Exists(cheminImage))
             {

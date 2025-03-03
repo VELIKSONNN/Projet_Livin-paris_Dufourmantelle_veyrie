@@ -238,5 +238,20 @@ namespace ProjetCsharplivin_paris
             }
             return false;
         }
+        public void ChargerDepuisFichier(string chemin)
+        {
+            string[] lignes = File.ReadAllLines(chemin);
+            foreach (string ligne in lignes)
+            {
+                if (ligne.StartsWith("%")) continue;
+                string[] parties = ligne.Split();
+                if (parties.Length == 2)
+                {
+                    AjouterLien(int.Parse(parties[0]), int.Parse(parties[1]));
+                }
+            }
+            RendreConnexe(); // On s'assure que le graphe est connexe après le chargement
+            ContientCycle();
+        }
     }
 }
