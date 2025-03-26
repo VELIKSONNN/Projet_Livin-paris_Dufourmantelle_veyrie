@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "ccMd/HYiRkei03gHG4aCN5WQORXgOZ1SpqzEgaQzhCzlM5vWQPTJA5A4Zknkjkq0orCTaSJ9rQUPFtZi54EYTA==",
+  "success": true,
+  "projectFilePath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nilsd\\.nuget\\packages\\skiasharp\\3.116.1\\skiasharp.3.116.1.nupkg.sha512",
+    "C:\\Users\\nilsd\\.nuget\\packages\\skiasharp.nativeassets.macos\\3.116.1\\skiasharp.nativeassets.macos.3.116.1.nupkg.sha512",
+    "C:\\Users\\nilsd\\.nuget\\packages\\skiasharp.nativeassets.win32\\3.116.1\\skiasharp.nativeassets.win32.3.116.1.nupkg.sha512"
+  ],
+  "logs": []
+}
