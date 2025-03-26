@@ -11,18 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("PSI_Veyrie_Dufourmantelle")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("TestProject1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD:PSI_Veyrie_Dufourmantelle/obj/Debug/net7.0/PSI_Veyrie_Dufourmantelle.AssemblyInfo.cs
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("PSI_Veyrie_Dufourmantelle")]
-[assembly: System.Reflection.AssemblyTitleAttribute("PSI_Veyrie_Dufourmantelle")]
-=======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c6f121354a4c1f8152aa7398828ab9b72446162")]
-[assembly: System.Reflection.AssemblyProductAttribute("ProjetCsharplivin_paris")]
-[assembly: System.Reflection.AssemblyTitleAttribute("ProjetCsharplivin_paris")]
->>>>>>> 58f232fb861376b3faad4edefd971d7790fbef88:ProjetCsharplivin_paris/obj/Debug/net6.0/ProjetCsharplivin_paris.AssemblyInfo.cs
+[assembly: System.Reflection.AssemblyProductAttribute("TestProject1")]
+[assembly: System.Reflection.AssemblyTitleAttribute("TestProject1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Généré par la classe MSBuild WriteCodeFragment.

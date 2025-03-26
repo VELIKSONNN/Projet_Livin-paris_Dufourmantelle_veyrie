@@ -36,17 +36,7 @@ namespace PSI_Veyrie_Dufourmantelle
         /// Constructeur de la classe graphe qui initialise la liste et la matrice d'adjacence.
         /// </summary>
         /// <param name="n">Nombre de sommets dans le graphe.</param>
-        public graphe(int n)
-        {
-            NombreSommets = n;
-            ListeAdjacence = new List<int>[n + 1];
-            MatriceAdjacence = new int[n + 1, n + 1];
-
-            for (int i = 1; i <= n; i++)
-            {
-                ListeAdjacence[i] = new List<int>();
-            }
-        }
+     
 
         /// <summary>
         /// Ajoute un lien entre deux sommets du graphe.
