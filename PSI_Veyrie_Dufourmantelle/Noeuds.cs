@@ -6,23 +6,16 @@ using System.Threading.Tasks;
 
 namespace PSI_Veyrie_Dufourmantelle
 {
-
     public class Noeud
     {
-        public int Id { get; set; }  // L'ID du sommet
-        public List<Lien> Liens { get; set; }  // La liste des liens (arêtes) sortants de ce sommet
+        public int Id { get; set; } // Identifiant du noeud
+        public string Nom { get; set; } // Nom ou label du noeud (optionnel)
 
-        public Noeud(int id)
+        public Noeud(int id, string nom = "")
         {
             Id = id;
-            Liens = new List<Lien>();  // Initialisation de la liste des liens
-        }
-
-        // Ajoute un lien à ce sommet
-        public void AjouterLien(Lien lien)
-        {
-            Liens.Add(lien);
+            Nom = nom;
         }
     }
-
 }
+
