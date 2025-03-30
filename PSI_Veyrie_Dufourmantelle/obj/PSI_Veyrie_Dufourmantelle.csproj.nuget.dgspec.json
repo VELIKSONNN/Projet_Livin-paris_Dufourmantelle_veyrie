@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD:PSI_Veyrie_Dufourmantelle/obj/PSI_Veyrie_Dufourmantelle.csproj.nuget.dgspec.json
     "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj": {}
   },
   "projects": {
@@ -13,22 +12,13 @@
         "projectPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj",
         "packagesPath": "C:\\Users\\nilsd\\.nuget\\packages\\",
         "outputPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\obj\\",
-=======
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
-        "projectName": "ProjetCsharplivin_paris",
-        "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\ProjetCsharplivin_paris.csproj",
-        "packagesPath": "C:\\Users\\joach\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\ProjetCsharplivin_paris\\obj\\",
->>>>>>> 58f232fb861376b3faad4edefd971d7790fbef88:ProjetCsharplivin_paris/obj/ProjetCsharplivin_paris.csproj.nuget.dgspec.json
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\joach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nilsd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -48,53 +38,19 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
-<<<<<<< HEAD:PSI_Veyrie_Dufourmantelle/obj/PSI_Veyrie_Dufourmantelle.csproj.nuget.dgspec.json
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "SkiaSharp": {
+            "MySql.Data": {
               "target": "Package",
-              "version": "[3.116.1, )"
-=======
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "Microsoft.NET.Test.Sdk": {
-              "target": "Package",
-              "version": "[17.7.1, )"
+              "version": "[9.2.0, )"
             },
             "SkiaSharp": {
               "target": "Package",
               "version": "[3.116.1, )"
-            },
-            "System.Drawing.Common": {
-              "target": "Package",
-              "version": "[9.0.2, )"
-            },
-            "coverlet.collector": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.2.0, )"
-            },
-            "xunit": {
-              "target": "Package",
-              "version": "[2.4.2, )"
-            },
-            "xunit.runner.visualstudio": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.4.5, )"
->>>>>>> 58f232fb861376b3faad4edefd971d7790fbef88:ProjetCsharplivin_paris/obj/ProjetCsharplivin_paris.csproj.nuget.dgspec.json
             }
           },
           "imports": [
@@ -113,11 +69,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD:PSI_Veyrie_Dufourmantelle/obj/PSI_Veyrie_Dufourmantelle.csproj.nuget.dgspec.json
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
->>>>>>> 58f232fb861376b3faad4edefd971d7790fbef88:ProjetCsharplivin_paris/obj/ProjetCsharplivin_paris.csproj.nuget.dgspec.json
         }
       }
     }
