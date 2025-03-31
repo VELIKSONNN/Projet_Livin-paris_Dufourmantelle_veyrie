@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "32/4ZGq24rxr3RqbeKhkXJitAUdNtW71JFavzEjCDYHGgRi1PddjMCxv3exY0CCsebEFNjDw2fk2qi+9d1c5wQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\joach\\.nuget\\packages\\exceldatareader\\3.7.0\\exceldatareader.3.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

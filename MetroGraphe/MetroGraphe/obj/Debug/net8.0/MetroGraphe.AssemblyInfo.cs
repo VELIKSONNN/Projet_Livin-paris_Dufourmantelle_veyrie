@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("PSI_Veyrie_Dufourmantelle")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("MetroGraphe")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+73beb883276b52ce465e41324c35e3a796374be0")]
-[assembly: System.Reflection.AssemblyProductAttribute("PSI_Veyrie_Dufourmantelle")]
-[assembly: System.Reflection.AssemblyTitleAttribute("PSI_Veyrie_Dufourmantelle")]
+[assembly: System.Reflection.AssemblyProductAttribute("MetroGraphe")]
+[assembly: System.Reflection.AssemblyTitleAttribute("MetroGraphe")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Généré par la classe MSBuild WriteCodeFragment.
