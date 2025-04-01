@@ -48,6 +48,10 @@
             "ExcelDataReader": {
               "target": "Package",
               "version": "[3.7.0, )"
+            },
+            "SkiaSharp": {
+              "target": "Package",
+              "version": "[3.116.1, )"
             }
           },
           "imports": [

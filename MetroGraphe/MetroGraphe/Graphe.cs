@@ -1,98 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MetroGraphe;
 
-namespace MetroGraphe
+public class Graphe<T>
 {
-    public class Graphe<T>
+    public List<Noeud<T>> Noeuds { get; set; }
+    public List<Lien<T>> Liens { get; set; }
+    public List<Lien<T>>[] ListeAdjacente;
 
+    public Graphe(List<Noeud<T>> noeuds, List<Lien<T>> liens)
     {
-        public Dictionary<T, Noeud<T>> Noeud { get; set; }
-        public List<Lien<T>> Lien { get; set; }
-        public Dictionary<T, Dictionary<T, double>> ListeAdjacence { get; private set; }
-        public double[,] MatriceAdjacence { get; private set; }
+        Noeuds = noeuds;
+        Liens = liens;
 
-        public Graphe()
+        int maxId = Convert.ToInt32(Noeuds.Max(n => Convert.ToInt32(n.ID))) + 1;
+        ListeAdjacente = new List<Lien<T>>[maxId];
+
+        for (int i = 0; i < ListeAdjacente.Length; i++)
         {
-            Noeud = new Dictionary<T, Noeud<T>>();
-            Lien = new List<Lien<T>>();
-            ListeAdjacence = new Dictionary<T, Dictionary<T, double>>();
+            ListeAdjacente[i] = new List<Lien<T>>();
         }
 
-        public void ChargerDepuisFichiers(string fichierNoeuds, string fichierLiens)
+        foreach (var lien in Liens)
         {
-            Noeud = Noeud<T>.ChargerNoeudsDepuisFichier(fichierNoeuds);
-            Lien = Lien<T>.ChargerLiensDepuisFichier(fichierLiens, Noeud);
+            int index = Convert.ToInt32(lien.Source.ID);
+            ListeAdjacente[index].Add(lien);
         }
+    }
 
-        private void ConstruireStructuresAdjacence()
-        {
-            int n = Noeud.Count;
-            MatriceAdjacence = new double[n, n];
-
-            // Initialiser la matrice avec une valeur infinie (sauf pour les diagonales)
-            foreach (var i in Noeud.Keys)
-            {
-                foreach (var j in Noeud.Keys)
-                {
-                    MatriceAdjacence[Convert.ToInt32(i), Convert.ToInt32(j)] =
-                        i.Equals(j) ? 0 : double.PositiveInfinity;
-                }
-            }
-
-
-
-            // Construire la liste d'adjacence
-            foreach (var lien in Lien)
-            {
-                T sourceId = lien.Source.ID;
-                T destId = lien.Destination.ID;
-                double distance = lien.Tempsdistance;
-
-                // Ajouter dans la matrice
-                MatriceAdjacence[Convert.ToInt32(sourceId), Convert.ToInt32(destId)] = distance;
-                MatriceAdjacence[Convert.ToInt32(destId), Convert.ToInt32(sourceId)] = distance;
-
-                // Ajouter dans la liste d'adjacence
-                if (!ListeAdjacence.ContainsKey(sourceId))
-                    ListeAdjacence[sourceId] = new Dictionary<T, double>();
-
-                if (!ListeAdjacence.ContainsKey(destId))
-                    ListeAdjacence[destId] = new Dictionary<T, double>();
-
-                ListeAdjacence[sourceId][destId] = distance;
-                ListeAdjacence[destId][sourceId] = distance; // Graphe non orienté
-            }
-        }
-        public void AfficherMatriceAdjacence()
-        {
-            Console.WriteLine("\nMatrice d'Adjacence:");
-            foreach (var i in Noeud.Keys)
-            {
-                foreach (var j in Noeud.Keys)
-                {
-                    double val = MatriceAdjacence[Convert.ToInt32(i), Convert.ToInt32(j)];
-                    Console.Write(val == double.PositiveInfinity ? "∞ " : $"{val} ");
-                }
-                Console.WriteLine();
-            }
-        }
-
-        public void AfficherListeAdjacence()
-        {
-            Console.WriteLine("\nListe d'Adjacence:");
-            foreach (var station in ListeAdjacence)
-            {
-                Console.Write($"{station.Key} -> ");
-                foreach (var voisin in station.Value)
-                {
-                    Console.Write($"({voisin.Key}, {voisin.Value} km) ");
-                }
-                Console.WriteLine();
-            }
-        }
-
+    public void AjouterLien(Lien<T> lien)
+    {
+        Liens.Add(lien);
+        int index = Convert.ToInt32(lien.Source.ID);
+        ListeAdjacente[index].Add(lien);
     }
 }
