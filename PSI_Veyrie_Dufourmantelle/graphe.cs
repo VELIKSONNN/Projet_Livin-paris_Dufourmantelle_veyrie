@@ -36,7 +36,10 @@ namespace PSI_Veyrie_Dufourmantelle
         /// Constructeur de la classe graphe qui initialise la liste et la matrice d'adjacence.
         /// </summary>
         /// <param name="n">Nombre de sommets dans le graphe.</param>
-     
+      public graphe (int nombresommets)
+        {
+            this.NombreSommets= nombresommets;
+        }
 
         /// <summary>
         /// Ajoute un lien entre deux sommets du graphe.

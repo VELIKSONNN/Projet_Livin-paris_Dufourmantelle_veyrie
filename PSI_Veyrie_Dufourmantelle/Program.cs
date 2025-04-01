@@ -15,7 +15,7 @@ namespace PSI_Veyrie_Dufourmantelle
     {
         static void Main()
         {
-
+            
             string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
 
@@ -44,46 +44,11 @@ namespace PSI_Veyrie_Dufourmantelle
 
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
-
-            string connectionString = "Server=localhost;Database=baselinvinparis;User ID=root;Password=Sabrelaser00;SslMode=none;";
-           
-             try
-            {
-                // 1. Créer une connexion
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    // 2. Ouvrir la connexion
-                    connection.Open();
-                    Console.WriteLine("Connexion à la base MySQL réussie.");
-
-                    // 3. Exemple de requête SELECT
-                    string query = "SELECT * FROM Restaurants";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        // 4. Exécuter et récupérer les données
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                // Supposons qu’il y a une colonne "Name" dans la table Restaurants
-                                string restaurantName = reader["Name"].ToString();
-                                Console.WriteLine($"Restaurant: {restaurantName}");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine("Erreur lors de la connexion : " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Erreur inattendue : " + ex.Message);
-            }
+            
 
 
         }
+      
     }
 
 

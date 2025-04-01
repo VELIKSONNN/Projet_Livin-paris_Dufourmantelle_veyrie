@@ -19,3 +19,6 @@ C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\re
 C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.pdb
 C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.genruntimeconfig.cache
 C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\ref\PSI_Veyrie_Dufourmantelle.dll
+C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.LinvinparisGUI.Form1.resources
+C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.LinvinparisGUI.Properties.Resources.resources
+C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.csproj.GenerateResource.cache
