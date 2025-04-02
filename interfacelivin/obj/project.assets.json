@@ -1691,19 +1691,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\enfants\\.nuget\\packages\\": {}
+    "C:\\Users\\nilsd\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\interfacelivin\\interfacelivin.csproj",
+      "projectUniqueName": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\interfacelivin\\interfacelivin.csproj",
       "projectName": "interfacelivin",
-      "projectPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\interfacelivin\\interfacelivin.csproj",
-      "packagesPath": "C:\\Users\\enfants\\.nuget\\packages\\",
-      "outputPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\interfacelivin\\obj\\",
+      "projectPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\interfacelivin\\interfacelivin.csproj",
+      "packagesPath": "C:\\Users\\nilsd\\.nuget\\packages\\",
+      "outputPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\interfacelivin\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\enfants\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\nilsd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1723,11 +1728,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -1755,7 +1755,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
