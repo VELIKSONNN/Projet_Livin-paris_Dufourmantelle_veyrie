@@ -1,0 +1,440 @@
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace interfacelivin
+{
+    public class interfaceuser
+    {
+        static MySqlConnection connection;
+        public MySqlConnection Connection { get; set; }
+
+        public interfaceuser(MySqlConnection _connection)
+        {
+            connection = _connection;
+
+            MainInterface();
+        }
+        static public void MainInterface()
+        {
+            Console.WriteLine("Bienvenue !\n Veuillez entrer votre mot de passe et identifiants pour vous connecter ");
+            Console.Write("identifiant: ");
+            string identifiant = Console.ReadLine();
+            Console.Write("Mot de passe: ");
+            string motdepasse = Console.ReadLine();
+
+            if (identifiant == "" && motdepasse == "")
+            {
+                adminInterface();
+            }
+        }
+
+        static private void adminInterface()
+        {
+            Console.Clear();
+            Console.WriteLine("Ouverture de l'interface admin");
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1', supprimer un tuple '2', ou exectuer une query '3' ? ");
+            char actionprimaire = Convert.ToChar(Console.ReadLine());
+            switch (actionprimaire)
+            {
+                case '1':
+                    ajoutuser();
+                    break;
+                case '2':
+                    supprselection();
+                    break;
+                case '3':
+                    ajoutuser();
+                    break;
+            }
+        }
+        static private void ajoutuser()
+        {
+            Console.Clear();
+            Console.WriteLine("Voulez-vous ajouter un utilisateur '1', un cuisinier '2' ou un client '3' ?");
+            char ajoutelement = Convert.ToChar(Console.ReadLine());
+            switch (ajoutelement)
+            {
+                case'1':
+                    Console.WriteLine("Veuillez fournir dans l'odre:Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise,le nom,et le mdp");
+                    string Prenom = Convert.ToString(Console.Read());
+         
+                    string email = Convert.ToString(Console.ReadLine());
+                    int id = maxindice("utilisateur")+1;
+                    string tel = Convert.ToString(Console.ReadLine());
+                    string adresse = Convert.ToString(Console.ReadLine());
+                    string entreprise = Convert.ToString(Console.ReadLine());
+                    string Nom = Convert.ToString(Console.ReadLine());
+                    string mdp = Convert.ToString(Console.ReadLine());
+
+                    string insertQuery = @"
+        INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
+        VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
+
+                    using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
+                    {
+                        // Associer les paramètres C# aux placeholders @... dans la requête
+                        command.Parameters.AddWithValue("@id", id);
+                        command.Parameters.AddWithValue("@Prenom", Prenom);
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@Tel", tel);
+                        command.Parameters.AddWithValue("@Adresse", adresse);
+                        command.Parameters.AddWithValue("@Entreprise", entreprise);
+                        command.Parameters.AddWithValue("@Nom", Nom);
+                        command.Parameters.AddWithValue("@Mdp", mdp);
+                        command.ExecuteNonQuery();
+                    }
+
+                    AfficherTable("utilisateur");
+                    
+                        break;
+
+                    
+
+                case '2':
+                    Console.WriteLine("Veuillez fournir dans l'odre:Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise,le nom,et le mdp");
+                     Prenom = Convert.ToString(Console.Read());
+
+                    email = Convert.ToString(Console.ReadLine());
+                    id = maxindice("utilisateur") + 1;
+                     tel = Convert.ToString(Console.ReadLine());
+                     adresse = Convert.ToString(Console.ReadLine());
+                     entreprise = Convert.ToString(Console.ReadLine());
+                     Nom = Convert.ToString(Console.ReadLine());
+                     mdp = Convert.ToString(Console.ReadLine());
+
+                     insertQuery = @"
+        INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
+        VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
+
+                    using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
+                    {
+                        // Associer les paramètres C# aux placeholders @... dans la requête
+                        command.Parameters.AddWithValue("@id", id);
+                        command.Parameters.AddWithValue("@Prenom", Prenom);
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@Tel", tel);
+                        command.Parameters.AddWithValue("@Adresse", adresse);
+                        command.Parameters.AddWithValue("@Entreprise", entreprise);
+                        command.Parameters.AddWithValue("@Nom", Nom);
+                        command.Parameters.AddWithValue("@Mdp", mdp);
+                        command.ExecuteNonQuery();
+                    }
+
+                    AfficherTable("utilisateur");
+                    break;
+                case '3':
+                    Console.WriteLine("Veuillez fournir dans l'odre:Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise,le nom,et le mdp");
+
+                    break;
+            }
+
+        }
+        static int maxindice(string table)
+        {
+            string query = $"SELECT MAX(id) FROM {table}";
+            using (MySqlCommand command1 = new MySqlCommand(query, connection))
+            {
+                object result = command1.ExecuteScalar();
+                
+                if (result == DBNull.Value)
+                {
+                   
+                    return 0;
+                }
+                return Convert.ToInt32(result);
+            }
+        }
+
+        static private void supprselection()
+        {
+            Console.Clear();
+            Console.WriteLine("Pour supprimer un tuple vous pouvez effectuer une recherche par par attributs pour connaitre l'id du tuple à supprimer ou donner directement son id");
+            Console.WriteLine("faire une recherche '1' ou supprimer directement avec l'id '2'");
+            char actionsuppr = Convert.ToChar(Console.ReadLine());
+            switch (actionsuppr)
+            {
+                case '1':
+
+                    //string attribut = rechercheattribut();
+                    string table = recherchetable();
+                    AfficherTable(table);
+/*
+                    string query = $"SELECT id,{attribut} FROM {table}";
+                    using (MySqlCommand command1 = new MySqlCommand(query, connection)) 
+                    using (MySqlDataReader reader = command1.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"id: {reader["id"]} {attribut}: {reader[attribut]}");
+                        }
+                    }
+*/
+                    supprtuple(table);
+                    break;
+
+                case '2':
+                    Console.WriteLine();
+                   // attribut = rechercheattribut();
+                    table = recherchetable();
+                    supprtuple(table);
+                    
+                    break;
+
+            }
+
+        }
+        static void AfficherTable(string table)
+        {
+            string query;
+
+            switch (table.ToLower())
+            {
+                case "cuisinier":
+                    // Jointure pour récupérer Nom, Prénom...
+                    query = @"
+                SELECT c.id_cuisinier, u.Nom, u.Prenom
+                FROM cuisinier c
+                JOIN utilisateur u ON c.id = u.id
+
+            ";
+                    // Exécuter la requête et afficher
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"id: {reader["id_cuisinier"]} nom ingrédient: {reader["Nom"]}");
+
+                        }
+                    }
+                    break;
+
+                case "custommer":
+                    // Jointure pour récupérer Nom, Prénom...
+                    query = @"
+                SELECT cust.id_client, u.Nom, u.Prenom
+                FROM custommer cust
+                JOIN utilisateur u ON cust.id = u.id
+            ";
+                    // Exécuter la requête et afficher
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"id: {reader["id_client"]} Nom: {reader["Nom"]}");
+
+                        }
+                    }
+                    break;
+
+                case "ingrédients":
+                    // Table qui a déjà ses champs
+                    query = "SELECT id_ingr, nom_ingr FROM ingrédients";
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        
+                            while (reader.Read())
+                            {
+                                Console.WriteLine($"id: {reader["id_ingr"]} nom ingrédient: {reader["nom_ingr"]}");
+                            }
+                        
+                    }
+                    
+                    break;
+
+                // etc. pour d'autres tables
+                default:
+                    // Cas par défaut, si la table a bien un champ "id" + autre attribut
+                    Console.Write("Quel attribut veux-tu voir ? ");
+                    string attribut = Console.ReadLine();
+                    query = $"SELECT id, {attribut} FROM {table}";
+                     // Exécuter la requête et afficher
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                
+                while (reader.Read())
+                       {
+                          Console.WriteLine($"id: {reader["id"]} {attribut}: {reader[attribut]}");
+                       }
+                        
+            }
+                    break;
+            }
+
+          
+        }
+
+        static void supprtuple(string table)
+        {
+            
+            Console.WriteLine();
+            Console.WriteLine("quel est l'id du tuple à supprimer ?");
+            /*string checkConstraintQuery = @" SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS  WHERE CONSTRAINT_SCHEMA = 'baselivinparis'
+                                            AND TABLE_NAME = 'cuisinier' AND CONSTRAINT_NAME = 'cuisinier_ibfk_1';";
+
+            using (MySqlCommand checkCmd = new MySqlCommand(checkConstraintQuery, connection))
+            {
+                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                if (count > 0)
+                {
+                    // La contrainte existe, donc on la supprime.
+                    string dropQuery = "ALTER TABLE cuisinier DROP FOREIGN KEY cuisinier_ibfk_1;";
+                    using (MySqlCommand dropCmd = new MySqlCommand(dropQuery, connection))
+                    {
+                        dropCmd.ExecuteNonQuery();
+
+                    }
+                }
+
+
+                string addQuery = @"ALTER TABLE cuisinier ADD CONSTRAINT cuisinier_ibfk_1 FOREIGN KEY (id) REFERENCES utilisateur(id) ON DELETE CASCADE;";
+                using (MySqlCommand addCmd = new MySqlCommand(addQuery, connection))
+                {
+                    addCmd.ExecuteNonQuery();
+                    Console.WriteLine("Contrainte ajoutée avec ON DELETE CASCADE.");
+                }
+            }
+            */
+            // Pour cuisinier -> utilisateur
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "cuisinier", "cuisinier_ibfk_1", "id", "utilisateur", "id");
+
+            // Pour custommer -> utilisateur
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "custommer", "custommer_ibfk_1", "id", "utilisateur", "id");
+
+            // Pour commande -> custommer
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "commande", "commande_ibfk_1", "id_client", "custommer", "id_client");
+
+            // Pour commande -> cuisinier
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "commande", "commande_ibfk_2", "id_cuisinier", "cuisinier", "id_cuisinier");
+
+            // Pour avis -> commande
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "avis", "avis_ibfk_1", "commande", "commande", "commande");
+
+            // Pour contient -> plat
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "contient", "contient_ibfk_1", "id", "plat", "id");
+
+            // Pour contient -> ingrédients
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "contient", "contient_ibfk_2", "id_ingr", "ingrédients", "id_ingr");
+
+            // Pour inclue -> plat
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "inclue", "inclue_ibfk_1", "id", "plat", "id");
+
+            // Pour inclue -> ligne_de_commande_
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "inclue", "inclue_ibfk_2", "id_ligne_de_commande", "ligne_de_commande_", "id_ligne_de_commande");
+
+            // Pour ingrédients -> pays
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "ingrédients", "ingrédients_ibfk_1", "idpays", "pays", "idpays");
+
+            // Pour ligne_de_commande_ -> livraison
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_1", "id_livraison", "livraison", "id_livraison");
+
+            // Pour ligne_de_commande_ -> custommer
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_2", "id_client", "custommer", "id_client");
+
+            // Pour ligne_de_commande_ -> commande
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_3", "commande", "commande", "commande");
+
+            // Pour plat -> pays
+            EnsureForeignKeyConstraint(connection, "baselivinparis", "plat", "plat_ibfk_1", "idpays", "pays", "idpays");
+
+            int idTodelete = int.Parse(Console.ReadLine());
+            string querysuppr = $"DELETE FROM {table} WHERE id={idTodelete}";
+            using (MySqlCommand command2 = new MySqlCommand(querysuppr, connection))
+            {
+                int rowsAffected = command2.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} ligne(s) supprimée(s).");
+            }
+
+
+
+            AfficherTable(table);
+            Console.WriteLine(" élément supprimer !");
+            
+        }
+        public static void EnsureForeignKeyConstraint(
+    MySqlConnection connection,
+    string databaseName,
+    string tableName,
+    string constraintName,
+    string foreignKeyColumn,
+    string referencedTable,
+    string referencedColumn)
+        {
+            // Requête pour vérifier si la contrainte existe déjà
+            string checkQuery = @"
+        SELECT COUNT(*) 
+        FROM information_schema.TABLE_CONSTRAINTS
+        WHERE CONSTRAINT_SCHEMA = @databaseName
+          AND TABLE_NAME = @tableName
+          AND CONSTRAINT_NAME = @constraintName;
+    ";
+
+            using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, connection))
+            {
+                checkCmd.Parameters.AddWithValue("@databaseName", databaseName);
+                checkCmd.Parameters.AddWithValue("@tableName", tableName);
+                checkCmd.Parameters.AddWithValue("@constraintName", constraintName);
+                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                // Si la contrainte existe, on la supprime
+                if (count > 0)
+                {
+                    string dropQuery = $"ALTER TABLE {tableName} DROP FOREIGN KEY {constraintName};";
+                    using (MySqlCommand dropCmd = new MySqlCommand(dropQuery, connection))
+                    {
+                        dropCmd.ExecuteNonQuery();
+                        //Console.WriteLine($"Contrainte {constraintName} supprimée de la table {tableName}.");
+                    }
+                }
+            }
+
+            // On ajoute ensuite la contrainte avec ON DELETE CASCADE
+            string addQuery = $@"
+        ALTER TABLE {tableName} 
+        ADD CONSTRAINT {constraintName} 
+        FOREIGN KEY ({foreignKeyColumn}) 
+        REFERENCES {referencedTable}({referencedColumn}) 
+        ON DELETE CASCADE;
+    ";
+
+            using (MySqlCommand addCmd = new MySqlCommand(addQuery, connection))
+            {
+                addCmd.ExecuteNonQuery();
+               // Console.WriteLine($"Contrainte {constraintName} ajoutée à la table {tableName} avec ON DELETE CASCADE.");
+            }
+        }
+
+        static void creationquery()
+        {
+            Console.Clear();
+            Console.WriteLine("Pour ajouter un utilisateur vous pouvez");
+
+        }
+        static string rechercheattribut()
+        {
+                Console.WriteLine("Par quels atribut souhaiter vous faire une recherche");
+                string attributderecherche = Console.ReadLine();
+               
+              
+                
+                return attributderecherche;
+        }
+        static string recherchetable()
+        {
+            Console.WriteLine("dans quelle table souhaiter vous faire une recherche");
+            string tablederecherche = Console.ReadLine();
+            
+            return tablederecherche;
+        }
+
+
+    }
+ }

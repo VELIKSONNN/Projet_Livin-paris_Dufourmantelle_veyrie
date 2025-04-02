@@ -1,4 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using interfacelivin;
 namespace interfacelivin
 
@@ -33,10 +38,15 @@ namespace interfacelivin
                     {
                         Console.WriteLine("❌ Erreur : " + ex.Message);
                     }
+                Console.WriteLine("Fin du programme.");
+            
+            Console.ReadKey();
+            Console.Clear();
+            interfaceuser interface1 = new interfaceuser(connection);
                 }
 
-                Console.WriteLine("Fin du programme.");
-
-            }
+                
         }
-    }
+        
+     }
+ }

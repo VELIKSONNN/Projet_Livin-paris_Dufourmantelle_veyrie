@@ -20,6 +20,21 @@ USE `baselivinparis`;
 --
 -- Table structure for table `avis`
 --
+DROP TABLE IF EXISTS `utilisateur`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `utilisateur` (
+  `id` int NOT NULL,
+  `Prenom` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `tel` mediumtext NOT NULL,
+  `adresse` varchar(50) NOT NULL,
+  `entreprise` varchar(50) DEFAULT NULL,
+  `Nom` varchar(50) NOT NULL,
+  `mdp` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 DROP TABLE IF EXISTS `avis`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("interfacelivin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+854f3342f20237c841ee54da42bddf3c546b0467")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6c92e60915998611311152af950eb5eb50d46e3")]
 [assembly: System.Reflection.AssemblyProductAttribute("interfacelivin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("interfacelivin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
