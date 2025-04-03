@@ -17,7 +17,7 @@ namespace PSI_Veyrie_Dufourmantelle
 
             string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-
+            string choix = Console.ReadLine();
             string cheminFichier = Path.Combine(projectDirectory, "soc-karate.mtx");
             string cheminImage = Path.Combine(projectDirectory, "graphe.png");
 

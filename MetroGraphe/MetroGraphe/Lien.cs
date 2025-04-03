@@ -12,6 +12,9 @@ namespace MetroGraphe
             public Noeud<T> Source { get; set; }
             public Noeud<T> Destination { get; set; }
             public double Distancesuivant { get; set; }
+        public double Tempsdeplacement { get; set; }
+        public double Tempsattente {  get; set; }
+
 
             public Lien(Noeud<T> source, Noeud<T> destination, double distance)
             {

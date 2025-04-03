@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <PackageReference Include="MySql.Data" Version="9.2.0" />
+=======
+    <PackageReference Include="EPPlus" Version="7.7.0" />
+>>>>>>> projet-avancées-joachim
     <PackageReference Include="SkiaSharp" Version="3.116.1" />
   </ItemGroup>
 

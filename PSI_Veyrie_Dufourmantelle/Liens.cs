@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-  namespace PSI_Veyrie_Dufourmantelle
-    {
-        public class Lien
-        {
-            public int Source { get; set; } ///représente le premier sommet de l'arête
-            public int Destination { get; set; } /// représente le deuxième sommet de l'arête
+namespace PSI_Veyrie_Dufourmantelle { 
+ public class Liens
+{
+    public Noeud Source { get; set; } // Noeud de départ
+    public Noeud Destination { get; set; } // Noeud d'arrivée
+    public int Poids { get; set; } // Poids de l'arête
 
-            public Lien(int source, int destination)
-            {
-                Source = source;
-                Destination = destination;
-            }
-        }
+    public Liens(Noeud source, Noeud destination, int poids = 1)
+    {
+        Source = source;
+        Destination = destination;
+        Poids = poids;
     }
+}
+}
+
 

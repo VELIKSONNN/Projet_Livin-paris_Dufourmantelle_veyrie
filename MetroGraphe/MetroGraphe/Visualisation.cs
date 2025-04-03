@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using MetroGraphe;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,21 +8,30 @@ using System.Linq;
 public class Visualisation<T>
 {
     private readonly Graphe<T> _graphe;
-    private readonly Random _rand = new();
+    private readonly List<Noeud<T>> _chemin;
 
-    public Visualisation(Graphe<T> graphe)
+    public Visualisation(Graphe<T> graphe, List<Noeud<T>> chemin = null)
     {
         _graphe = graphe;
+        _chemin = chemin;
     }
 
     public void Dessiner(string filePath)
     {
-        const int largeur = 4000;
-        const int hauteur = 4000;
+        const int largeur = 3000;
+        const int hauteur = 3000;
+        const int rayon = 10;
 
         using var bitmap = new SKBitmap(largeur, hauteur);
         using var canvas = new SKCanvas(bitmap);
         canvas.Clear(SKColors.White);
+
+        var paintTexte = new SKPaint
+        {
+            Color = SKColors.Black,
+            TextSize = 18,
+            IsAntialias = true
+        };
 
         var paintNoeud = new SKPaint
         {
@@ -29,70 +39,107 @@ public class Visualisation<T>
             Style = SKPaintStyle.Fill
         };
 
-        var paintTexte = new SKPaint
-        {
-            Color = SKColors.Black,
-            TextSize = 16,
-            IsAntialias = true
-        };
-
         var paintLien = new SKPaint
         {
-            Color = SKColors.Gray,
-            StrokeWidth = 2,
-            IsAntialias = true
+            Color = SKColors.LightGray,
+            StrokeWidth = 2
         };
 
+        var paintChemin = new SKPaint
+        {
+            Color = SKColors.Red,
+            StrokeWidth = 4
+        };
+
+        var couleurs = new SKColor[]
+        {
+            SKColors.Blue, SKColors.Green, SKColors.Orange, SKColors.Purple,
+            SKColors.Teal, SKColors.Brown, SKColors.DarkCyan, SKColors.Goldenrod,
+            SKColors.Crimson, SKColors.DarkOliveGreen, SKColors.DarkMagenta
+        };
+
+        var ligneCouleurs = new Dictionary<int, SKColor>();
+        int ligneIndex = 0;
+
+        // Positionner les nœuds en grille
         var positions = new Dictionary<T, SKPoint>();
+        int cols = (int)Math.Sqrt(_graphe.Noeuds.Count);
+        int spacing = 150;
+        int index = 0;
 
-        // Couleurs par ligne
-        var couleursLignes = new Dictionary<int, SKColor>();
-        var palette = new[]
-        {
-            SKColors.Red, SKColors.Blue, SKColors.Green, SKColors.Orange,
-            SKColors.Purple, SKColors.Brown, SKColors.Pink, SKColors.Teal,
-            SKColors.Gold, SKColors.CadetBlue, SKColors.DarkCyan, SKColors.Indigo,
-            SKColors.DarkOliveGreen, SKColors.Sienna, SKColors.MediumVioletRed
-        };
-        int paletteIndex = 0;
-        foreach (var ligne in _graphe.Noeuds.Select(n => n.numeroStation).Distinct())
-        {
-            couleursLignes[ligne] = palette[paletteIndex % palette.Length];
-            paletteIndex++;
-        }
-
-        // Position aléatoire sans superposition
         foreach (var noeud in _graphe.Noeuds)
         {
-            SKPoint point;
-            do
-            {
-                float x = _rand.Next(100, largeur - 200);
-                float y = _rand.Next(100, hauteur - 200);
-                point = new SKPoint(x, y);
-            } while (positions.Values.Any(p => Distance(p, point) < 100));
-
-            positions[noeud.ID] = point;
+            int row = index / cols;
+            int col = index % cols;
+            float x = col * spacing + 100;
+            float y = row * spacing + 100;
+            positions[noeud.ID] = new SKPoint(x, y);
+            index++;
         }
 
-        // Liaisons
+        // Tracer les liens
         foreach (var lien in _graphe.Liens)
         {
             var p1 = positions[lien.Source.ID];
             var p2 = positions[lien.Destination.ID];
             canvas.DrawLine(p1, p2, paintLien);
 
+            // Distance au milieu
             var milieu = new SKPoint((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
-            canvas.DrawText($"{lien.Distancesuivant}", milieu.X, milieu.Y, paintTexte);
+            if (lien.Distancesuivant > 0)
+            {
+                canvas.DrawText($"{lien.Distancesuivant} km", milieu.X - 15, milieu.Y + 20, paintTexte);
+            }
         }
 
-        // Noeuds
+        // Tracer le chemin s'il existe
+        double totalKm = 0;
+        if (_chemin != null && _chemin.Count > 1)
+        {
+            for (int i = 0; i < _chemin.Count - 1; i++)
+            {
+                var src = _chemin[i];
+                var dst = _chemin[i + 1];
+                var pos1 = positions[src.ID];
+                var pos2 = positions[dst.ID];
+                canvas.DrawLine(pos1, pos2, paintChemin);
+
+                var lien = _graphe.Liens.FirstOrDefault(l =>
+                    EqualityComparer<T>.Default.Equals(l.Source.ID, src.ID) &&
+                    EqualityComparer<T>.Default.Equals(l.Destination.ID, dst.ID));
+
+                if (lien != null)
+                    totalKm += lien.Distancesuivant;
+            }
+        }
+
+        // Tracer les nœuds
         foreach (var noeud in _graphe.Noeuds)
         {
             var pos = positions[noeud.ID];
-            paintNoeud.Color = couleursLignes[noeud.numeroStation];
-            canvas.DrawCircle(pos, 12, paintNoeud);
-            canvas.DrawText($"{noeud.NOM}", pos.X + 15, pos.Y + 5, paintTexte);
+
+            SKColor couleur = SKColors.Black;
+            if (noeud.Lignes.Count > 0)
+            {
+                int ligne = noeud.Lignes.First();
+                if (!ligneCouleurs.ContainsKey(ligne))
+                {
+                    ligneCouleurs[ligne] = couleurs[ligneIndex % couleurs.Length];
+                    ligneIndex++;
+                }
+                couleur = ligneCouleurs[ligne];
+            }
+
+            paintNoeud.Color = couleur;
+            canvas.DrawCircle(pos, rayon, paintNoeud);
+
+            if (!string.IsNullOrWhiteSpace(noeud.NOM))
+                canvas.DrawText(noeud.NOM, pos.X + 12, pos.Y + 5, paintTexte);
+        }
+
+        if (_chemin != null && _chemin.Count > 1)
+        {
+            canvas.DrawText($"Distance totale du chemin : {totalKm} km", 100, hauteur - 40, paintTexte);
         }
 
         using var image = SKImage.FromBitmap(bitmap);
@@ -110,12 +157,7 @@ public class Visualisation<T>
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Erreur à l'ouverture de l'image : {e.Message}");
+            Console.WriteLine($"Erreur lors de l'ouverture de l'image : {e.Message}");
         }
-    }
-
-    private float Distance(SKPoint p1, SKPoint p2)
-    {
-        return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
     }
 }

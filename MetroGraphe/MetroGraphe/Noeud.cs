@@ -1,10 +1,4 @@
-﻿using MetroGraphe;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MetroGraphe
 {
@@ -12,15 +6,21 @@ namespace MetroGraphe
     {
         public T ID { get; set; }
         public string NOM { get; set; }
-        public int numeroStation { get; set; }
-    
+        public List<int> Lignes { get; private set; } = new List<int>();
 
-        public Noeud(T id, string nom, int numLigne)
+        public Noeud(T id, string nom, int ligne)
         {
             ID = id;
             NOM = nom;
-            numeroStation = numLigne;
+            AjouterLigne(ligne);
         }
 
+        public void AjouterLigne(int ligne)
+        {
+            if (!Lignes.Contains(ligne))
+            {
+                Lignes.Add(ligne);
+            }
+        }
     }
 }

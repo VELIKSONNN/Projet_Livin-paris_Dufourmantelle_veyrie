@@ -19,3 +19,12 @@ C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\re
 C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.pdb
 C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.genruntimeconfig.cache
 C:\ECOLE\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\ref\PSI_Veyrie_Dufourmantelle.dll
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.csproj.AssemblyReference.cache
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.AssemblyInfoInputs.cache
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.AssemblyInfo.cs
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.csproj.CoreCompileInputs.cache
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.sourcelink.json
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.dll
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\refint\PSI_Veyrie_Dufourmantelle.dll
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\PSI_Veyrie_Dufourmantelle\obj\Debug\net7.0\PSI_Veyrie_Dufourmantelle.pdb
