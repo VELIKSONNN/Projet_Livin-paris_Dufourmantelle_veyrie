@@ -1,26 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace MetroGraphe
+﻿public class Noeud<T>
 {
-    public class Noeud<T>
+    public T ID { get; set; }
+    public string NOM { get; set; }
+    public List<int> Lignes { get; set; } = new();
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+
+    public Noeud(T id, string nom, double latitude, double longitude)
     {
-        public T ID { get; set; }
-        public string NOM { get; set; }
-        public List<int> Lignes { get; private set; } = new List<int>();
-
-        public Noeud(T id, string nom, int ligne)
-        {
-            ID = id;
-            NOM = nom;
-            AjouterLigne(ligne);
-        }
-
-        public void AjouterLigne(int ligne)
-        {
-            if (!Lignes.Contains(ligne))
-            {
-                Lignes.Add(ligne);
-            }
-        }
+        ID = id;
+        NOM = nom;
+        Latitude = latitude;
+        Longitude = longitude;
     }
 }

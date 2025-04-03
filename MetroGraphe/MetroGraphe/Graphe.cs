@@ -33,53 +33,57 @@ public class Graphe<T>
         ListeAdjacente[index].Add(lien);
     }
 
-    public List<Noeud<T>> Djikstra(Noeud<T> Depart, Noeud<T> Arrivee)
+
+
+    public List<Noeud<T>> Dijkstra(Noeud<T> depart, Noeud<T> arrivee)
     {
-        var Distance = new double[ListeAdjacente.Length];  /// Distance minimale depuis le point de départ
-        var precedents = new int[ListeAdjacente.Length];  ///  noeuds précédents avant l'arrivée afin de reconstruire le chemin
-        var nonvisite = new List<int>();    ///station pas encore visitée
-        for (int i = 0; i < ListeAdjacente.Length; i++)
-        {
-            Distance[i] = double.MaxValue;
-            precedents[i] = -1;
-            nonvisite.Add(i);
-        }
-        Distance[Convert.ToInt32(Depart.ID)] = 0;
-        while (nonvisite.Count > 0)
-        {
-            int u = nonvisite.OrderBy(id => Distance[id]).First();  /// Choisir le sommet avec la plus petite distance
-            nonvisite.Remove(u);                                      /// Marquer comme visité
+        var distances = new Dictionary<T, double>();
+        var precedent = new Dictionary<T, Noeud<T>>();
+        var nonVisites = new List<Noeud<T>>(Noeuds);
 
-            foreach (var lien in ListeAdjacente[u])
+        foreach (var noeud in Noeuds)
+            distances[noeud.ID] = double.MaxValue;
+
+        distances[depart.ID] = 0;
+
+        while (nonVisites.Count > 0)
+        {
+            // Sélection du nœud avec la plus petite distance
+            var noeudActuel = nonVisites.OrderBy(n => distances[n.ID]).First();
+            nonVisites.Remove(noeudActuel);
+
+            if (noeudActuel.ID.Equals(arrivee.ID))
+                break;
+
+            foreach (var lien in ListeAdjacente[Convert.ToInt32(noeudActuel.ID)])
             {
-                int voisin= Convert.ToInt32(lien.Destination.ID); /// identifiant du  sommet voisin
-                double a = Distance[u] + lien.Distancesuivant;
-                if (a < Distance[voisin])
+                var voisin = lien.Destination;
+                double tentative = distances[noeudActuel.ID] + lien.Distancesuivant;
+
+                if (tentative < distances[voisin.ID])
                 {
-                    Distance[voisin] = a;
-                    precedents[voisin] = u;
+                    distances[voisin.ID] = tentative;
+                    precedent[voisin.ID] = noeudActuel;
                 }
-                
-
-
             }
-
-
         }
+
+        // Reconstruction du chemin
         var chemin = new List<Noeud<T>>();
-        int c = Convert.ToInt32(Arrivee.ID);
-        while (c != -1)
-        {
-            var noeud= Noeuds.FirstOrDefault(n=>Convert.ToInt32(n.ID) == c);
-            if (noeud != null)
-            {
-                chemin.Insert(0, noeud);
-                c= precedents[c];
-            }
-        }
-        return chemin;  
+        var courant = arrivee;
 
+        while (courant != null && precedent.ContainsKey(courant.ID))
+        {
+            chemin.Insert(0, courant);
+            courant = precedent[courant.ID];
+        }
+
+        if (courant != null && courant.ID.Equals(depart.ID))
+            chemin.Insert(0, depart);
+
+        return chemin;
     }
+
     public List<Noeud<T>> BellmanFord(Noeud<T> depart, Noeud<T> arrivee)
     {
         int n = ListeAdjacente.Length;
