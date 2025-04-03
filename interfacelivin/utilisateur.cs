@@ -59,7 +59,7 @@ namespace interfacelivin
             this.Nom = Nom;
             this.mdp = mdp;
         }
-
         
+
     }
 }

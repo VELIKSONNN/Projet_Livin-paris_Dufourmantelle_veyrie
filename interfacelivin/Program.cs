@@ -20,8 +20,8 @@ namespace interfacelivin
                     try
                     {
                         connection.Open();
-                        Console.WriteLine("✅ Connexion réussie !");
-
+                        Console.WriteLine("Connexion réussie !");
+                    /*
                         string query = "SELECT id, Prenom, email FROM utilisateur ";
 
                         using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -32,11 +32,11 @@ namespace interfacelivin
                             {
                                 Console.WriteLine($"ID: {reader["id"]}, Prenom: {reader["Prenom"]}, Email: {reader["email"]}");
                             }
-                        }
+                        }*/
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("❌ Erreur : " + ex.Message);
+                        Console.WriteLine(" Erreur : " + ex.Message);
                     }
                 Console.WriteLine("Fin du programme.");
             

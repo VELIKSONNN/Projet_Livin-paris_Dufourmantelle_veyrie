@@ -52,6 +52,22 @@ namespace interfacelivin
                     break;
             }
         }
+       
+        static int maxindice(string table)
+        {
+            string query = $"SELECT MAX(id) FROM {table}";
+            using (MySqlCommand command1 = new MySqlCommand(query, connection))
+            {
+                object result = command1.ExecuteScalar();
+                
+                if (result == DBNull.Value)
+                {
+                   
+                    return 0;
+                }
+                return Convert.ToInt32(result);
+            }
+        }
         static private void ajoutuser()
         {
             Console.Clear();
@@ -59,12 +75,12 @@ namespace interfacelivin
             char ajoutelement = Convert.ToChar(Console.ReadLine());
             switch (ajoutelement)
             {
-                case'1':
+                case '1':
                     Console.WriteLine("Veuillez fournir dans l'odre:Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise,le nom,et le mdp");
-                    string Prenom = Convert.ToString(Console.Read());
-         
+                    string Prenom = Convert.ToString(Console.ReadLine());
+
                     string email = Convert.ToString(Console.ReadLine());
-                    int id = maxindice("utilisateur")+1;
+                    int id = maxindice("utilisateur") + 1;
                     string tel = Convert.ToString(Console.ReadLine());
                     string adresse = Convert.ToString(Console.ReadLine());
                     string entreprise = Convert.ToString(Console.ReadLine());
@@ -90,22 +106,22 @@ namespace interfacelivin
                     }
 
                     AfficherTable("utilisateur");
-                    
-                        break;
 
-                    
+                    break;
+
+
 
                 case '2':
                     Console.WriteLine("Veuillez fournir dans l'odre:Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise,le nom,et le mdp");
-                     Prenom = Convert.ToString(Console.Read());
+                    Prenom = Convert.ToString(Console.ReadLine());
 
                     email = Convert.ToString(Console.ReadLine());
                     id = maxindice("utilisateur") + 1;
-                     tel = Convert.ToString(Console.ReadLine());
-                     adresse = Convert.ToString(Console.ReadLine());
-                     entreprise = Convert.ToString(Console.ReadLine());
-                     Nom = Convert.ToString(Console.ReadLine());
-                     mdp = Convert.ToString(Console.ReadLine());
+                    tel = Convert.ToString(Console.ReadLine());
+                    adresse = Convert.ToString(Console.ReadLine());
+                    entreprise = Convert.ToString(Console.ReadLine());
+                    Nom = Convert.ToString(Console.ReadLine());
+                    mdp = Convert.ToString(Console.ReadLine());
 
                      insertQuery = @"
         INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
@@ -124,32 +140,64 @@ namespace interfacelivin
                         command.Parameters.AddWithValue("@Mdp", mdp);
                         command.ExecuteNonQuery();
                     }
+               string     insertQuery2 = @"INSERT INTO cuisinier(id_client, id) VALUES (@id,@id)";
+                    using (MySqlCommand command = new MySqlCommand(insertQuery2, connection))
+                    {
+                        command.Parameters.AddWithValue("@id_client", id);
+                        command.Parameters.AddWithValue("@id", id);
+                        command.ExecuteNonQuery();
+                    }
+                    AfficherTable("custommer");
 
-                    AfficherTable("utilisateur");
+                    int idcuisinier = maxindice("cuisinier");
+                    insertQuery = $"INSERT INTO cuisinier(id_client, id) VALUES (@id,@id))";
+                    AfficherTable("cuisinier");
                     break;
                 case '3':
+                   
                     Console.WriteLine("Veuillez fournir dans l'odre:Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise,le nom,et le mdp");
+                    Prenom = Convert.ToString(Console.ReadLine());
 
+                    email = Convert.ToString(Console.ReadLine());
+                    id = maxindice("utilisateur") + 1;
+                    tel = Convert.ToString(Console.ReadLine());
+                    adresse = Convert.ToString(Console.ReadLine());
+                    entreprise = Convert.ToString(Console.ReadLine());
+                    Nom = Convert.ToString(Console.ReadLine());
+                    mdp = Convert.ToString(Console.ReadLine());
+
+
+                    insertQuery = @"
+        INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
+        VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
+
+                    using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
+                    {
+                        // Associer les paramètres C# aux placeholders @... dans la requête
+                        command.Parameters.AddWithValue("@id", id);
+                        command.Parameters.AddWithValue("@Prenom", Prenom);
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@Tel", tel);
+                        command.Parameters.AddWithValue("@Adresse", adresse);
+                        command.Parameters.AddWithValue("@Entreprise", entreprise);
+                        command.Parameters.AddWithValue("@Nom", Nom);
+                        command.Parameters.AddWithValue("@Mdp", mdp);
+                        command.ExecuteNonQuery();
+                    }
+
+
+                    insertQuery = @"INSERT INTO custommer(id_client, id) VALUES (@id,@id)";
+                    using(MySqlCommand  command= new MySqlCommand(insertQuery , connection))
+                    {
+                        command.Parameters.AddWithValue("@id_client", id);
+                        command.Parameters.AddWithValue("@id", id);
+                        command.ExecuteNonQuery();
+                    }
+                    AfficherTable("custommer");
                     break;
             }
 
         }
-        static int maxindice(string table)
-        {
-            string query = $"SELECT MAX(id) FROM {table}";
-            using (MySqlCommand command1 = new MySqlCommand(query, connection))
-            {
-                object result = command1.ExecuteScalar();
-                
-                if (result == DBNull.Value)
-                {
-                   
-                    return 0;
-                }
-                return Convert.ToInt32(result);
-            }
-        }
-
         static private void supprselection()
         {
             Console.Clear();
@@ -190,6 +238,7 @@ namespace interfacelivin
         }
         static void AfficherTable(string table)
         {
+            Console.WriteLine("La nouvelle table " + table + " est la suivante");
             string query;
 
             switch (table.ToLower())
@@ -208,7 +257,7 @@ namespace interfacelivin
                     {
                         while (reader.Read())
                         {
-                            Console.WriteLine($"id: {reader["id_cuisinier"]} nom ingrédient: {reader["Nom"]}");
+                            Console.WriteLine($"id: {reader["id_cuisinier"]} nom {reader["Nom"]}");
 
                         }
                     }
