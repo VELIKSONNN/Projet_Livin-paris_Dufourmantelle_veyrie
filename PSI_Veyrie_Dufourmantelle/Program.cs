@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.IO;
+using MySql.Data.MySqlClient;
 
 using System.Threading.Tasks;
 namespace PSI_Veyrie_Dufourmantelle
@@ -14,7 +15,7 @@ namespace PSI_Veyrie_Dufourmantelle
     {
         static void Main()
         {
-
+            
             string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             string choix = Console.ReadLine();
@@ -43,10 +44,11 @@ namespace PSI_Veyrie_Dufourmantelle
 
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
-
+            
 
 
         }
+      
     }
 
 

@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
 namespace PSI_Veyrie_Dufourmantelle
 {
     public class graphe
@@ -14,8 +12,6 @@ namespace PSI_Veyrie_Dufourmantelle
 
         private List<int>[] ListeAdjacence;
         private int[,] MatriceAdjacence;
-        private List<Liens> lien;
-        
 
         public int Nombresommets
         {
@@ -28,17 +24,6 @@ namespace PSI_Veyrie_Dufourmantelle
             get { return ListeAdjacence; }
             set { ListeAdjacence = value; }
         }
-        public List<Liens> Lien
-        {
-            get { return lien; }
-            set { lien = value; }
-        }
-        public graphe(int nombreSommets)
-        {
-            NombreSommets = nombreSommets;
-            
-        }
-
         ///
 
 
@@ -51,7 +36,10 @@ namespace PSI_Veyrie_Dufourmantelle
         /// Constructeur de la classe graphe qui initialise la liste et la matrice d'adjacence.
         /// </summary>
         /// <param name="n">Nombre de sommets dans le graphe.</param>
-
+      public graphe (int nombresommets)
+        {
+            this.NombreSommets= nombresommets;
+        }
 
         /// <summary>
         /// Ajoute un lien entre deux sommets du graphe.
@@ -245,81 +233,6 @@ namespace PSI_Veyrie_Dufourmantelle
             }
             RendreConnexe(); // On s'assure que le graphe est connexe après le chargement
             ContientCycle();
-
         }
-        public List<int> Dijkstra(int depart, int arrivee)
-        {
-            // On initialise les distances à l'infini 
-            int[] distance = new int[NombreSommets + 1];
-            int[] precedent = new int[NombreSommets + 1];
-            bool[] visite = new bool[NombreSommets + 1];
-            for (int i = 0; i <= NombreSommets; i++)
-            {
-                distance[i] = int.MaxValue;
-                precedent[i] = -1;
-
-
-            }
-            distance[depart] = 0;
-            while (true)
-            {
-                int Noeudactuel = -1;
-                int DistanceMin = int.MaxValue;
-
-
-                for (int i = 0; i <= NombreSommets; i++)
-                {
-                    if (!visite[i] && distance[i] < DistanceMin)
-                    {
-                        Noeudactuel = i;
-                        DistanceMin = distance[i];
-                    }
-                }
-                // Si tous les sommets sont visités ou plus de nœuds accessibles
-                if (Noeudactuel == -1) break;
-
-                visite[Noeudactuel] = true;
-
-                foreach (var voisin in ListeAdjacence[Noeudactuel])
-                {
-                    // Trouver le poids du lien entre NoeudActuel et voisin
-                    int poidsLien = 1; // Valeur par défaut si le lien n'est pas trouvé
-
-                    // Cherche le poids du lien dans la liste Liens
-
-                    foreach (var lien in Liens)
-                    {
-                        if ((lien.Source == Noeudactuel && lien.Destination == voisin) ||
-                    (lien.Source == voisin && lien.Destination == Noeudactuel))
-                        {
-                            poidsLien = lien.Poids;
-                            break; // Si trouvé, on arrête la recherche
-                        }
-                    }
-                    
-
-                    // Vérification si le chemin est plus court
-                    int nouvelleDistance = distance[Noeudactuel] + poidsLien;
-                    if (nouvelleDistance < distance[voisin])
-                    {
-                        distance[voisin] = nouvelleDistance;
-                        precedent[voisin] = Noeudactuel;
-                    }
-                }
-            }
-
-            // Reconstruction du chemin le plus court
-            List<int> chemin = new List<int>();
-            for (int at = arrivee; at != -1; at = precedent[at])
-            {
-                chemin.Add(at);
-            }
-
-            chemin.Reverse(); // On inverse le chemin pour avoir le bon ordre de départ à arrivée
-
-            return chemin.Count > 1 ? chemin : new List<int>(); // Retourne un chemin valide, ou une liste vide si aucun chemin
-        }
-    
-     }
-    
+    }
 }

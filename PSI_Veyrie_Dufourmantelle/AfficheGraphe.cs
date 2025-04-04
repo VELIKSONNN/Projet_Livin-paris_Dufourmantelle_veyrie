@@ -16,7 +16,7 @@ namespace PSI_Veyrie_Dufourmantelle
         {
             this.g = g;
         }
-
+        
         public void DessinerEtAfficherGraphe(string cheminImage)
         {
             DessinerGraphe(cheminImage);

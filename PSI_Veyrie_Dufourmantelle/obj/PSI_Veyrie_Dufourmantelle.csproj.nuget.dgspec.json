@@ -1,34 +1,20 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj": {}
-=======
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj": {}
->>>>>>> projet-avancées-joachim
+    "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj": {
+    "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj",
+        "projectUniqueName": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj",
         "projectName": "PSI_Veyrie_Dufourmantelle",
-<<<<<<< HEAD
-        "projectPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj",
-        "packagesPath": "C:\\Users\\nilsd\\.nuget\\packages\\",
-        "outputPath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\obj\\",
-=======
-        "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj",
-        "packagesPath": "C:\\Users\\joach\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\obj\\",
->>>>>>> projet-avancées-joachim
+        "projectPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\PSI_Veyrie_Dufourmantelle.csproj",
+        "packagesPath": "C:\\Users\\enfants\\.nuget\\packages\\",
+        "outputPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\PSI_Veyrie_Dufourmantelle\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\nilsd\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\enfants\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -48,21 +34,20 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-<<<<<<< HEAD
             "MySql.Data": {
               "target": "Package",
               "version": "[9.2.0, )"
-=======
-            "EPPlus": {
-              "target": "Package",
-              "version": "[7.7.0, )"
->>>>>>> projet-avancées-joachim
             },
             "SkiaSharp": {
               "target": "Package",
@@ -80,34 +65,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.16, 7.0.16]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.16, 7.0.16]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.16, 7.0.16]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.16, 7.0.16]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
->>>>>>> projet-avancées-joachim
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }

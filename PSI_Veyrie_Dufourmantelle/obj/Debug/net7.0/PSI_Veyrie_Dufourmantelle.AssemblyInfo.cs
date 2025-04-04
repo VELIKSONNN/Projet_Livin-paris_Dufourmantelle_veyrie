@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PSI_Veyrie_Dufourmantelle")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55c25d81109ebe5472d0173eee0ca4c83c8bb6d0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6c92e60915998611311152af950eb5eb50d46e3")]
 [assembly: System.Reflection.AssemblyProductAttribute("PSI_Veyrie_Dufourmantelle")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PSI_Veyrie_Dufourmantelle")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
