@@ -10,15 +10,16 @@ namespace interfacelivin
 {
     public class interfaceuser
     {
-        static MySqlConnection connection;
-        public MySqlConnection Connection { get; set; }
+        static public MySqlConnection connexion;
+        public MySqlConnection Connexion { get; set; }
 
-        public interfaceuser(MySqlConnection _connection)
+        public interfaceuser(MySqlConnection _connexion)
         {
-            connection = _connection;
+            connexion = _connexion;
 
             MainInterface();
         }
+
         static public void MainInterface()
         {
             Console.WriteLine("Bienvenue !\n Veuillez entrer votre mot de passe et identifiants pour vous connecter ");
@@ -52,11 +53,16 @@ namespace interfacelivin
                     break;
             }
         }
+
+        static void choixstats(MySqlConnection mySqlConnection)
+        {
+            
+        }
        
         static int maxindice(string table)
         {
             string query = $"SELECT MAX(id) FROM {table}";
-            using (MySqlCommand command1 = new MySqlCommand(query, connection))
+            using (MySqlCommand command1 = new MySqlCommand(query, connexion))
             {
                 object result = command1.ExecuteScalar();
                 
@@ -68,6 +74,8 @@ namespace interfacelivin
                 return Convert.ToInt32(result);
             }
         }
+
+
         static private void ajoutuser()
         {
             Console.Clear();
@@ -87,23 +95,29 @@ namespace interfacelivin
                     string Nom = Convert.ToString(Console.ReadLine());
                     string mdp = Convert.ToString(Console.ReadLine());
 
-                    string insertQuery = @"
-        INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
-        VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
-
-                    using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
+                    using (var transaction = connexion.BeginTransaction())
                     {
-                        // Associer les paramètres C# aux placeholders @... dans la requête
-                        command.Parameters.AddWithValue("@id", id);
-                        command.Parameters.AddWithValue("@Prenom", Prenom);
-                        command.Parameters.AddWithValue("@Email", email);
-                        command.Parameters.AddWithValue("@Tel", tel);
-                        command.Parameters.AddWithValue("@Adresse", adresse);
-                        command.Parameters.AddWithValue("@Entreprise", entreprise);
-                        command.Parameters.AddWithValue("@Nom", Nom);
-                        command.Parameters.AddWithValue("@Mdp", mdp);
-                        command.ExecuteNonQuery();
+                        string insertQuery = @"
+                            INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
+                            VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
+
+                        using (MySqlCommand command = new MySqlCommand(insertQuery, connexion, transaction))
+                        {
+                            command.Parameters.AddWithValue("@id", id);
+                            command.Parameters.AddWithValue("@Prenom", Prenom);
+                            command.Parameters.AddWithValue("@Email", email);
+                            command.Parameters.AddWithValue("@Tel", tel);
+                            command.Parameters.AddWithValue("@Adresse", adresse);
+                            command.Parameters.AddWithValue("@Entreprise", entreprise);
+                            command.Parameters.AddWithValue("@Nom", Nom);
+                            command.Parameters.AddWithValue("@Mdp", mdp);
+
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit(); // Valide toutes les requêtes de la transaction
                     }
+
 
                     AfficherTable("utilisateur");
 
@@ -123,11 +137,15 @@ namespace interfacelivin
                     Nom = Convert.ToString(Console.ReadLine());
                     mdp = Convert.ToString(Console.ReadLine());
 
-                     insertQuery = @"
-        INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
-        VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
+                    using (var transaction = connexion.BeginTransaction())
+                    {
+                        // Exécution de INSERT, UPDATE, DELETE...
+                        // ...
+                                string insertQuery = @"
+                                INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
+                                VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
 
-                    using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
+                    using (MySqlCommand command = new MySqlCommand(insertQuery, connexion))
                     {
                         // Associer les paramètres C# aux placeholders @... dans la requête
                         command.Parameters.AddWithValue("@id", id);
@@ -140,8 +158,8 @@ namespace interfacelivin
                         command.Parameters.AddWithValue("@Mdp", mdp);
                         command.ExecuteNonQuery();
                     }
-               string     insertQuery2 = @"INSERT INTO cuisinier(id_client, id) VALUES (@id,@id)";
-                    using (MySqlCommand command = new MySqlCommand(insertQuery2, connection))
+                        string insertQuery2 = @"INSERT INTO cuisinier(id_client, id) VALUES (@id,@id)";
+                    using (MySqlCommand command = new MySqlCommand(insertQuery2, connexion))
                     {
                         command.Parameters.AddWithValue("@id_client", id);
                         command.Parameters.AddWithValue("@id", id);
@@ -151,10 +169,13 @@ namespace interfacelivin
 
                     int idcuisinier = maxindice("cuisinier");
                     insertQuery = $"INSERT INTO cuisinier(id_client, id) VALUES (@id,@id))";
+                        transaction.Commit(); // Sans ceci, les changements restent en suspens.
+                    }
+                   
                     AfficherTable("cuisinier");
                     break;
                 case '3':
-                   
+                    
                     Console.WriteLine("Veuillez fournir dans l'odre:Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise,le nom,et le mdp");
                     Prenom = Convert.ToString(Console.ReadLine());
 
@@ -166,12 +187,13 @@ namespace interfacelivin
                     Nom = Convert.ToString(Console.ReadLine());
                     mdp = Convert.ToString(Console.ReadLine());
 
+                    using (var transaction = connexion.BeginTransaction())
+                    {
+                        string insertQuery = @"
+                        INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
+                        VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
 
-                    insertQuery = @"
-        INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
-        VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
-
-                    using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
+                    using (MySqlCommand command = new MySqlCommand(insertQuery, connexion))
                     {
                         // Associer les paramètres C# aux placeholders @... dans la requête
                         command.Parameters.AddWithValue("@id", id);
@@ -184,15 +206,19 @@ namespace interfacelivin
                         command.Parameters.AddWithValue("@Mdp", mdp);
                         command.ExecuteNonQuery();
                     }
-
-
-                    insertQuery = @"INSERT INTO custommer(id_client, id) VALUES (@id,@id)";
-                    using(MySqlCommand  command= new MySqlCommand(insertQuery , connection))
+                     insertQuery = @"INSERT INTO custommer(id_client, id) VALUES (@id,@id)";
+                    using(MySqlCommand  command= new MySqlCommand(insertQuery , connexion))
                     {
                         command.Parameters.AddWithValue("@id_client", id);
                         command.Parameters.AddWithValue("@id", id);
                         command.ExecuteNonQuery();
                     }
+                        transaction.Commit(); 
+                    }
+                    
+
+
+                    
                     AfficherTable("custommer");
                     break;
             }
@@ -213,7 +239,7 @@ namespace interfacelivin
                     AfficherTable(table);
 /*
                     string query = $"SELECT id,{attribut} FROM {table}";
-                    using (MySqlCommand command1 = new MySqlCommand(query, connection)) 
+                    using (MySqlCommand command1 = new MySqlCommand(query, connexion)) 
                     using (MySqlDataReader reader = command1.ExecuteReader())
                     {
                         while (reader.Read())
@@ -252,7 +278,7 @@ namespace interfacelivin
 
             ";
                     // Exécuter la requête et afficher
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    using (MySqlCommand cmd = new MySqlCommand(query, connexion))
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -271,7 +297,7 @@ namespace interfacelivin
                 JOIN utilisateur u ON cust.id = u.id
             ";
                     // Exécuter la requête et afficher
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    using (MySqlCommand cmd = new MySqlCommand(query, connexion))
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -285,7 +311,7 @@ namespace interfacelivin
                 case "ingrédients":
                     // Table qui a déjà ses champs
                     query = "SELECT id_ingr, nom_ingr FROM ingrédients";
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    using (MySqlCommand cmd = new MySqlCommand(query, connexion))
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         
@@ -305,7 +331,7 @@ namespace interfacelivin
                     string attribut = Console.ReadLine();
                     query = $"SELECT id, {attribut} FROM {table}";
                      // Exécuter la requête et afficher
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            using (MySqlCommand cmd = new MySqlCommand(query, connexion))
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
                 
@@ -329,14 +355,14 @@ namespace interfacelivin
             /*string checkConstraintQuery = @" SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS  WHERE CONSTRAINT_SCHEMA = 'baselivinparis'
                                             AND TABLE_NAME = 'cuisinier' AND CONSTRAINT_NAME = 'cuisinier_ibfk_1';";
 
-            using (MySqlCommand checkCmd = new MySqlCommand(checkConstraintQuery, connection))
+            using (MySqlCommand checkCmd = new MySqlCommand(checkConstraintQuery, connexion))
             {
                 int count = Convert.ToInt32(checkCmd.ExecuteScalar());
                 if (count > 0)
                 {
                     // La contrainte existe, donc on la supprime.
                     string dropQuery = "ALTER TABLE cuisinier DROP FOREIGN KEY cuisinier_ibfk_1;";
-                    using (MySqlCommand dropCmd = new MySqlCommand(dropQuery, connection))
+                    using (MySqlCommand dropCmd = new MySqlCommand(dropQuery, connexion))
                     {
                         dropCmd.ExecuteNonQuery();
 
@@ -345,7 +371,7 @@ namespace interfacelivin
 
 
                 string addQuery = @"ALTER TABLE cuisinier ADD CONSTRAINT cuisinier_ibfk_1 FOREIGN KEY (id) REFERENCES utilisateur(id) ON DELETE CASCADE;";
-                using (MySqlCommand addCmd = new MySqlCommand(addQuery, connection))
+                using (MySqlCommand addCmd = new MySqlCommand(addQuery, connexion))
                 {
                     addCmd.ExecuteNonQuery();
                     Console.WriteLine("Contrainte ajoutée avec ON DELETE CASCADE.");
@@ -353,54 +379,59 @@ namespace interfacelivin
             }
             */
             // Pour cuisinier -> utilisateur
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "cuisinier", "cuisinier_ibfk_1", "id", "utilisateur", "id");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "cuisinier", "cuisinier_ibfk_1", "id", "utilisateur", "id");
 
             // Pour custommer -> utilisateur
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "custommer", "custommer_ibfk_1", "id", "utilisateur", "id");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "custommer", "custommer_ibfk_1", "id", "utilisateur", "id");
 
             // Pour commande -> custommer
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "commande", "commande_ibfk_1", "id_client", "custommer", "id_client");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "commande", "commande_ibfk_1", "id_client", "custommer", "id_client");
 
             // Pour commande -> cuisinier
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "commande", "commande_ibfk_2", "id_cuisinier", "cuisinier", "id_cuisinier");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "commande", "commande_ibfk_2", "id_cuisinier", "cuisinier", "id_cuisinier");
 
             // Pour avis -> commande
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "avis", "avis_ibfk_1", "commande", "commande", "commande");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "avis", "avis_ibfk_1", "commande", "commande", "commande");
 
             // Pour contient -> plat
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "contient", "contient_ibfk_1", "id", "plat", "id");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "contient", "contient_ibfk_1", "id", "plat", "id");
 
             // Pour contient -> ingrédients
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "contient", "contient_ibfk_2", "id_ingr", "ingrédients", "id_ingr");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "contient", "contient_ibfk_2", "id_ingr", "ingrédients", "id_ingr");
 
             // Pour inclue -> plat
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "inclue", "inclue_ibfk_1", "id", "plat", "id");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "inclue", "inclue_ibfk_1", "id", "plat", "id");
 
             // Pour inclue -> ligne_de_commande_
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "inclue", "inclue_ibfk_2", "id_ligne_de_commande", "ligne_de_commande_", "id_ligne_de_commande");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "inclue", "inclue_ibfk_2", "id_ligne_de_commande", "ligne_de_commande_", "id_ligne_de_commande");
 
             // Pour ingrédients -> pays
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "ingrédients", "ingrédients_ibfk_1", "idpays", "pays", "idpays");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "ingrédients", "ingrédients_ibfk_1", "idpays", "pays", "idpays");
 
             // Pour ligne_de_commande_ -> livraison
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_1", "id_livraison", "livraison", "id_livraison");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_1", "id_livraison", "livraison", "id_livraison");
 
             // Pour ligne_de_commande_ -> custommer
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_2", "id_client", "custommer", "id_client");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_2", "id_client", "custommer", "id_client");
 
             // Pour ligne_de_commande_ -> commande
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_3", "commande", "commande", "commande");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "ligne_de_commande_", "ligne_de_commande__ibfk_3", "commande", "commande", "commande");
 
             // Pour plat -> pays
-            EnsureForeignKeyConstraint(connection, "baselivinparis", "plat", "plat_ibfk_1", "idpays", "pays", "idpays");
+            EnsureForeignKeyConstraint(connexion, "baselivinparis", "plat", "plat_ibfk_1", "idpays", "pays", "idpays");
 
             int idTodelete = int.Parse(Console.ReadLine());
-            string querysuppr = $"DELETE FROM {table} WHERE id={idTodelete}";
-            using (MySqlCommand command2 = new MySqlCommand(querysuppr, connection))
+            using (var transaction = connexion.BeginTransaction())
             {
-                int rowsAffected = command2.ExecuteNonQuery();
-                Console.WriteLine($"{rowsAffected} ligne(s) supprimée(s).");
+                    string querysuppr = $"DELETE FROM {table} WHERE id={idTodelete}";
+                    using (MySqlCommand command2 = new MySqlCommand(querysuppr, connexion))
+                    {
+                        int rowsAffected = command2.ExecuteNonQuery();
+                        Console.WriteLine($"{rowsAffected} ligne(s) supprimée(s).");
+                    }
+                transaction.Commit(); 
             }
+           
 
 
 
@@ -408,25 +439,13 @@ namespace interfacelivin
             Console.WriteLine(" élément supprimer !");
             
         }
-        public static void EnsureForeignKeyConstraint(
-    MySqlConnection connection,
-    string databaseName,
-    string tableName,
-    string constraintName,
-    string foreignKeyColumn,
-    string referencedTable,
-    string referencedColumn)
+        public static void EnsureForeignKeyConstraint(MySqlConnection connexion,string databaseName,string tableName,string constraintName,string foreignKeyColumn,string referencedTable,string referencedColumn)
         {
             // Requête pour vérifier si la contrainte existe déjà
-            string checkQuery = @"
-        SELECT COUNT(*) 
-        FROM information_schema.TABLE_CONSTRAINTS
-        WHERE CONSTRAINT_SCHEMA = @databaseName
-          AND TABLE_NAME = @tableName
-          AND CONSTRAINT_NAME = @constraintName;
-    ";
+            string checkQuery = @"SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA = @databaseName 
+            AND TABLE_NAME = @tableName AND CONSTRAINT_NAME = @constraintName;";
 
-            using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, connection))
+            using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, connexion))
             {
                 checkCmd.Parameters.AddWithValue("@databaseName", databaseName);
                 checkCmd.Parameters.AddWithValue("@tableName", tableName);
@@ -437,7 +456,7 @@ namespace interfacelivin
                 if (count > 0)
                 {
                     string dropQuery = $"ALTER TABLE {tableName} DROP FOREIGN KEY {constraintName};";
-                    using (MySqlCommand dropCmd = new MySqlCommand(dropQuery, connection))
+                    using (MySqlCommand dropCmd = new MySqlCommand(dropQuery, connexion))
                     {
                         dropCmd.ExecuteNonQuery();
                         //Console.WriteLine($"Contrainte {constraintName} supprimée de la table {tableName}.");
@@ -446,27 +465,21 @@ namespace interfacelivin
             }
 
             // On ajoute ensuite la contrainte avec ON DELETE CASCADE
-            string addQuery = $@"
-        ALTER TABLE {tableName} 
-        ADD CONSTRAINT {constraintName} 
-        FOREIGN KEY ({foreignKeyColumn}) 
-        REFERENCES {referencedTable}({referencedColumn}) 
-        ON DELETE CASCADE;
-    ";
+                        string addQuery = $@"
+                    ALTER TABLE {tableName} 
+                    ADD CONSTRAINT {constraintName} 
+                    FOREIGN KEY ({foreignKeyColumn}) 
+                    REFERENCES {referencedTable}({referencedColumn}) 
+                    ON DELETE CASCADE; ";
 
-            using (MySqlCommand addCmd = new MySqlCommand(addQuery, connection))
+            using (MySqlCommand addCmd = new MySqlCommand(addQuery, connexion))
             {
                 addCmd.ExecuteNonQuery();
                // Console.WriteLine($"Contrainte {constraintName} ajoutée à la table {tableName} avec ON DELETE CASCADE.");
             }
         }
 
-        static void creationquery()
-        {
-            Console.Clear();
-            Console.WriteLine("Pour ajouter un utilisateur vous pouvez");
-
-        }
+        
         static string rechercheattribut()
         {
                 Console.WriteLine("Par quels atribut souhaiter vous faire une recherche");
