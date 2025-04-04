@@ -9,14 +9,43 @@ namespace interfacelivin
 {
     public class statistiques
     {
+        public static void choisirstats(MySqlConnection conn)
+        {
+            Console.Clear();
+            Console.WriteLine("Que voulez vous faire ? -afficher une commande par période '1'\n-afficher la moyenne des prix des commandes '2' \n-afficher la moyenne de prix par client (compte dans le sujet) '3'" +
+                "\n-afficher les commande par période et nationalité '4'\n-afficher le nombre de livraisons par cuisinier '5'\n-Afficher le montant des achats cumulé par clients '6' " +
+                " ");
+            char choixquery = Convert.ToChar(Console.ReadLine());
+            switch (choixquery)
+            {
+                case '1':
+                    AfficherCommandesParPeriode(conn);
+                    break;
+                case '2':
+                    AfficherMoyennecommande(conn);
+                    break;
+                case '3':
+                    AfficherMoyenneComptesClients(conn);
+                    break;
+                case '4':
+                    AfficherCommandesClientParNationaliteEtPeriode(conn);
+                    break;
+                case '5':
+                    AfficherNombreLivraisonsParCuisinier(conn);
+                    break;
+                case '6':
+                    achatcumuléparclient(conn);
+                    break;
 
+            }
+        }
         static void AfficherCommandesParPeriode(MySqlConnection connection)
         {
 
             Console.WriteLine("Quelle est la date de début ? année,n°mois,n°jour");
             DateTime dateDebut = Convert.ToDateTime(Console.ReadLine());
             Console.WriteLine("Quelle est la date de fin ?");
-             DateTime dateFin = Convert.ToDateTime(Console.ReadLine());
+            DateTime dateFin = Convert.ToDateTime(Console.ReadLine());
             string query = @"
         SELECT commande, date_heure_commande, id_client, id_cuisinier
         FROM commande
@@ -44,7 +73,7 @@ namespace interfacelivin
             }
         }
 
-        static void AfficherMoyennePrixDesCommandes(MySqlConnection connection)
+        static void AfficherMoyennecommande(MySqlConnection connection)
         {
             string query = @"
         SELECT AVG(total_par_commande) AS moyennePrix
@@ -104,10 +133,12 @@ namespace interfacelivin
                 }
             }
         }
-        static void AfficherCommandesClientParNationaliteEtPeriode(MySqlConnection connection,int idClient)
+        static void AfficherCommandesClientParNationaliteEtPeriode(MySqlConnection connection)
         {
+            Console.WriteLine("Quel est l'id du client ?");
+            int idClient = int.Parse(Console.ReadLine());
             Console.WriteLine("Quelle est la nationalité du plat en question");
-            string nationalitePlat=Console.ReadLine();
+            string nationalitePlat = Console.ReadLine();
 
             Console.WriteLine("Quelle est la date de début ? année,n°mois,n°jour");
             DateTime debut = Convert.ToDateTime(Console.ReadLine());
@@ -115,20 +146,19 @@ namespace interfacelivin
             DateTime fin = Convert.ToDateTime(Console.ReadLine());
 
             string query = @"
-        SELECT co.commande,
-               co.date_heure_commande,
-               p.nom AS nomPlat,
-               pa.nom AS nationalitePlat
-        FROM commande co
-        JOIN ligne_de_commande_ ldc ON co.commande = ldc.commande
-        JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
-        JOIN plat p ON p.id = i.id
-        JOIN pays pa ON pa.idpays = p.idpays
-        WHERE co.id_client = @idClient
-          AND pa.nom = @paysNom
-          AND co.date_heure_commande BETWEEN @debut AND @fin
-        ORDER BY co.date_heure_commande
-    ";
+                SELECT co.commande,
+                       co.date_heure_commande,
+                       p.nom AS nomPlat,
+                       pa.nom AS nationalitePlat
+                FROM commande co
+                JOIN ligne_de_commande_ ldc ON co.commande = ldc.commande
+                JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+                JOIN plat p ON p.id = i.id
+                JOIN pays pa ON pa.idpays = p.idpays
+                WHERE co.id_client = @idClient
+                  AND pa.nom = @paysNom
+                  AND co.date_heure_commande BETWEEN @debut AND @fin
+                ORDER BY co.date_heure_commande";
 
             using (MySqlCommand cmd = new MySqlCommand(query, connection))
             {
@@ -152,12 +182,11 @@ namespace interfacelivin
             }
         }
 
-        
 
-    public static class StatsManager
-        {
+
+
         public static void AfficherNombreLivraisonsParCuisinier(MySqlConnection connection)
-            {
+        {
             // Requête pour compter le nombre de lignes de commande (livraisons) par cuisinier
             string query = @"
             SELECT c.id_cuisinier,
@@ -165,13 +194,12 @@ namespace interfacelivin
             FROM cuisinier c
             JOIN commande co ON co.id_cuisinier = c.id_cuisinier
             JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
-            GROUP BY c.id_cuisinier
-        ";
+            GROUP BY c.id_cuisinier ";
 
             using (var cmd = new MySqlCommand(query, connection))
             using (var reader = cmd.ExecuteReader())
             {
-                Console.WriteLine("------ Nombre de livraisons par cuisinier ------");
+                Console.WriteLine(" Nombre de livraisons par cuisinier ");
                 while (reader.Read())
                 {
                     int idCuisinier = reader.GetInt32("id_cuisinier");
@@ -181,7 +209,31 @@ namespace interfacelivin
                 }
             }
         }
-    }
+
+        public static void achatcumuléparclient(MySqlConnection connection)
+        {
+            string query = @"
+                    SELECT cm.id_client, SUM(CAST(p.prix AS DECIMAL(10,2))) AS montant_total
+                    FROM custommer cm
+                    JOIN commande co ON cm.id_client = co.id_client
+                    JOIN ligne_de_commande_ ldc ON co.commande = ldc.commande
+                    JOIN inclue i ON ldc.id_ligne_de_commande = i.id_ligne_de_commande
+                    JOIN plat p ON i.id = p.id
+                    GROUP BY cm.id_client; ";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                Console.WriteLine("Montant cumulé des achats par client :");
+                while (reader.Read())
+                {
+                    int clientId = reader.GetInt32("id_client");
+                    decimal montantTotal = reader.GetDecimal("montant_total");
+                    Console.WriteLine($"Client {clientId} : {montantTotal:C}");
+                }
+            }
+        }
 
     }
 }
+

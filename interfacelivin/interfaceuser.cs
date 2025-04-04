@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx.Prepare;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,30 +39,32 @@ namespace interfacelivin
         {
             Console.Clear();
             Console.WriteLine("Ouverture de l'interface admin");
-            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1', supprimer un tuple '2', ou exectuer une query '3' ? ");
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1', supprimer un tuple '2', ou exectuer une query(stats) '3' ou simplement afficher une table '4' ?");
             char actionprimaire = Convert.ToChar(Console.ReadLine());
             switch (actionprimaire)
             {
                 case '1':
-                    ajoutuser();
+                    ajouttuple();
                     break;
                 case '2':
                     supprselection();
                     break;
                 case '3':
-                    ajoutuser();
+                    statistiques.choisirstats(connexion);
+                    break;
+                case '4':
+                    Console.WriteLine("Quelle est la table à afficher");
+                    string table=Console.ReadLine();
+                    AfficherTable(table);
                     break;
             }
         }
 
-        static void choixstats(MySqlConnection mySqlConnection)
-        {
-            
-        }
+        
        
-        static int maxindice(string table)
+        static int maxindice(string table,string primarykey)
         {
-            string query = $"SELECT MAX(id) FROM {table}";
+            string query = $"SELECT MAX({primarykey}) FROM {table}";
             using (MySqlCommand command1 = new MySqlCommand(query, connexion))
             {
                 object result = command1.ExecuteScalar();
@@ -76,10 +79,10 @@ namespace interfacelivin
         }
 
 
-        static private void ajoutuser()
+        static private void ajouttuple()
         {
             Console.Clear();
-            Console.WriteLine("Voulez-vous ajouter un utilisateur '1', un cuisinier '2' ou un client '3' ?");
+            Console.WriteLine("Voulez-vous ajouter un utilisateur '1', un cuisinier '2' ,un client '3' ou une commande '4' ?");
             char ajoutelement = Convert.ToChar(Console.ReadLine());
             switch (ajoutelement)
             {
@@ -88,7 +91,7 @@ namespace interfacelivin
                     string Prenom = Convert.ToString(Console.ReadLine());
 
                     string email = Convert.ToString(Console.ReadLine());
-                    int id = maxindice("utilisateur") + 1;
+                    int id = maxindice("utilisateur","id") + 1;
                     string tel = Convert.ToString(Console.ReadLine());
                     string adresse = Convert.ToString(Console.ReadLine());
                     string entreprise = Convert.ToString(Console.ReadLine());
@@ -130,7 +133,7 @@ namespace interfacelivin
                     Prenom = Convert.ToString(Console.ReadLine());
 
                     email = Convert.ToString(Console.ReadLine());
-                    id = maxindice("utilisateur") + 1;
+                    id = maxindice("utilisateur", "id") + 1;
                     tel = Convert.ToString(Console.ReadLine());
                     adresse = Convert.ToString(Console.ReadLine());
                     entreprise = Convert.ToString(Console.ReadLine());
@@ -167,7 +170,7 @@ namespace interfacelivin
                     }
                     AfficherTable("custommer");
 
-                    int idcuisinier = maxindice("cuisinier");
+                  int id_cuisinier = maxindice("cuisinier", "id_cuisinier");
                     insertQuery = $"INSERT INTO cuisinier(id_client, id) VALUES (@id,@id))";
                         transaction.Commit(); // Sans ceci, les changements restent en suspens.
                     }
@@ -180,7 +183,7 @@ namespace interfacelivin
                     Prenom = Convert.ToString(Console.ReadLine());
 
                     email = Convert.ToString(Console.ReadLine());
-                    id = maxindice("utilisateur") + 1;
+                    id = maxindice("utilisateur", "id") + 1;
                     tel = Convert.ToString(Console.ReadLine());
                     adresse = Convert.ToString(Console.ReadLine());
                     entreprise = Convert.ToString(Console.ReadLine());
@@ -195,7 +198,7 @@ namespace interfacelivin
 
                     using (MySqlCommand command = new MySqlCommand(insertQuery, connexion))
                     {
-                        // Associer les paramètres C# aux placeholders @... dans la requête
+                       
                         command.Parameters.AddWithValue("@id", id);
                         command.Parameters.AddWithValue("@Prenom", Prenom);
                         command.Parameters.AddWithValue("@Email", email);
@@ -221,7 +224,138 @@ namespace interfacelivin
                     
                     AfficherTable("custommer");
                     break;
+
+                case '4':
+                    Console.WriteLine("Connaissez-vous l'id du client et du cuisinier ? Tapez 1 pour oui et 0 pour non ");
+                    int repconnaitid = int.Parse(Console.ReadLine());
+
+                    if (repconnaitid == 0)
+                    {
+                        AfficherTable("custommer");
+                        AfficherTable("cuisinier");
+                    }
+
+                    Console.WriteLine("Veuillez fournir dans l'ordre : l'id du client, l'id du cuisinier");
+                    int idclient = int.Parse(Console.ReadLine());
+                    int idcuisinier = int.Parse(Console.ReadLine());
+
+                    // Générer un nouvel ID de commande (supposant que la PK de commande s'appelle "commande")
+                    int commande = maxindice("commande", "commande") + 1;
+
+                    using (var transaction = connexion.BeginTransaction())
+                    {
+                        // 1) Insertion dans la table commande
+                        string insertQuery = @"
+            INSERT INTO commande (commande, date_heure_commande, id_client, id_cuisinier)
+            VALUES (@id, @date, @id_custommer, @id_cuisinier)";
+                        using (MySqlCommand command = new MySqlCommand(insertQuery, connexion, transaction))
+                        {
+                            command.Parameters.AddWithValue("@id", commande);
+                            command.Parameters.AddWithValue("@date", DateTime.Now);
+                            command.Parameters.AddWithValue("@id_custommer", idclient);
+                            command.Parameters.AddWithValue("@id_cuisinier", idcuisinier);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // 2) Demander le nombre de lignes de commande pour cette commande
+                        Console.Write("Combien de lignes de commande pour cette commande ? ");
+                        int nbLignes = int.Parse(Console.ReadLine());
+
+                        for (int i = 0; i < nbLignes; i++)
+                        {
+                            Console.WriteLine($"\n=== Création de la ligne de commande n°{i + 1} ===");
+
+                            // Calculer un nouvel id_ligne_de_commande
+                            int idmaxligne = maxindice("ligne_de_commande_", "id_ligne_de_commande") + 1;
+
+                            // Demander la date de livraison pour cette ligne
+                            Console.Write("Entrez la date de livraison (yyyy-MM-dd HH:mm:ss) : ");
+                            string dateLivraisonStr = Console.ReadLine();
+                            DateTime dateLivraison;
+                            if (!DateTime.TryParse(dateLivraisonStr, out dateLivraison))
+                            {
+                                Console.WriteLine("Date invalide, utilisation de DateTime.Now.");
+                                dateLivraison = DateTime.Now;
+                            }
+                            int idmaxlivraison = maxindice("livraison", "id_livraison")+1;
+                            // Insertion dans la table livraison et récupération de l'ID généré
+                            string insertLivraisonQuery = @"
+                INSERT INTO livraison (id_livraison,date_heure_livraison)
+                VALUES (@id_livraison,@dateLivraison)";
+                            using (MySqlCommand cmdLivraison = new MySqlCommand(insertLivraisonQuery, connexion, transaction))
+                            {
+                                cmdLivraison.Parameters.AddWithValue("@id_livraison", idmaxlivraison);
+                                cmdLivraison.Parameters.AddWithValue("@dateLivraison", dateLivraison);
+                                cmdLivraison.ExecuteNonQuery();
+                            }
+                           
+
+                            // Insertion dans la table ligne_de_commande_
+                            string insertLigneQuery = @"
+                INSERT INTO ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande)
+                VALUES (@idLigne, @idLivraison, @idClient, @commande)";
+                            using (MySqlCommand cmdLigne = new MySqlCommand(insertLigneQuery, connexion, transaction))
+                            {
+                                cmdLigne.Parameters.AddWithValue("@idLigne", idmaxligne);
+                                cmdLigne.Parameters.AddWithValue("@idLivraison", idmaxlivraison);
+                                cmdLigne.Parameters.AddWithValue("@idClient", idclient);
+                                cmdLigne.Parameters.AddWithValue("@commande", commande);
+                                cmdLigne.ExecuteNonQuery();
+                            }
+                            Console.WriteLine($"Ligne de commande {idmaxligne} insérée.");
+
+                            // 3) Demander le nombre de plats pour cette ligne
+                            Console.Write("Combien de plats pour cette ligne ? ");
+                            int nbPlats = int.Parse(Console.ReadLine());
+                            for (int j = 0; j < nbPlats; j++)
+                            {
+                                Console.Write($"ID du plat n°{j + 1} : ");
+                                int idPlat = int.Parse(Console.ReadLine());
+
+                                // Insertion dans la table inclue (association plat - ligne_de_commande_)
+                                string insertInclueQuery = @"
+                    INSERT INTO inclue (id, id_ligne_de_commande)
+                    VALUES (@idPlat, @idLigneCommande)";
+                                using (MySqlCommand cmdInclue = new MySqlCommand(insertInclueQuery, connexion, transaction))
+                                {
+                                    cmdInclue.Parameters.AddWithValue("@idPlat", idPlat);
+                                    cmdInclue.Parameters.AddWithValue("@idLigneCommande", idmaxligne);
+                                    cmdInclue.ExecuteNonQuery();
+                                }
+                                Console.WriteLine($"Plat #{idPlat} associé à la ligne de commande #{idmaxligne}.");
+                            }
+                        }
+
+                        // 4) Calculer et afficher le prix total de la commande
+                        string queryprixcommande = @"SELECT SUM(p.prix) AS prixtotal
+                                                    FROM commande co
+                                                    JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
+                                                    JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+                                                    JOIN plat p ON p.id = i.id
+                                                    WHERE co.commande = @commande;";
+                        using (MySqlCommand commandeprix = new MySqlCommand(queryprixcommande, connexion, transaction))
+                        {
+                            commandeprix.Parameters.AddWithValue("@commande", commande);
+                            object result = commandeprix.ExecuteScalar();
+                            if (result != DBNull.Value)
+                            {
+                                decimal prixtotal = Convert.ToDecimal(result);
+                                Console.WriteLine($"Prix total de la commande #{commande} : {prixtotal}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Aucun plat trouvé pour cette commande.");
+                            }
+                        }
+
+                        transaction.Commit();
+                        Console.WriteLine("Transaction commitée.");
+                    }
+                    break;
+
+
             }
+
 
         }
         static private void supprselection()
