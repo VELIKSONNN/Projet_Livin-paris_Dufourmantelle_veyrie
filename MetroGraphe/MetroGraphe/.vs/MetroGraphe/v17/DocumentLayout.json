@@ -3,15 +3,10 @@
   "WorkspaceRootPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9F725499-C020-4F60-915B-E705C4BAA854}|..\\TestProject1\\TestProject1.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\testproject1\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\rendu2livinparis_dufourmantelle_veyrie.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:rendu2livinparis_dufourmantelle_veyrie.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\TestProject1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{9F725499-C020-4F60-915B-E705C4BAA854}|..\\TestProject1\\TestProject1.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\testproject1\\testproject1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,45 +16,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Graphe.cs",
-              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Graphe.cs",
-              "RelativeDocumentMoniker": "Graphe.cs",
-              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Graphe.cs",
-              "RelativeToolTip": "Graphe.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T14:57:42.147Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Rendu2livinparis_dufourmantelle_veyrie.csproj",
-              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
-              "RelativeDocumentMoniker": "Rendu2livinparis_dufourmantelle_veyrie.csproj",
-              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
-              "RelativeToolTip": "Rendu2livinparis_dufourmantelle_veyrie.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-04T14:54:30.915Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TestProject1.csproj",
+              "Title": "TestProject1",
               "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\TestProject1.csproj",
               "RelativeDocumentMoniker": "..\\TestProject1\\TestProject1.csproj",
               "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\TestProject1.csproj",
               "RelativeToolTip": "..\\TestProject1\\TestProject1.csproj",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-04T14:38:14.197Z"
+              "WhenOpened": "2025-04-04T14:38:14.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "..\\TestProject1\\UnitTest1.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\UnitTest1.cs",
+              "RelativeToolTip": "..\\TestProject1\\UnitTest1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T14:21:31.749Z",
+              "EditorCaption": ""
             }
           ]
         }
