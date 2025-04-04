@@ -1,31 +1,21 @@
-﻿using MetroGraphe;
-
-public class Graphe<T>
+﻿using livinparis_dufourmantelle_veyrie;
+namespace livinparis_dufourmantelle_veyrie
 {
-    public List<Noeud<T>> Noeuds { get; set; }
-    public List<Lien<T>> Liens { get; set; }
-    public List<Lien<T>>[] ListeAdjacente;
-
-    public Graphe(List<Noeud<T>> noeuds, List<Lien<T>> liens)
+    public class Graphe<T>
     {
-        Noeuds = noeuds;
-        Liens = liens;
+        public List<Noeud<T>> Noeuds { get; set; }
+        public List<Lien<T>> Liens { get; set; }
+        public List<Lien<T>>[] ListeAdjacente;
 
-        int maxId = Convert.ToInt32(Noeuds.Max(n => Convert.ToInt32(n.ID))) + 1;
-        ListeAdjacente = new List<Lien<T>>[maxId];
-
-        for (int i = 0; i < ListeAdjacente.Length; i++)
+        public Graphe(List<Noeud<T>> noeuds, List<Lien<T>> liens)
         {
-            ListeAdjacente[i] = new List<Lien<T>>();
-        }
+            Noeuds = noeuds;
+            Liens = liens;
 
-        foreach (var lien in Liens)
-        {
-            int index = Convert.ToInt32(lien.Source.ID);
-            ListeAdjacente[index].Add(lien);
-        }
-    }
+            int maxId = Convert.ToInt32(Noeuds.Max(n => Convert.ToInt32(n.ID))) + 1;
+            ListeAdjacente = new List<Lien<T>>[maxId];
 
+<<<<<<< Updated upstream
     public void AjouterLien(Lien<T> lien)
     {
         Liens.Add(lien);
@@ -97,10 +87,30 @@ public class Graphe<T>
 
             courant = predecesseur[courant];
         }
+=======
+            for (int i = 0; i < ListeAdjacente.Length; i++)
+            {
+                ListeAdjacente[i] = new List<Lien<T>>();
+            }
 
-        return chemin;
-    }
+            foreach (var lien in Liens)
+            {
+                int index = Convert.ToInt32(lien.Source.ID);
+                ListeAdjacente[index].Add(lien);
+            }
+        }
 
+        public void AjouterLien(Lien<T> lien)
+        {
+            Liens.Add(lien);
+            int index = Convert.ToInt32(lien.Source.ID);
+            ListeAdjacente[index].Add(lien);
+        }
+
+>>>>>>> Stashed changes
+
+
+<<<<<<< Updated upstream
 
     public List<Noeud<T>> BellmanFord(Noeud<T> depart, Noeud<T> arrivee)
     {
@@ -109,10 +119,59 @@ public class Graphe<T>
         int[] predecesseur = new int[n];
 
         for (int i = 0; i < n; i++)
+=======
+        public List<Noeud<T>> Dijkstra(Noeud<T> depart, Noeud<T> arrivee)
+>>>>>>> Stashed changes
         {
-            distance[i] = double.MaxValue;
-            predecesseur[i] = -1;
+            var distances = new Dictionary<T, double>();
+            var precedent = new Dictionary<T, Noeud<T>>();
+            var nonVisites = new List<Noeud<T>>(Noeuds);
+
+            foreach (var noeud in Noeuds)
+                distances[noeud.ID] = double.MaxValue;
+
+            distances[depart.ID] = 0;
+
+            while (nonVisites.Count > 0)
+            {
+                // Sélection du nœud avec la plus petite distance
+                var noeudActuel = nonVisites.OrderBy(n => distances[n.ID]).First();
+                nonVisites.Remove(noeudActuel);
+                while (arrivee != null)
+                {
+                    if (noeudActuel.ID.Equals(arrivee.ID))
+                        break;
+                }
+
+                foreach (var lien in ListeAdjacente[Convert.ToInt32(noeudActuel.ID)])
+                {
+                    var voisin = lien.Destination;
+                    double tentative = distances[noeudActuel.ID] + lien.Distancesuivant;
+
+                    if (tentative < distances[voisin.ID])
+                    {
+                        distances[voisin.ID] = tentative;
+                        precedent[voisin.ID] = noeudActuel;
+                    }
+                }
+            }
+
+            // Reconstruction du chemin
+            var chemin = new List<Noeud<T>>();
+            var courant = arrivee;
+
+            while (courant != null && precedent.ContainsKey(courant.ID))
+            {
+                chemin.Insert(0, courant);
+                courant = precedent[courant.ID];
+            }
+
+            if (courant != null && courant.ID.Equals(depart.ID))
+                chemin.Insert(0, depart);
+
+            return chemin;
         }
+<<<<<<< Updated upstream
        
        
             distance[Convert.ToInt32(depart.ID)] = 0;
@@ -120,7 +179,43 @@ public class Graphe<T>
 
         // Relaxation des arêtes n - 1 fois
         for (int k = 0; k < n - 1; k++)
+=======
+
+        public List<Noeud<T>> BellmanFord(Noeud<T> depart, Noeud<T> arrivee)
+>>>>>>> Stashed changes
         {
+            int n = ListeAdjacente.Length;
+            double[] distance = new double[n];
+            int[] predecesseur = new int[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                distance[i] = double.MaxValue;
+                predecesseur[i] = -1;
+            }
+
+            distance[Convert.ToInt32(depart.ID)] = 0;
+
+            // Relaxation des arêtes n - 1 fois
+            for (int k = 0; k < n - 1; k++)
+            {
+                for (int u = 0; u < n; u++)
+                {
+                    foreach (var lien in ListeAdjacente[u])
+                    {
+                        int v = Convert.ToInt32(lien.Destination.ID);
+                        double poids = lien.Distancesuivant;
+
+                        if (distance[u] != double.MaxValue && distance[u] + poids < distance[v])
+                        {
+                            distance[v] = distance[u] + poids;
+                            predecesseur[v] = u;
+                        }
+                    }
+                }
+            }
+
+            // Détection de cycle de poids négatif
             for (int u = 0; u < n; u++)
             {
                 foreach (var lien in ListeAdjacente[u])
@@ -130,38 +225,22 @@ public class Graphe<T>
 
                     if (distance[u] != double.MaxValue && distance[u] + poids < distance[v])
                     {
-                        distance[v] = distance[u] + poids;
-                        predecesseur[v] = u;
+                        throw new InvalidOperationException("Le graphe contient un cycle de poids négatif.");
                     }
                 }
             }
-        }
 
-        // Détection de cycle de poids négatif
-        for (int u = 0; u < n; u++)
-        {
-            foreach (var lien in ListeAdjacente[u])
+            // Construction du chemin
+            List<Noeud<T>> chemin = new List<Noeud<T>>();
+            int current = Convert.ToInt32(arrivee.ID);
+            while (current != -1)
             {
-                int v = Convert.ToInt32(lien.Destination.ID);
-                double poids = lien.Distancesuivant;
-
-                if (distance[u] != double.MaxValue && distance[u] + poids < distance[v])
-                {
-                    throw new InvalidOperationException("Le graphe contient un cycle de poids négatif.");
-                }
+                chemin.Insert(0, Noeuds.First(n => Convert.ToInt32(n.ID).Equals(current)));
+                current = predecesseur[current];
             }
+
+            return chemin;
         }
 
-        // Construction du chemin
-        List<Noeud<T>> chemin = new List<Noeud<T>>();
-        int current = Convert.ToInt32(arrivee.ID);
-        while (current != -1)
-        {
-            chemin.Insert(0, Noeuds.First(n => Convert.ToInt32(n.ID).Equals(current)));
-            current = predecesseur[current];
-        }
-
-        return chemin;
     }
-
 }

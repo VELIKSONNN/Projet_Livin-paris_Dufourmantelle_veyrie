@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace MetroGraphe
+using livinparis_dufourmantelle_veyrie;
+namespace livinparis_dufourmantelle_veyrie
 {
-    
-        public class Lien<T>
+
+    public class Lien<T>
         {
             public Noeud<T> Source { get; set; }
             public Noeud<T> Destination { get; set; }

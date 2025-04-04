@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj": {}
+    "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj": {
+    "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj",
+        "projectUniqueName": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj",
         "projectName": "MetroGraphe",
-        "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj",
-        "packagesPath": "C:\\Users\\joach\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\obj\\",
+        "projectPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj",
+        "packagesPath": "C:\\Users\\enfants\\.nuget\\packages\\",
+        "outputPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\joach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\enfants\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[3.7.0, )"
             },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.2.0, )"
+            },
             "SkiaSharp": {
               "target": "Package",
               "version": "[3.116.1, )"
@@ -70,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
