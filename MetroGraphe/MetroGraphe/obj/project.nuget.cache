@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "0WqLzzvFqzJleNaNjAFiKvH7AXzUDH9rdx8e1xp61X01mlTLc9jO2IJucurCen/XUvOk5XvPGU3gxDJ8LmLpTA==",
+  "dgSpecHash": "BVyGnXqoWYknrwTZsoInSKwVho++jcwnzL4fIcq6oaHVAWJxaOXBISz2EJOt05hBEnBtQqAGQuZ2gXXtACnWHw==",
   "success": true,
-  "projectFilePath": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\MetroGraphe.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\enfants\\.nuget\\packages\\exceldatareader\\3.7.0\\exceldatareader.3.7.0.nupkg.sha512",
+    "C:\\Users\\enfants\\.nuget\\packages\\skiasharp\\3.116.1\\skiasharp.3.116.1.nupkg.sha512",
+    "C:\\Users\\enfants\\.nuget\\packages\\skiasharp.nativeassets.macos\\3.116.1\\skiasharp.nativeassets.macos.3.116.1.nupkg.sha512",
+    "C:\\Users\\enfants\\.nuget\\packages\\skiasharp.nativeassets.win32\\3.116.1\\skiasharp.nativeassets.win32.3.116.1.nupkg.sha512"
+  ],
   "logs": []
 }

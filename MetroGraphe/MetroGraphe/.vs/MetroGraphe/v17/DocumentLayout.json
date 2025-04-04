@@ -1,25 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\",
+  "WorkspaceRootPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|solutionrelative:noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|solutionrelative:graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\visualisation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\visualisation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|solutionrelative:visualisation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|MetroGraphe.csproj|solutionrelative:lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -36,35 +36,33 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Visualisation.cs",
-              "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Visualisation.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Visualisation.cs",
               "RelativeDocumentMoniker": "Visualisation.cs",
-              "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Visualisation.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Visualisation.cs",
               "RelativeToolTip": "Visualisation.cs",
               "ViewState": "AQIAAC4AAAAAAAAAAAAmwHkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T15:59:10.697Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-01T15:59:10.697Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Graphe.cs",
-              "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Graphe.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Graphe.cs",
               "RelativeDocumentMoniker": "Graphe.cs",
-              "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Graphe.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Graphe.cs",
               "RelativeToolTip": "Graphe.cs",
               "ViewState": "AQIAAAEAAAAAAAAAAADwvwQAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T16:04:37.78Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-29T16:04:37.78Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Noeud.cs",
-              "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Noeud.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Noeud.cs",
               "RelativeDocumentMoniker": "Noeud.cs",
-              "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Noeud.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Noeud.cs",
               "RelativeToolTip": "Noeud.cs",
               "ViewState": "AQIAAAcAAAAAAAAAAAAuwBUAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -75,27 +73,25 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Lien.cs",
-              "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Lien.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Lien.cs",
               "RelativeDocumentMoniker": "Lien.cs",
-              "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Lien.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Lien.cs",
               "RelativeToolTip": "Lien.cs",
               "ViewState": "AQIAAAQAAAAAAAAAAAAiwBgAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T16:04:01.697Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-29T16:04:01.697Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Program.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Program.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T16:03:31.659Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-29T16:03:31.659Z"
             }
           ]
         }
