@@ -97,21 +97,57 @@ class Program
                 }
             }
         }
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-        var graphe = new Graphe<int>(noeuds, liens);
+        var idToName = new Dictionary<int, string>();
 
-        Console.WriteLine($"✅ Graphe initialisé : {graphe.Noeuds.Count} stations, {graphe.Liens.Count} liens");
+        using (var stream = File.Open("Liens_corrige.xlsx", FileMode.Open, FileAccess.Read))
+        using (var reader = ExcelReaderFactory.CreateReader(stream))
+        {
+            reader.Read(); // skip header
+            while (reader.Read())
+            {
+                int id = Convert.ToInt32(reader.GetDouble(0));
+                string nom = reader.GetString(1);
 
-        string nomDepart = "Station 7";
-        string nomArrivee = "Station 19";
-        var depart = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomDepart);
-        var arrivee = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomArrivee);
+                if (!idToName.ContainsKey(id))
+                    idToName[id] = nom;
+            }
+        }
 
-        var cheminDijkstra = graphe.Dijkstra(depart, arrivee);
-        foreach (var station in cheminDijkstra)
-            Console.WriteLine($"{station.ID} - {station.NOM}");
+        while (true)
+        {
+            Console.Write("Entrez l'ID de la station (ou 'exit') : ");
+            string input = Console.ReadLine();
+            if (input.ToLower() == "exit") break;
 
-        var visu = new Visualisation<int>(graphe, cheminDijkstra);
-        visu.Dessiner("reseau_metro.png");
+            if (int.TryParse(input, out int idRecherche))
+            {
+                if (idToName.TryGetValue(idRecherche, out string nomStation))
+                    Console.WriteLine($"🧭 Station {idRecherche} = \"{nomStation}\"");
+                else
+                    Console.WriteLine(" ID non trouvé !");
+            }
+            else
+            {
+                Console.WriteLine(" Entrez un entier valide.");
+            }
+
+            var graphe = new Graphe<int>(noeuds, liens);
+
+            Console.WriteLine($"✅ Graphe initialisé : {graphe.Noeuds.Count} stations, {graphe.Liens.Count} liens");
+
+            string nomDepart = "Station 7";
+            string nomArrivee = "Station 19";
+            var depart = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomDepart);
+            var arrivee = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomArrivee);
+
+            var cheminDijkstra = graphe.Dijkstra(depart, arrivee);
+            foreach (var station in cheminDijkstra)
+                Console.WriteLine($"{station.ID} - {station.NOM}");
+
+            var visu = new Visualisation<int>(graphe, cheminDijkstra);
+            visu.Dessiner("reseau_metro.png");
+        }
     }
 }
