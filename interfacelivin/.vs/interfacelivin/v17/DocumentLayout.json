@@ -35,8 +35,7 @@
               "ViewState": "AQIAAAYAAAAAAAAAAAAAACEAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-01T23:29:22.06Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -48,8 +47,7 @@
               "RelativeToolTip": "interfaceuser.cs",
               "ViewState": "AQIAADoBAAAAAAAAAAAmwE4BAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T15:28:02.854Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-02T15:28:02.854Z"
             },
             {
               "$type": "Document",
@@ -59,7 +57,7 @@
               "RelativeDocumentMoniker": "statistiques.cs",
               "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\interfacelivin\\statistiques.cs",
               "RelativeToolTip": "statistiques.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAoAAAAFAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-02T10:53:07.315Z",
               "EditorCaption": ""
