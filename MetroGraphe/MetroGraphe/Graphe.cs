@@ -51,9 +51,10 @@ public class Graphe<T>
             // Sélection du nœud avec la plus petite distance
             var noeudActuel = nonVisites.OrderBy(n => distances[n.ID]).First();
             nonVisites.Remove(noeudActuel);
-
+            while (arrivee != null) { 
             if (noeudActuel.ID.Equals(arrivee.ID))
                 break;
+        }
 
             foreach (var lien in ListeAdjacente[Convert.ToInt32(noeudActuel.ID)])
             {

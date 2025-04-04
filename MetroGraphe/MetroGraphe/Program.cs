@@ -67,15 +67,15 @@ class Program
                 }
 
                 double distance = 0;
-                if (!string.IsNullOrEmpty(distanceStr) && double.TryParse(distanceStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var d))
+                if (!string.IsNullOrEmpty(distanceStr) && double.TryParse(distanceStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var d))  
                     distance = d;
 
                 if (int.TryParse(suivantStr, out int nextId))
                 {
                     if (!noeudsDict.ContainsKey(nextId))
                     {
-                        string nextNom = "Station " + nextId;
-                        var nextNode = new Noeud<int>(nextId, nextNom, latitude, longitude);
+                        
+                        var nextNode = new Noeud<int>(nextId, nom, latitude, longitude);
                         noeudsDict[nextId] = nextNode;
                         noeuds.Add(nextNode);
                     }
@@ -87,8 +87,8 @@ class Program
                 {
                     if (!noeudsDict.ContainsKey(prevId))
                     {
-                        string prevNom = "Station " + prevId;
-                        var prevNode = new Noeud<int>(prevId, prevNom, latitude, longitude);
+                       
+                        var prevNode = new Noeud<int>(prevId, nom, latitude, longitude);
                         noeudsDict[prevId] = prevNode;
                         noeuds.Add(prevNode);
                     }
@@ -115,39 +115,26 @@ class Program
             }
         }
 
-        while (true)
-        {
-            Console.Write("Entrez l'ID de la station (ou 'exit') : ");
-            string input = Console.ReadLine();
-            if (input.ToLower() == "exit") break;
-
-            if (int.TryParse(input, out int idRecherche))
-            {
-                if (idToName.TryGetValue(idRecherche, out string nomStation))
-                    Console.WriteLine($"🧭 Station {idRecherche} = \"{nomStation}\"");
-                else
-                    Console.WriteLine(" ID non trouvé !");
-            }
-            else
-            {
-                Console.WriteLine(" Entrez un entier valide.");
-            }
+        
+        
+        
 
             var graphe = new Graphe<int>(noeuds, liens);
 
             Console.WriteLine($"✅ Graphe initialisé : {graphe.Noeuds.Count} stations, {graphe.Liens.Count} liens");
 
-            string nomDepart = "Station 7";
-            string nomArrivee = "Station 19";
+            string nomDepart = "Châtelet";
+        string nomArrivee = "Denfert-Rochereau";
+        
             var depart = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomDepart);
             var arrivee = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomArrivee);
 
-            var cheminDijkstra = graphe.Dijkstra(depart, arrivee);
-            foreach (var station in cheminDijkstra)
+            var chemin = graphe.BellmanFord(depart, arrivee);
+            foreach (var station in chemin)
                 Console.WriteLine($"{station.ID} - {station.NOM}");
 
-            var visu = new Visualisation<int>(graphe, cheminDijkstra);
+            var visu = new Visualisation<int>(graphe, chemin);
             visu.Dessiner("reseau_metro.png");
         }
     }
-}
+

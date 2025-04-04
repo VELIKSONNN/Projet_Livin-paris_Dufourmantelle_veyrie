@@ -104,7 +104,10 @@ public class Visualisation<T>
 
             paintNoeud.Color = couleur;
             canvas.DrawCircle(pos, 10, paintNoeud);
-            canvas.DrawText(noeud.NOM, pos.X + 12, pos.Y - 12, paintTexte);
+            if (noeud != null && noeud.NOM != null)
+            {
+                canvas.DrawText(noeud.NOM, pos.X + 12, pos.Y - 12, paintTexte);
+            }
         }
 
         // Distance finale
