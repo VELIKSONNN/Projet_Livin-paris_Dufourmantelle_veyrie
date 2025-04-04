@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MetroGraphe")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+90091a2f7ab078d1d834af32bcdf7c6dd0ce1468")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+746e79fbca84f0b920235fa71b1db7ccc623b8e8")]
 [assembly: System.Reflection.AssemblyProductAttribute("MetroGraphe")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MetroGraphe")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

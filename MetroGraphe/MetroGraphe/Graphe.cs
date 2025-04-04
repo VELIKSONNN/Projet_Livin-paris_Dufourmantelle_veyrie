@@ -37,53 +37,70 @@ public class Graphe<T>
 
     public List<Noeud<T>> Dijkstra(Noeud<T> depart, Noeud<T> arrivee)
     {
-        var distances = new Dictionary<T, double>();
-        var precedent = new Dictionary<T, Noeud<T>>();
-        var nonVisites = new List<Noeud<T>>(Noeuds);
+        int n = ListeAdjacente.Length;
+        double[] distance = new double[n];
+        int[] predecesseur = new int[n];
+        bool[] visite = new bool[n];
 
-        foreach (var noeud in Noeuds)
-            distances[noeud.ID] = double.MaxValue;
-
-        distances[depart.ID] = 0;
-
-        while (nonVisites.Count > 0)
+        for (int i = 0; i < n; i++)
         {
-            // Sélection du nœud avec la plus petite distance
-            var noeudActuel = nonVisites.OrderBy(n => distances[n.ID]).First();
-            nonVisites.Remove(noeudActuel);
-            while (arrivee != null) { 
-            if (noeudActuel.ID.Equals(arrivee.ID))
-                break;
+            distance[i] = double.MaxValue;
+            predecesseur[i] = -1;
+            visite[i] = false;
         }
 
-            foreach (var lien in ListeAdjacente[Convert.ToInt32(noeudActuel.ID)])
-            {
-                var voisin = lien.Destination;
-                double tentative = distances[noeudActuel.ID] + lien.Distancesuivant;
+        int departId = Convert.ToInt32(depart.ID);
+        distance[departId] = 0;
 
-                if (tentative < distances[voisin.ID])
+        for (int count = 0; count < n - 1; count++)
+        {
+            /// Trouver le sommet non visité avec la plus petite distance
+            double min = double.MaxValue;
+            int u = -1;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (!visite[i] && distance[i] < min)
                 {
-                    distances[voisin.ID] = tentative;
-                    precedent[voisin.ID] = noeudActuel;
+                    min = distance[i];
+                    u = i;
+                }
+            }
+
+            if (u == -1) break; /// Aucun sommet accessible
+
+            visite[u] = true;
+
+            /// Mise à jour des distances pour les voisins de u
+            foreach (var lien in ListeAdjacente[u])
+            {
+                int v = Convert.ToInt32(lien.Destination.ID);
+                double poids = lien.Distancesuivant;
+
+                if (!visite[v] && distance[u] + poids < distance[v])
+                {
+                    distance[v] = distance[u] + poids;
+                    predecesseur[v] = u;
                 }
             }
         }
 
-        // Reconstruction du chemin
-        var chemin = new List<Noeud<T>>();
-        var courant = arrivee;
+        /// Construction du chemin
+        List<Noeud<T>> chemin = new List<Noeud<T>>();
+        int courant = Convert.ToInt32(arrivee.ID);
 
-        while (courant != null && precedent.ContainsKey(courant.ID))
+        while (courant != -1)
         {
-            chemin.Insert(0, courant);
-            courant = precedent[courant.ID];
-        }
+            var noeud = Noeuds.FirstOrDefault(n => Convert.ToInt32(n.ID).Equals(courant));
+            if (noeud != null)
+                chemin.Insert(0, noeud);
 
-        if (courant != null && courant.ID.Equals(depart.ID))
-            chemin.Insert(0, depart);
+            courant = predecesseur[courant];
+        }
 
         return chemin;
     }
+
 
     public List<Noeud<T>> BellmanFord(Noeud<T> depart, Noeud<T> arrivee)
     {
@@ -96,8 +113,10 @@ public class Graphe<T>
             distance[i] = double.MaxValue;
             predecesseur[i] = -1;
         }
-
-        distance[Convert.ToInt32(depart.ID)] = 0;
+       
+       
+            distance[Convert.ToInt32(depart.ID)] = 0;
+        
 
         // Relaxation des arêtes n - 1 fois
         for (int k = 0; k < n - 1; k++)

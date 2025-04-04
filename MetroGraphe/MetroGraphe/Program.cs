@@ -122,17 +122,26 @@ class Program
             var graphe = new Graphe<int>(noeuds, liens);
 
             Console.WriteLine($"✅ Graphe initialisé : {graphe.Noeuds.Count} stations, {graphe.Liens.Count} liens");
-
-            string nomDepart = "Châtelet";
-        string nomArrivee = "Denfert-Rochereau";
+        Console.WriteLine("quelle est la station de départ ?");
+            string nomDepart = Console.ReadLine();
+        Console.WriteLine("quelle est la station d'arrivée ?");
+        string nomArrivee = Console.ReadLine() ;
+        if (nomDepart == null || nomArrivee == null) {
+            Console.WriteLine("Station de départ ou d'arrivée  introuvable");
+                }
+        string nomDepart2 = "Jaurès";
+        string nomArrivee2 = "Duroc";
         
             var depart = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomDepart);
             var arrivee = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomArrivee);
+        var depart2 = graphe.Noeuds.FirstOrDefault(n => n.NOM == nomDepart2);
+        var arrivee2=graphe.Noeuds.FirstOrDefault(n=>n.NOM==nomDepart2);
 
             var chemin = graphe.BellmanFord(depart, arrivee);
+        var chemin2=graphe.Dijkstra(depart2, arrivee2);
             foreach (var station in chemin)
                 Console.WriteLine($"{station.ID} - {station.NOM}");
-
+     
             var visu = new Visualisation<int>(graphe, chemin);
             visu.Dessiner("reseau_metro.png");
         }
