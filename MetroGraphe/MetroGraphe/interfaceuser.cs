@@ -40,7 +40,11 @@ namespace livinparis_dufourmantelle_veyrie
         {
             Console.Clear();
             Console.WriteLine("Ouverture de l'interface admin");
+<<<<<<< Updated upstream
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande), supprimer un tuple '2', ou exectuer une query(stats) '3', simplement afficher une table '4' ou afficher directement un chemin le plus court pour une livraison? '5' ");
+=======
             Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande), supprimer un tuple '2', ou exectuer une query(stats) '3', simplement afficher une table '4' ou afficher directement un chemin le plus court pour une livraison?");
+>>>>>>> Stashed changes
             char actionprimaire = Convert.ToChar(Console.ReadLine());
             
             switch (actionprimaire)
