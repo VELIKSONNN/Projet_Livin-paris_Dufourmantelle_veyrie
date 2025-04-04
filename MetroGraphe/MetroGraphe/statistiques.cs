@@ -39,6 +39,10 @@ namespace livinparis_dufourmantelle_veyrie
 
             }
         }
+        /// <summary>
+        ///  query d'affiche des commandes selon une période
+        /// </summary>
+        /// <param name="connection"></param>
         static void AfficherCommandesParPeriode(MySqlConnection connection)
         {
 
@@ -133,6 +137,7 @@ namespace livinparis_dufourmantelle_veyrie
                 }
             }
         }
+
         static void AfficherCommandesClientParNationaliteEtPeriode(MySqlConnection connection)
         {
             Console.WriteLine("Quel est l'id du client ?");

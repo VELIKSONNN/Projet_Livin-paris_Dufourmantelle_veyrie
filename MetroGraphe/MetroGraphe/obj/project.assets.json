@@ -1800,19 +1800,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\joach\\.nuget\\packages\\": {}
+    "C:\\Users\\enfants\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
+      "projectUniqueName": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
       "projectName": "Rendu2livinparis_dufourmantelle_veyrie",
-      "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
-      "packagesPath": "C:\\Users\\joach\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\obj\\",
+      "projectPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
+      "packagesPath": "C:\\Users\\enfants\\.nuget\\packages\\",
+      "outputPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\joach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\enfants\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1872,7 +1872,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -41,7 +41,6 @@ namespace livinparis_dufourmantelle_veyrie
             Console.Clear();
             Console.WriteLine("Ouverture de l'interface admin");
 
-            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande), supprimer un tuple '2', ou exectuer une query(stats) '3', simplement afficher une table '4' ou afficher directement un chemin le plus court pour une livraison? '5' ");
 
             Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande), supprimer un tuple '2', ou exectuer une query(stats) '3', simplement afficher une table '4' ou afficher directement un chemin le plus court pour une livraison?");
 
@@ -205,10 +204,10 @@ namespace livinparis_dufourmantelle_veyrie
                         command.Parameters.AddWithValue("@Mdp", mdp);
                         command.ExecuteNonQuery();
                     }
-                        string insertQuery2 = @"INSERT INTO cuisinier(id_client, id) VALUES (@id,@id)";
+                        string insertQuery2 = @"INSERT INTO cuisinier(id_cuisinier, id) VALUES (@id,@id)";
                     using (MySqlCommand command = new MySqlCommand(insertQuery2, connexion))
                     {
-                        command.Parameters.AddWithValue("@id_client", id);
+                        command.Parameters.AddWithValue("@id_cuisinier", id);
                         command.Parameters.AddWithValue("@id", id);
                         command.ExecuteNonQuery();
                     }
@@ -619,6 +618,16 @@ namespace livinparis_dufourmantelle_veyrie
             Console.WriteLine(" élément supprimer !");
             
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connexion"></param>
+        /// <param name="databaseName"></param>
+        /// <param name="tableName"></param>
+        /// <param name="constraintName"></param>
+        /// <param name="foreignKeyColumn"></param>
+        /// <param name="referencedTable"></param>
+        /// <param name="referencedColumn"></param>
         public static void EnsureForeignKeyConstraint(MySqlConnection connexion,string databaseName,string tableName,string constraintName,string foreignKeyColumn,string referencedTable,string referencedColumn)
         {
             // Requête pour vérifier si la contrainte existe déjà

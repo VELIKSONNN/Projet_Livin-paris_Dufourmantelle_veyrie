@@ -51,6 +51,7 @@ namespace livinparis_dufourmantelle_veyrie
         /// <summary>
         /// Ajoute un lien au graphe et met à jour la liste d’adjacence.
         /// </summary>
+        
         public void AjouterLien(Lien<T> lien)
         {
             Liens.Add(lien);
