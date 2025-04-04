@@ -1,8 +1,12 @@
+<<<<<<< Updated upstream
 ﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
+=======
+﻿using livinparis_dufourmantelle_veyrie;
+>>>>>>> Stashed changes
 namespace livinparis_dufourmantelle_veyrie
 {
     public class Graphe<T>
@@ -16,17 +20,26 @@ namespace livinparis_dufourmantelle_veyrie
             Noeuds = noeuds;
             Liens = liens;
 
+<<<<<<< Updated upstream
             // Calcul de la taille maximale pour la liste d’adjacence
             int maxId = Convert.ToInt32(Noeuds.Max(n => Convert.ToInt32(n.ID))) + 1;
             ListeAdjacente = new List<Lien<T>>[maxId];
 
             // Initialisation de chaque sous-liste
+=======
+            int maxId = Convert.ToInt32(Noeuds.Max(n => Convert.ToInt32(n.ID))) + 1;
+            ListeAdjacente = new List<Lien<T>>[maxId];
+
+>>>>>>> Stashed changes
             for (int i = 0; i < ListeAdjacente.Length; i++)
             {
                 ListeAdjacente[i] = new List<Lien<T>>();
             }
 
+<<<<<<< Updated upstream
             // Peuplement de la structure d’adjacence
+=======
+>>>>>>> Stashed changes
             foreach (var lien in Liens)
             {
                 int index = Convert.ToInt32(lien.Source.ID);
@@ -41,6 +54,7 @@ namespace livinparis_dufourmantelle_veyrie
             ListeAdjacente[index].Add(lien);
         }
 
+<<<<<<< Updated upstream
         /// <summary>
         /// Algorithme de Dijkstra (version array-based)
         /// </summary>
@@ -91,12 +105,48 @@ namespace livinparis_dufourmantelle_veyrie
                     {
                         distance[v] = distance[u] + poids;
                         predecesseur[v] = u;
+=======
+
+
+        public List<Noeud<T>> Dijkstra(Noeud<T> depart, Noeud<T> arrivee)
+        {
+            var distances = new Dictionary<T, double>();
+            var precedent = new Dictionary<T, Noeud<T>>();
+            var nonVisites = new List<Noeud<T>>(Noeuds);
+
+            foreach (var noeud in Noeuds)
+                distances[noeud.ID] = double.MaxValue;
+
+            distances[depart.ID] = 0;
+
+            while (nonVisites.Count > 0)
+            {
+                // Sélection du nœud avec la plus petite distance
+                var noeudActuel = nonVisites.OrderBy(n => distances[n.ID]).First();
+                nonVisites.Remove(noeudActuel);
+                while (arrivee != null)
+                {
+                    if (noeudActuel.ID.Equals(arrivee.ID))
+                        break;
+                }
+
+                foreach (var lien in ListeAdjacente[Convert.ToInt32(noeudActuel.ID)])
+                {
+                    var voisin = lien.Destination;
+                    double tentative = distances[noeudActuel.ID] + lien.Distancesuivant;
+
+                    if (tentative < distances[voisin.ID])
+                    {
+                        distances[voisin.ID] = tentative;
+                        precedent[voisin.ID] = noeudActuel;
+>>>>>>> Stashed changes
                     }
                 }
             }
 
             // Reconstruction du chemin
             var chemin = new List<Noeud<T>>();
+<<<<<<< Updated upstream
             int actuel = Convert.ToInt32(arrivee.ID);
 
             while (actuel != -1)
@@ -115,13 +165,32 @@ namespace livinparis_dufourmantelle_veyrie
         /// <summary>
         /// Algorithme de Bellman-Ford
         /// </summary>
+=======
+            var courant = arrivee;
+
+            while (courant != null && precedent.ContainsKey(courant.ID))
+            {
+                chemin.Insert(0, courant);
+                courant = precedent[courant.ID];
+            }
+
+            if (courant != null && courant.ID.Equals(depart.ID))
+                chemin.Insert(0, depart);
+
+            return chemin;
+        }
+
+>>>>>>> Stashed changes
         public List<Noeud<T>> BellmanFord(Noeud<T> depart, Noeud<T> arrivee)
         {
             int n = ListeAdjacente.Length;
             double[] distance = new double[n];
             int[] predecesseur = new int[n];
 
+<<<<<<< Updated upstream
             // Initialisation
+=======
+>>>>>>> Stashed changes
             for (int i = 0; i < n; i++)
             {
                 distance[i] = double.MaxValue;
@@ -130,7 +199,11 @@ namespace livinparis_dufourmantelle_veyrie
 
             distance[Convert.ToInt32(depart.ID)] = 0;
 
+<<<<<<< Updated upstream
             // Relaxation des arêtes n-1 fois
+=======
+            // Relaxation des arêtes n - 1 fois
+>>>>>>> Stashed changes
             for (int k = 0; k < n - 1; k++)
             {
                 for (int u = 0; u < n; u++)
@@ -165,6 +238,7 @@ namespace livinparis_dufourmantelle_veyrie
             }
 
             // Construction du chemin
+<<<<<<< Updated upstream
             var resultat = new List<Noeud<T>>();
             int current = Convert.ToInt32(arrivee.ID);
             while (current != -1)
@@ -181,3 +255,18 @@ namespace livinparis_dufourmantelle_veyrie
         }
     }
 }
+=======
+            List<Noeud<T>> chemin = new List<Noeud<T>>();
+            int current = Convert.ToInt32(arrivee.ID);
+            while (current != -1)
+            {
+                chemin.Insert(0, Noeuds.First(n => Convert.ToInt32(n.ID).Equals(current)));
+                current = predecesseur[current];
+            }
+
+            return chemin;
+        }
+
+    }
+}
+>>>>>>> Stashed changes
