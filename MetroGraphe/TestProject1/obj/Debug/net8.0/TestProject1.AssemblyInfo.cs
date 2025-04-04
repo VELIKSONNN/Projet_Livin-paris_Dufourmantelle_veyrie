@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Rendu2livinparis_dufourmantelle_veyrie")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("TestProject1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b93f42fbea81d8d59ca10d9a1b2324f5142eb7c")]
-[assembly: System.Reflection.AssemblyProductAttribute("Rendu2livinparis_dufourmantelle_veyrie")]
-[assembly: System.Reflection.AssemblyTitleAttribute("Rendu2livinparis_dufourmantelle_veyrie")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b216dd580d8752969f59da2398ae22a090dc95ae")]
+[assembly: System.Reflection.AssemblyProductAttribute("TestProject1")]
+[assembly: System.Reflection.AssemblyTitleAttribute("TestProject1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Généré par la classe MSBuild WriteCodeFragment.
