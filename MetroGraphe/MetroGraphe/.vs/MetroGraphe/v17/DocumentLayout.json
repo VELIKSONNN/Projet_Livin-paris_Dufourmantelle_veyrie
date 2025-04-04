@@ -48,7 +48,7 @@
               "RelativeDocumentMoniker": "statistiques.cs",
               "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\statistiques.cs",
               "RelativeToolTip": "statistiques.cs",
-              "ViewState": "AQIAAM8AAAAAAAAAAAAmwPQAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAPQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-04T14:07:04.296Z",
               "EditorCaption": ""
@@ -61,7 +61,7 @@
               "RelativeDocumentMoniker": "interfaceuser.cs",
               "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\interfaceuser.cs",
               "RelativeToolTip": "interfaceuser.cs",
-              "ViewState": "AQIAAI4CAAAAAAAAAAAcwJkCAAAbAAAA",
+              "ViewState": "AQIAACMAAAAAAAAAAAAwwDMAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-04T14:07:02.716Z",
               "EditorCaption": ""
@@ -100,8 +100,7 @@
               "RelativeToolTip": "Graphe.cs",
               "ViewState": "AQIAAFgAAAAAAAAAAAAcwDUAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T13:28:21.054Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-04T13:28:21.054Z"
             },
             {
               "$type": "Document",
@@ -125,8 +124,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAK0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T13:28:21.058Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-04T13:28:21.058Z"
             }
           ]
         }
