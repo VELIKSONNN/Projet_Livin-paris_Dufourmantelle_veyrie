@@ -402,9 +402,10 @@ namespace livinparis_dufourmantelle_veyrie
                             }
                         }
 
-                        transaction.Commit();
+                        
                         recupdépartarrivé(commande);
                         Console.WriteLine("Transaction commitée.");
+                        transaction.Commit();
                     }
                     break;
             }

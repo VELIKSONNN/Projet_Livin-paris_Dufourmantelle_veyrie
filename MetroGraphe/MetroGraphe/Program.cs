@@ -139,7 +139,7 @@ namespace livinparis_dufourmantelle_veyrie
 
             var graphe = creationgraphe();
             Console.WriteLine($"✅ Graphe initialisé : {graphe.Noeuds.Count} stations, {graphe.Liens.Count} liens");
-
+         //   affichechemincuisinier("Concorde", "Nation", graphe);
             // Ici, d'autres appels peuvent être faits si besoin
         }
 
