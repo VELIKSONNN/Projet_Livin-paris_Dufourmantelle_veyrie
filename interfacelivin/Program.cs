@@ -12,41 +12,32 @@ namespace interfacelivin
     {
         static void Main(string[] args)
         {
-            
-                string connectionString = "server=127.0.0.1;user=root;password=Sabrelaser00;database=baselivinparis";
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    try
-                    {
-                        connection.Open();
-                        Console.WriteLine("Connexion réussie !");
-                    /*
-                        string query = "SELECT id, Prenom, email FROM utilisateur ";
+            #region connexion
+            MySqlConnection connexion = null;
+            try
+            {
+                string connexionString = "SERVER=localhost;PORT=3306;" +
+                                         "DATABASE=baselivinparis;" +
+                                         "user=root;PASSWORD=Sabrelaser00";
 
-                        using (MySqlCommand command = new MySqlCommand(query, connection))
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            Console.WriteLine("📋 Résultats :");
-                            while (reader.Read())
-                            {
-                                Console.WriteLine($"ID: {reader["id"]}, Prenom: {reader["Prenom"]}, Email: {reader["email"]}");
-                            }
-                        }*/
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(" Erreur : " + ex.Message);
-                    }
-                Console.WriteLine("Fin du programme.");
+                connexion = new MySqlConnection(connexionString);
+                connexion.Open();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                return;
+            }
+            #endregion
+
             
-            Console.ReadKey();
             Console.Clear();
-            interfaceuser interface1 = new interfaceuser(connection);
-                }
+            interfaceuser interface1 = new interfaceuser(connexion);
+            }
 
                 
         }
         
-     }
- }
+}
+ 
