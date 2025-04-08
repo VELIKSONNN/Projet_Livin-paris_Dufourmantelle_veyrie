@@ -166,8 +166,8 @@ namespace livinparis_dufourmantelle_veyrie
 
                     using (var transaction = connexion.BeginTransaction())
                     {
-                        string insertQuery = @"
-                            INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
+                        string insertQuery = @$"
+                            INSERT INTO utilisateur ( Prenom, email, tel, adresse, entreprise, Nom, mdp)
                             VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
 
                         using (MySqlCommand command = new MySqlCommand(insertQuery, connexion, transaction))
