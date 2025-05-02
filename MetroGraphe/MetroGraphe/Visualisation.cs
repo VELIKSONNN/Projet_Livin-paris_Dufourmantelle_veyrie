@@ -3,18 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using livinparis_dufourmantelle_veyrie;
+using livinparis_dufourmantelle_veyrie; 
 namespace livinparis_dufourmantelle_veyrie
 {
     public class Visualisation<T>
     {
         private readonly Graphe<T> _graphe;
         private readonly List<Noeud<T>> _chemin;
+        Dictionary<Noeud<T>, int> coloration;
 
-        public Visualisation(Graphe<T> graphe, List<Noeud<T>> chemin = null)
+        public Visualisation(Graphe<T> graphe, List<Noeud<T>> chemin = null, Dictionary<Noeud<T>, int> coloration = null)
         {
             _graphe = graphe;
             _chemin = chemin;
+            this.coloration = coloration;
         }
 
         public void Dessiner(string filePath)
@@ -92,25 +94,22 @@ namespace livinparis_dufourmantelle_veyrie
             {
                 var pos = positions[noeud.ID];
 
-                SKColor couleur = SKColors.Black;
-                if (noeud.Lignes.Count > 0)
-                {
-                    int ligne = noeud.Lignes.First();
-                    if (!ligneCouleurs.ContainsKey(ligne))
-                    {
-                        ligneCouleurs[ligne] = couleurs[ligneIndex % couleurs.Length];
-                        ligneIndex++;
-                    }
-                    couleur = ligneCouleurs[ligne];
-                }
+                // 1) On cherche l'indice de couleur pour ce noeud
+                int idxCouleur = 0;
+                if (coloration.TryGetValue(noeud, out int c))
+                    idxCouleur = c;
 
-                paintNoeud.Color = couleur;
+                // 2) On choisi la couleur dans la palette (modulo si nécessaire)
+                paintNoeud.Color = couleurs[idxCouleur % couleurs.Length];
+
+                // 3) On dessine le cercle
                 canvas.DrawCircle(pos, 10, paintNoeud);
-                if (noeud != null && noeud.NOM != null)
-                {
+
+                // 4) Optionnel : nom du noeud
+                if (!string.IsNullOrEmpty(noeud.NOM))
                     canvas.DrawText(noeud.NOM, pos.X + 12, pos.Y - 12, paintTexte);
-                }
             }
+
 
             // Distance finale
             if (_chemin != null && _chemin.Count > 1)

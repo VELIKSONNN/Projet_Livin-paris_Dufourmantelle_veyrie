@@ -195,5 +195,46 @@ namespace livinparis_dufourmantelle_veyrie
 
             return resultat;
         }
+
+        /// <summary>
+        /// Colorie les nœuds du graphe selon l'algorithme de Welsh–Powell.
+        /// Retourne un dictionnaire mappant chaque nœud à un indice de couleur (0,1,2…).
+        /// </summary>
+        public Dictionary<Noeud<T>, int> ColorationWelshPowell()
+        {
+            // 1. Trier les nœuds par degré décroissant
+            var ordre = Noeuds
+                .OrderByDescending(n => ListeAdjacente[Convert.ToInt32(n.ID)].Count)
+                .ToList();
+
+            var couleurNoeud = new Dictionary<Noeud<T>, int>();
+            int couleurCourante = 0;
+
+            // 2. Tant qu'il reste des nœuds non colorés
+            while (ordre.Any())
+            {
+                // Liste des nœuds colorés à cette passe
+                var coloCetteCouleur = new List<Noeud<T>>();
+
+                foreach (var noeud in ordre.ToList())
+                {
+                    // Vérifier que ce noeud n'a pas de voisin déjà de la couleurCourante
+                    bool conflit = ListeAdjacente[Convert.ToInt32(noeud.ID)]
+                        .Select(l => l.Destination)
+                        .Any(v => coloCetteCouleur.Contains(v));
+
+                    if (!conflit)
+                    {
+                        couleurNoeud[noeud] = couleurCourante;
+                        coloCetteCouleur.Add(noeud);
+                        ordre.Remove(noeud);
+                    }
+                }
+
+                couleurCourante++;
+            }
+
+            return couleurNoeud;
+        }
     }
 }

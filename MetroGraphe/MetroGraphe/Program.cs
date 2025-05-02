@@ -135,10 +135,13 @@ namespace livinparis_dufourmantelle_veyrie
             #endregion
 
             Console.Clear();
+            
+            var graphe = creationgraphe();
+            Console.WriteLine($"Graphe initialisé : {graphe.Noeuds.Count} stations, {graphe.Liens.Count} liens");
+            
             interfaceuser interface1 = new interfaceuser(connexion);
 
-            var graphe = creationgraphe();
-            Console.WriteLine($"✅ Graphe initialisé : {graphe.Noeuds.Count} stations, {graphe.Liens.Count} liens");
+
          //   affichechemincuisinier("Concorde", "Nation", graphe);
             // Ici, d'autres appels peuvent être faits si besoin
         }
@@ -157,6 +160,7 @@ namespace livinparis_dufourmantelle_veyrie
                 return;
             }
 
+
             var chemin = graphe.BellmanFord(depart, arrivee);
 
             Console.WriteLine("Chemin trouvé :");
@@ -166,8 +170,18 @@ namespace livinparis_dufourmantelle_veyrie
             }
 
             // Visualisation graphique du chemin
-            var visu = new Visualisation<int>(graphe, chemin);
-            visu.Dessiner("reseau_metro.png");
+            var coloration = graphe.ColorationWelshPowell();
+
+            // 3. Informations
+            int nbCouleurs = coloration.Values.Max() + 1;
+            bool estBiparti = nbCouleurs <= 2;
+            bool estPlanaire = nbCouleurs <= 4;
+
+            var visu = new Visualisation<int>(graphe, chemin, coloration);
+            visu.Dessiner("metro_coloration.png");
+            Console.WriteLine($"Nombre minimal de couleurs : {nbCouleurs}");
+            Console.WriteLine($"Biparti : {estBiparti}");
+            Console.WriteLine($"Planaire (test par 4-couleurs) : {estPlanaire}");
         }
     }
 }

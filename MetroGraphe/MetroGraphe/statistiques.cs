@@ -20,6 +20,7 @@ namespace livinparis_dufourmantelle_veyrie
             {
                 case '1':
                     AfficherCommandesParPeriode(conn);
+
                     break;
                 case '2':
                     AfficherMoyennecommande(conn);
@@ -38,6 +39,7 @@ namespace livinparis_dufourmantelle_veyrie
                     break;
 
             }
+            
         }
         /// <summary>
         ///  query d'affiche des commandes selon une période
@@ -75,6 +77,7 @@ namespace livinparis_dufourmantelle_veyrie
                     }
                 }
             }
+            interfaceuser.adminInterface();
         }
 
         static void AfficherMoyennecommande(MySqlConnection connection)
@@ -105,6 +108,8 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine("Aucune commande trouvée.");
                 }
             }
+            interfaceuser.adminInterface();
+
         }
 
         static void AfficherMoyenneComptesClients(MySqlConnection connection)
@@ -136,6 +141,8 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine("Aucune commande trouvée.");
                 }
             }
+            interfaceuser.adminInterface();
+
         }
 
         static void AfficherCommandesClientParNationaliteEtPeriode(MySqlConnection connection)
@@ -185,6 +192,8 @@ namespace livinparis_dufourmantelle_veyrie
                     }
                 }
             }
+            interfaceuser.adminInterface();
+
         }
 
 
@@ -213,6 +222,8 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine($"Cuisinier #{idCuisinier} => {nbLivraisons} livraison(s).");
                 }
             }
+            interfaceuser.adminInterface();
+
         }
 
         public static void achatcumuléparclient(MySqlConnection connection)
@@ -237,7 +248,10 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine($"Client {clientId} : {montantTotal:C}");
                 }
             }
+            interfaceuser.adminInterface();
+
         }
+
 
     }
 }

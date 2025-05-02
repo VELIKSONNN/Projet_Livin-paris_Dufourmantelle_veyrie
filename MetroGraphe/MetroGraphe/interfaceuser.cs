@@ -42,6 +42,9 @@ namespace livinparis_dufourmantelle_veyrie
 
             if (identifiant == "" && motdepasse == "")
             {
+                Console.Clear();
+                Console.WriteLine("Ouverture de l'interface admin");
+                
                 adminInterface();
             }
         }
@@ -49,12 +52,10 @@ namespace livinparis_dufourmantelle_veyrie
         /// <summary>
         /// Ouvre l'interface administrateur et propose différentes actions.
         /// </summary>
-        static private void adminInterface()
+        static public void adminInterface()
         {
-            Console.Clear();
-            Console.WriteLine("Ouverture de l'interface admin");
 
-            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande), supprimer un tuple '2', ou exectuer une query(stats) '3', simplement afficher une table '4' ou afficher directement un chemin le plus court pour une livraison? '5' ");
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6'");
 
 
             char actionprimaire = Convert.ToChar(Console.ReadLine());
@@ -79,6 +80,10 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine("quelle est l'id de la commande dont vous voulez calcule le plus court chemins ? ");
                     int idcommande = int.Parse(Console.ReadLine());
                     recupdépartarrivé(idcommande);
+                    break;
+                case '6':
+                    Console.Clear();
+                    Console.WriteLine("Merci d'avoir utilisé livinParis et à très bientôt !!");
                     break;
             }
         }
@@ -154,7 +159,7 @@ namespace livinparis_dufourmantelle_veyrie
             switch (ajoutelement)
             {
                 case '1':
-                    Console.WriteLine("Veuillez fournir dans l'odre: Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise, le nom, et le mdp");
+                    Console.WriteLine("Veuillez fournir dans l'ordre et en appuyant sur entrée a chaque fois: Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise, le nom, et le mdp");
                     string Prenom = Convert.ToString(Console.ReadLine());
                     string email = Convert.ToString(Console.ReadLine());
                     int id = maxindice("utilisateur", "id") + 1;
@@ -191,7 +196,7 @@ namespace livinparis_dufourmantelle_veyrie
                     break;
 
                 case '2':
-                    Console.WriteLine("Veuillez fournir dans l'odre: Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise, le nom, et le mdp");
+                    Console.WriteLine("Veuillez fournir dans l'ordre et en appuyant sur entrée a chaque fois: Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise, le nom, et le mdp");
                     Prenom = Convert.ToString(Console.ReadLine());
                     email = Convert.ToString(Console.ReadLine());
                     id = maxindice("utilisateur", "id") + 1;
@@ -239,7 +244,7 @@ namespace livinparis_dufourmantelle_veyrie
                     break;
 
                 case '3':
-                    Console.WriteLine("Veuillez fournir dans l'odre: Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise, le nom, et le mdp");
+                    Console.WriteLine("Veuillez fournir dans l'ordre et en appuyant sur entrée a chaque fois: Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise, le nom, et le mdp");
                     Prenom = Convert.ToString(Console.ReadLine());
                     email = Convert.ToString(Console.ReadLine());
                     id = maxindice("utilisateur", "id") + 1;
@@ -409,6 +414,7 @@ namespace livinparis_dufourmantelle_veyrie
                     }
                     break;
             }
+            adminInterface();
         }
 
         /// <summary>
@@ -510,6 +516,7 @@ namespace livinparis_dufourmantelle_veyrie
                     }
                     break;
             }
+            adminInterface();
         }
 
         /// <summary>
@@ -551,6 +558,7 @@ namespace livinparis_dufourmantelle_veyrie
 
             AfficherTable(table);
             Console.WriteLine("Élément supprimé !");
+            adminInterface();
         }
 
         /// <summary>
