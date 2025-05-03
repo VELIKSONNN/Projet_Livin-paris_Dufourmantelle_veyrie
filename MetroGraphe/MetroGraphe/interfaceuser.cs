@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using livinparis_dufourmantelle_veyrie;
 using System.ComponentModel.Design;
+using System.Data;
 
 namespace livinparis_dufourmantelle_veyrie
 {
@@ -34,11 +35,57 @@ namespace livinparis_dufourmantelle_veyrie
         /// </summary>
         static public void MainInterface()
         {
-            Console.WriteLine("Bienvenue !\n Veuillez entrer votre mot de passe et identifiants pour vous connecter ");
+            Console.WriteLine("Bienvenue !\n--Se connecter en tant qu'utilisateur'1'--\n--Se connecter en tant qu'admin '2--\n--S'enregistrer '3'--\n");
+            char choixactio =Convert.ToChar(Console.ReadLine());
+            switch (choixactio)
+            {
+                case '1':
+                Console.WriteLine(" Veuillez entrer votre mot de passe et identifiants pour vous connecter");
+                    Console.Write("identifiant :");
+                    string idutil = Console.ReadLine();
+                    Console.Write("mot de passe :");
+                    string mdp = Console.ReadLine();
+                    
+                        string query = @"
+                                            SELECT COUNT(*) 
+                                            FROM utilisateur 
+                                            WHERE Nom = @nom 
+                                              AND mdp = @mdp;
+                                        ";
+
+                        using (var command = new MySqlCommand(query, connexion))
+                        {
+                            // Remplacez identifiants et motDePasse par vos variables réelles
+                            command.Parameters.AddWithValue("@nom", idutil);
+                            command.Parameters.AddWithValue("@mdp", mdp);
+
+
+                        int count = Convert.ToInt32(command.ExecuteScalar()); // récupère le nombre de lignes
+
+                        if (count ==1)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Authentification réussie !");
+                                interface_utilisateur(idutil,mdp);
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Identifiant ou mot de passe incorrecte :/");
+                                MainInterface();
+                            }
+
+                        
+                    }
+                    
+                    break;
+
+                case '2': Console.WriteLine("--Veuillez entrer votre mot de passe et identifiants admin pour vous connecter--");
             Console.Write("identifiant: ");
             string identifiant = Console.ReadLine();
             Console.Write("Mot de passe: ");
-            string motdepasse = Console.ReadLine();
+            string motdepasse = Console.ReadLine(); 
+
 
             if (identifiant == "" && motdepasse == "")
             {
@@ -46,6 +93,98 @@ namespace livinparis_dufourmantelle_veyrie
                 Console.WriteLine("Ouverture de l'interface admin");
                 
                 adminInterface();
+                        
+            }
+
+                    break;
+                case '3':
+
+                  
+
+                    ajoututilisateur();
+                    break;
+
+            }
+            
+            
+            
+        }
+        static public void interface_utilisateur(string idutil,string mdp)
+        {
+            Console.Clear ();
+            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?--");
+            char rep= Convert.ToChar(Console.ReadLine());  
+            switch(rep)
+            {
+                case '1':
+                    Console.WriteLine("--Voici toute vos commandes, chaque ligne correspond à une portion du plat livré--");
+                   affiche_commandes_util(idutil,mdp);
+                    Console.WriteLine("Quelle est l'id de la commande à afficher ? ");
+                    int idcommande =int.Parse(Console.ReadLine());
+                    recupdépartarrivé(idcommande);
+                    break;
+              //  case '2':
+                    
+
+            }
+
+        }
+        public static void affiche_commandes_util(string idutil,string mdp)
+        {
+             string query = @"SELECT
+                              cmd.`commande`               AS idCommande,
+                              p.`nom`                      AS platLigne,
+                              l.`date_heure_livraison`     AS dateLivraison,
+                              CONCAT(cu.`Prenom`, ' ', cu.`Nom`) AS cuisinier,
+                              CONCAT(cl.`Prenom`, ' ', cl.`Nom`) AS client
+                            FROM `utilisateur` AS cl
+                              JOIN `custommer`      AS csm ON csm.`id`               = cl.`id`
+                              JOIN `commande`       AS cmd ON cmd.`id_client`        = csm.`id_client`
+                              JOIN `cuisinier`      AS cs  ON cs.`id_cuisinier`      = cmd.`id_cuisinier`
+                              JOIN `utilisateur`    AS cu  ON cu.`id`                = cs.`id`
+                              JOIN `ligne_de_commande_` AS ldc ON ldc.`commande`     = cmd.`commande`
+                              JOIN `livraison`      AS l   ON l.`id_livraison`       = ldc.`id_livraison`
+                              JOIN `inclue`         AS inc ON inc.`id_ligne_de_commande` = ldc.`id_ligne_de_commande`
+                              JOIN `plat`           AS p   ON p.`id`                = inc.`id`
+                            WHERE
+                              cl.`Nom` = @idutil
+                              AND cl.`mdp` = @mdp
+                            ORDER BY
+                              l.`date_heure_livraison` DESC;
+                            ";
+
+            
+            using (var cmd = new MySqlCommand(query, connexion))
+            {
+                cmd.Parameters.AddWithValue("@idutil",idutil);
+                cmd.Parameters.AddWithValue("@mdp", mdp);
+
+           
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (!reader.HasRows)
+                    {
+                        Console.WriteLine("Aucune commande trouvée pour cet utilisateur.");
+                        return;
+                    }
+
+                    Console.WriteLine($"Commandes pour l'utilisateur {idutil} :\n");
+                    while (reader.Read())
+                    {
+                        DateTime dateLiv = reader.GetDateTime("dateLivraison");
+                        string plat = reader.GetString("platLigne");
+                        string cuisinier = reader.GetString("cuisinier");
+                        string client = reader.GetString("client");
+                        int idcommande = reader.GetInt32("idCommande");
+                        Console.WriteLine(
+                            $"Id de la commande : {idcommande} | "+
+                            $"Date livraison : {dateLiv:yyyy-MM-dd HH:mm} | " +
+                            $"Cuisinier : {cuisinier} | " +
+                            $"Client : {client} | " +
+                            $"Plat : {plat}"
+                        ) ;
+                    }
+                }
             }
         }
 
@@ -96,11 +235,11 @@ namespace livinparis_dufourmantelle_veyrie
         {
             string query = @"
         SELECT 
-            uC.adresse AS adresseCuisinier,
+            ucl.adresse AS adresseCuisinier,
             uCl.adresse AS adresseClient
         FROM commande co
         JOIN cuisinier c ON co.id_cuisinier = c.id_cuisinier
-        JOIN utilisateur uC ON c.id = uC.id
+        JOIN utilisateur u ON c.id = u.id
         JOIN custommer cl ON co.id_client = cl.id_client
         JOIN utilisateur uCl ON cl.id = uCl.id
         WHERE co.commande = @commandeId;
@@ -151,6 +290,45 @@ namespace livinparis_dufourmantelle_veyrie
         /// <summary>
         /// Gère l'ajout d'un tuple dans la base de données selon le type d'entité choisi par l'utilisateur.
         /// </summary>
+        /// 
+        static private void ajoututilisateur() 
+        {
+            Console.WriteLine("Veuillez fournir dans l'ordre et en appuyant sur entrée a chaque fois: Le prenom, l'email, le numéro de tel, l'adresse, l'entreprise, le nom, et le mdp");
+            string Prenom = Convert.ToString(Console.ReadLine());
+            string email = Convert.ToString(Console.ReadLine());
+            int id = maxindice("utilisateur", "id") + 1;
+            string tel = Convert.ToString(Console.ReadLine());
+            string adresse = Convert.ToString(Console.ReadLine());
+            string entreprise = Convert.ToString(Console.ReadLine());
+            string Nom = Convert.ToString(Console.ReadLine());
+            string mdp = Convert.ToString(Console.ReadLine());
+
+            using (var transaction = connexion.BeginTransaction())
+            {
+                string insertQuery = @$"
+                            INSERT INTO utilisateur ( Prenom, email, tel, adresse, entreprise, Nom, mdp)
+                            VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
+
+                using (MySqlCommand command = new MySqlCommand(insertQuery, connexion, transaction))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@Prenom", Prenom);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Tel", tel);
+                    command.Parameters.AddWithValue("@Adresse", adresse);
+                    command.Parameters.AddWithValue("@Entreprise", entreprise);
+                    command.Parameters.AddWithValue("@Nom", Nom);
+                    command.Parameters.AddWithValue("@Mdp", mdp);
+
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit(); // Valide la transaction
+            }
+            Console.WriteLine("nouvelle utilisateur ajouté");
+
+            MainInterface();
+        }
         static private void ajouttuple()
         {
             Console.Clear();
@@ -299,122 +477,131 @@ namespace livinparis_dufourmantelle_veyrie
                     int idclient = int.Parse(Console.ReadLine());
                     int idcuisinier = int.Parse(Console.ReadLine());
 
-                    // Générer un nouvel ID de commande (supposant que la PK de commande s'appelle "commande")
-                    int commande = maxindice("commande", "commande") + 1;
+                    ajoutcommande(idclient, idcuisinier);
+                    break;
+            }
+            adminInterface();
+        }
 
-                    using (var transaction = connexion.BeginTransaction())
-                    {
-                        // 1) Insertion dans la table commande
-                        string insertQuery = @"
+        static void ajoutcommande(int idclient, int idcuisinier)
+        {
+           
+
+            
+
+            // Générer un nouvel ID de commande (supposant que la PK de commande s'appelle "commande")
+            int commande = maxindice("commande", "commande") + 1;
+
+            using (var transaction = connexion.BeginTransaction())
+            {
+                // 1) Insertion dans la table commande
+                string insertQuery = @"
             INSERT INTO commande (commande, date_heure_commande, id_client, id_cuisinier)
             VALUES (@id, @date, @id_custommer, @id_cuisinier)";
-                        using (MySqlCommand command = new MySqlCommand(insertQuery, connexion, transaction))
-                        {
-                            command.Parameters.AddWithValue("@id", commande);
-                            command.Parameters.AddWithValue("@date", DateTime.Now);
-                            command.Parameters.AddWithValue("@id_custommer", idclient);
-                            command.Parameters.AddWithValue("@id_cuisinier", idcuisinier);
-                            command.ExecuteNonQuery();
-                        }
+                using (MySqlCommand command = new MySqlCommand(insertQuery, connexion, transaction))
+                {
+                    command.Parameters.AddWithValue("@id", commande);
+                    command.Parameters.AddWithValue("@date", DateTime.Now);
+                    command.Parameters.AddWithValue("@id_custommer", idclient);
+                    command.Parameters.AddWithValue("@id_cuisinier", idcuisinier);
+                    command.ExecuteNonQuery();
+                }
 
-                        // 2) Demander le nombre de lignes de commande pour cette commande
-                        Console.Write("Combien de lignes de commande pour cette commande ? ");
-                        int nbLignes = int.Parse(Console.ReadLine());
+                // 2) Demander le nombre de lignes de commande pour cette commande
+                Console.Write("Combien de lignes de commande pour cette commande ? ");
+                int nbLignes = int.Parse(Console.ReadLine());
 
-                        for (int i = 0; i < nbLignes; i++)
-                        {
-                            Console.WriteLine($"\n=== Création de la ligne de commande n°{i + 1} ===");
+                for (int i = 0; i < nbLignes; i++)
+                {
+                    Console.WriteLine($"\n=== Création de la ligne de commande n°{i + 1} ===");
 
-                            // Calculer un nouvel id_ligne_de_commande
-                            int idmaxligne = maxindice("ligne_de_commande_", "id_ligne_de_commande") + 1;
+                    // Calculer un nouvel id_ligne_de_commande
+                    int idmaxligne = maxindice("ligne_de_commande_", "id_ligne_de_commande") + 1;
 
-                            // Demander la date de livraison pour cette ligne
-                            Console.Write("Entrez la date de livraison (yyyy-MM-dd HH:mm:ss) : ");
-                            string dateLivraisonStr = Console.ReadLine();
-                            DateTime dateLivraison;
-                            if (!DateTime.TryParse(dateLivraisonStr, out dateLivraison))
-                            {
-                                Console.WriteLine("Date invalide, utilisation de DateTime.Now.");
-                                dateLivraison = DateTime.Now;
-                            }
-                            int idmaxlivraison = maxindice("livraison", "id_livraison") + 1;
-                            // Insertion dans la table livraison
-                            string insertLivraisonQuery = @"
+                    // Demander la date de livraison pour cette ligne
+                    Console.Write("Entrez la date de livraison (yyyy-MM-dd HH:mm:ss) : ");
+                    string dateLivraisonStr = Console.ReadLine();
+                    DateTime dateLivraison;
+                    if (!DateTime.TryParse(dateLivraisonStr, out dateLivraison))
+                    {
+                        Console.WriteLine("Date invalide, utilisation de DateTime.Now.");
+                        dateLivraison = DateTime.Now;
+                    }
+                    int idmaxlivraison = maxindice("livraison", "id_livraison") + 1;
+                    // Insertion dans la table livraison
+                    string insertLivraisonQuery = @"
                 INSERT INTO livraison (id_livraison, date_heure_livraison)
                 VALUES (@id_livraison, @dateLivraison)";
-                            using (MySqlCommand cmdLivraison = new MySqlCommand(insertLivraisonQuery, connexion, transaction))
-                            {
-                                cmdLivraison.Parameters.AddWithValue("@id_livraison", idmaxlivraison);
-                                cmdLivraison.Parameters.AddWithValue("@dateLivraison", dateLivraison);
-                                cmdLivraison.ExecuteNonQuery();
-                            }
+                    using (MySqlCommand cmdLivraison = new MySqlCommand(insertLivraisonQuery, connexion, transaction))
+                    {
+                        cmdLivraison.Parameters.AddWithValue("@id_livraison", idmaxlivraison);
+                        cmdLivraison.Parameters.AddWithValue("@dateLivraison", dateLivraison);
+                        cmdLivraison.ExecuteNonQuery();
+                    }
 
-                            // Insertion dans la table ligne_de_commande_
-                            string insertLigneQuery = @"
+                    // Insertion dans la table ligne_de_commande_
+                    string insertLigneQuery = @"
                 INSERT INTO ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande)
                 VALUES (@idLigne, @idLivraison, @idClient, @commande)";
-                            using (MySqlCommand cmdLigne = new MySqlCommand(insertLigneQuery, connexion, transaction))
-                            {
-                                cmdLigne.Parameters.AddWithValue("@idLigne", idmaxligne);
-                                cmdLigne.Parameters.AddWithValue("@idLivraison", idmaxlivraison);
-                                cmdLigne.Parameters.AddWithValue("@idClient", idclient);
-                                cmdLigne.Parameters.AddWithValue("@commande", commande);
-                                cmdLigne.ExecuteNonQuery();
-                            }
-                            Console.WriteLine($"Ligne de commande {idmaxligne} insérée.");
+                    using (MySqlCommand cmdLigne = new MySqlCommand(insertLigneQuery, connexion, transaction))
+                    {
+                        cmdLigne.Parameters.AddWithValue("@idLigne", idmaxligne);
+                        cmdLigne.Parameters.AddWithValue("@idLivraison", idmaxlivraison);
+                        cmdLigne.Parameters.AddWithValue("@idClient", idclient);
+                        cmdLigne.Parameters.AddWithValue("@commande", commande);
+                        cmdLigne.ExecuteNonQuery();
+                    }
+                    Console.WriteLine($"Ligne de commande {idmaxligne} insérée.");
 
-                            // 3) Demander le nombre de plats pour cette ligne
-                            Console.Write("Combien de plats pour cette ligne ? ");
-                            int nbPlats = int.Parse(Console.ReadLine());
-                            for (int j = 0; j < nbPlats; j++)
-                            {
-                                Console.Write($"ID du plat n°{j + 1} : ");
-                                int idPlat = int.Parse(Console.ReadLine());
+                    // 3) Demander le nombre de plats pour cette ligne
+                    Console.Write("Combien de plats pour cette ligne ? ");
+                    int nbPlats = int.Parse(Console.ReadLine());
+                    for (int j = 0; j < nbPlats; j++)
+                    {
+                        Console.Write($"ID du plat n°{j + 1} : ");
+                        int idPlat = int.Parse(Console.ReadLine());
 
-                                // Insertion dans la table inclue (association plat - ligne_de_commande_)
-                                string insertInclueQuery = @"
+                        // Insertion dans la table inclue (association plat - ligne_de_commande_)
+                        string insertInclueQuery = @"
                     INSERT INTO inclue (id, id_ligne_de_commande)
                     VALUES (@idPlat, @idLigneCommande)";
-                                using (MySqlCommand cmdInclue = new MySqlCommand(insertInclueQuery, connexion, transaction))
-                                {
-                                    cmdInclue.Parameters.AddWithValue("@idPlat", idPlat);
-                                    cmdInclue.Parameters.AddWithValue("@idLigneCommande", idmaxligne);
-                                    cmdInclue.ExecuteNonQuery();
-                                }
-                                Console.WriteLine($"Plat #{idPlat} associé à la ligne de commande #{idmaxligne}.");
-                            }
+                        using (MySqlCommand cmdInclue = new MySqlCommand(insertInclueQuery, connexion, transaction))
+                        {
+                            cmdInclue.Parameters.AddWithValue("@idPlat", idPlat);
+                            cmdInclue.Parameters.AddWithValue("@idLigneCommande", idmaxligne);
+                            cmdInclue.ExecuteNonQuery();
                         }
+                        Console.WriteLine($"Plat #{idPlat} associé à la ligne de commande #{idmaxligne}.");
+                    }
+                }
 
-                        // 4) Calculer et afficher le prix total de la commande
-                        string queryprixcommande = @"SELECT SUM(p.prix) AS prixtotal
+                // 4) Calculer et afficher le prix total de la commande
+                string queryprixcommande = @"SELECT SUM(p.prix) AS prixtotal
                                                     FROM commande co
                                                     JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
                                                     JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
                                                     JOIN plat p ON p.id = i.id
                                                     WHERE co.commande = @commande;";
-                        using (MySqlCommand commandeprix = new MySqlCommand(queryprixcommande, connexion, transaction))
-                        {
-                            commandeprix.Parameters.AddWithValue("@commande", commande);
-                            object result = commandeprix.ExecuteScalar();
-                            if (result != DBNull.Value)
-                            {
-                                decimal prixtotal = Convert.ToDecimal(result);
-                                Console.WriteLine($"Prix total de la commande #{commande} : {prixtotal}");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Aucun plat trouvé pour cette commande.");
-                            }
-                        }
-
-                        
-                        recupdépartarrivé(commande);
-                        Console.WriteLine("Transaction commitée.");
-                        transaction.Commit();
+                using (MySqlCommand commandeprix = new MySqlCommand(queryprixcommande, connexion, transaction))
+                {
+                    commandeprix.Parameters.AddWithValue("@commande", commande);
+                    object result = commandeprix.ExecuteScalar();
+                    if (result != DBNull.Value)
+                    {
+                        decimal prixtotal = Convert.ToDecimal(result);
+                        Console.WriteLine($"Prix total de la commande #{commande} : {prixtotal}");
                     }
-                    break;
+                    else
+                    {
+                        Console.WriteLine("Aucun plat trouvé pour cette commande.");
+                    }
+                }
+
+
+                recupdépartarrivé(commande);
+                Console.WriteLine("Transaction commitée.");
+                transaction.Commit();
             }
-            adminInterface();
         }
 
         /// <summary>

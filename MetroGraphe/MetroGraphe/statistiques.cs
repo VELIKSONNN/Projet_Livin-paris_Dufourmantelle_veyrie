@@ -41,6 +41,7 @@ namespace livinparis_dufourmantelle_veyrie
             }
             
         }
+
         /// <summary>
         ///  query d'affiche des commandes selon une période
         /// </summary>
