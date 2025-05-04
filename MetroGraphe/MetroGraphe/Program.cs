@@ -156,7 +156,7 @@ namespace livinparis_dufourmantelle_veyrie
 
             if (depart == null || arrivee == null)
             {
-                Console.WriteLine("Station introuvable.");
+                Console.WriteLine("Station introuvable");
                 return;
             }
 

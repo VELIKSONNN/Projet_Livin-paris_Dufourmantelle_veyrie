@@ -112,21 +112,56 @@ namespace livinparis_dufourmantelle_veyrie
         static public void interface_utilisateur(string idutil,string mdp)
         {
             Console.Clear ();
-            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?--");
-            char rep= Convert.ToChar(Console.ReadLine());  
-            switch(rep)
+            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?'3'--");
+            char rep= Convert.ToChar(Console.ReadLine());
+            switch (rep)
             {
                 case '1':
                     Console.WriteLine("--Voici toute vos commandes, chaque ligne correspond à une portion du plat livré--");
-                   affiche_commandes_util(idutil,mdp);
+                    affiche_commandes_util(idutil, mdp);
                     Console.WriteLine("Quelle est l'id de la commande à afficher ? ");
-                    int idcommande =int.Parse(Console.ReadLine());
+                    int idcommande = int.Parse(Console.ReadLine());
                     recupdépartarrivé(idcommande);
                     break;
-              //  case '2':
-                    
+                case '2':
+                    Console.Clear () ;
+                    Console.WriteLine("quel est l'id du cuisinier à qui vous voulez faire une commande");
+                    AfficherTable("cuisinier");
+                    int idcuisinier= int.Parse(Console.ReadLine());
+                    string query = @"SELECT id_client as int_client 
+                                    FROM custommer cust 
+                                    JOIN utilisateur u on cust.id_client=u.id
 
-            }
+                                    HERE u.nom=@nom AND u.mdp=@mdp";
+
+
+                    using (var cmd = new MySqlCommand(query, connexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nom", idutil);
+                        cmd.Parameters.AddWithValue("@mdp", mdp);
+
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                           
+
+                        
+                            
+                                
+                                int int_client = reader.GetInt32("int_client");
+
+                               ajoutcommande(int_client, idcuisinier);
+                            
+                            
+                        }
+
+                    }
+                    break;
+                case '3':
+                    break;
+
+
+            }      
 
         }
         public static void affiche_commandes_util(string idutil,string mdp)
