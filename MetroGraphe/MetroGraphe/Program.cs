@@ -122,7 +122,7 @@ namespace livinparis_dufourmantelle_veyrie
             {
                 string connexionString = "SERVER=localhost;PORT=3306;" +
                                          "DATABASE=baselivinparis;" +
-                                         "user=root;PASSWORD=Sabrelaser00";
+                                         "user=root;PASSWORD=Sabrelaser00;AllowBatch=true;";
 
                 connexion = new MySqlConnection(connexionString);
                 connexion.Open();
