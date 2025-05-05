@@ -128,38 +128,51 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine("quel est l'id du cuisinier à qui vous voulez faire une commande");
                     AfficherTable("cuisinier");
                     int idcuisinier= int.Parse(Console.ReadLine());
-                    string query = @"SELECT id_client as int_client 
-                                    FROM custommer cust 
-                                    JOIN utilisateur u on cust.id_client=u.id
-
-                                    WHERE u.nom=@nom AND u.mdp=@mdp";
-                    int int_client = 0;
-
-                    using (var cmd = new MySqlCommand(query, connexion))
+                    int idClient;
+                    using (var cmd = new MySqlCommand(@"
+    SELECT cust.id_client
+      FROM custommer AS cust
+      JOIN utilisateur AS u ON cust.id = u.id
+     WHERE u.nom = @nom
+       AND u.mdp = @mdp", connexion))
                     {
                         cmd.Parameters.AddWithValue("@nom", idutil);
                         cmd.Parameters.AddWithValue("@mdp", mdp);
 
-
-                        using (var reader = cmd.ExecuteReader())
+                        object res = cmd.ExecuteScalar();
+                        if (res == null || res == DBNull.Value)
                         {
-
-                            if(reader.Read())
-                            {
-
-
-
-                                int_client = reader.GetInt32("int_client");
-
-                               
-
-                            }
+                            Console.WriteLine("Vous n’êtes pas enregistré comme client.");
+                            return;          // on sort sans appeler ajoutcommande
                         }
-                    
+                        idClient = Convert.ToInt32(res);
                     }
-                    ajoutcommande(int_client, idcuisinier);
+
+                    Console.WriteLine($"ID client = {idClient}");
+                    ajoutcommande(idClient, idcuisinier);
+
                     break;
                 case '3':
+                   
+            using (var cmd = new MySqlCommand(@"SELECT cust.id_client
+                                              FROM custommer AS cust
+                                              JOIN utilisateur AS u ON cust.id = u.id
+                                             WHERE u.nom = @nom
+                                               AND u.mdp = @mdp", connexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nom", idutil);
+                        cmd.Parameters.AddWithValue("@mdp", mdp);
+
+                        object res = cmd.ExecuteScalar();
+                        if (res == null || res == DBNull.Value)
+                        {
+                            Console.WriteLine("Vous n’êtes pas enregistré comme client.");
+                            return;          // on sort sans appeler ajoutcommande
+                        }
+                        idClient = Convert.ToInt32(res);
+                    }
+                    statistiques.ChoisirStatsClient(connexion, idClient);
+
                     break;
 
 
@@ -328,114 +341,6 @@ namespace livinparis_dufourmantelle_veyrie
         /// Gère l'ajout d'un tuple dans la base de données selon le type d'entité choisi par l'utilisateur.
         /// </summary>
         /// 
-        static private void ajoututilisateur()
-        {
-            Console.WriteLine("Veuillez entrer, l’un après l’autre : prénom, nom, email, téléphone, adresse, entreprise (ou vide), mot de passe.");
-            string prenom = Console.ReadLine();
-            string nom = Console.ReadLine();
-            string email = Console.ReadLine();
-            string tel = Console.ReadLine();
-            while (tel.Length != 10)
-            {
-                Console.WriteLine("Format de numéro invalide");
-
-                tel = Console.ReadLine();
-            }
-            string adresse = Console.ReadLine();
-            string entreprise = Console.ReadLine();
-            string mdp = Console.ReadLine();
-            int id = maxindice("utilisateur", "id");
-            using (var transaction = connexion.BeginTransaction())
-            {
-                // 1) INSERT dans utilisateur
-                string sqlInsertUser = @" INSERT INTO utilisateur
-                (id ,Prenom, Nom, email, tel, adresse, entreprise, mdp)
-            VALUES
-                (@id, @Prenom, @Nom, @Email, @Tel, @Adresse, @Entreprise, @Mdp)
-            ;";
-
-
-                using (var cmd = new MySqlCommand(sqlInsertUser, connexion, transaction))
-                {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@Prenom", prenom);
-                    cmd.Parameters.AddWithValue("@Nom", nom);
-                    cmd.Parameters.AddWithValue("@Email", email);
-                    cmd.Parameters.AddWithValue("@Tel", tel);
-                    cmd.Parameters.AddWithValue("@Adresse", adresse);
-                    cmd.Parameters.AddWithValue("@Entreprise", entreprise);
-
-                    cmd.Parameters.AddWithValue("@Mdp", mdp);
-                    cmd.ExecuteNonQuery();
-                }
-
-                // 2) Récupérer l’ID généré
-                int newUserId;
-                using (var cmd2 = new MySqlCommand("SELECT LAST_INSERT_ID()", connexion, transaction))
-                {
-                    newUserId = Convert.ToInt32(cmd2.ExecuteScalar());
-                }
-
-
-
-
-
-
-
-                // 2) Demande de rôle(s)
-                Console.WriteLine("Voulez-vous vous enregistrer comme :\n  Client  '1' ? Cuisinier '2' ? les deux ? '3'");
-                var choix = (Console.ReadLine() ?? "").ToUpper();
-
-                // 3) INSERT conditionnels
-                if (choix == "1" || choix == "3")
-                {
-                    // Si la table client a des champs supplémentaires, les lire ici :
-                    // Console.WriteLine("Entrez X pour le client : …");
-                    // var champClient = Console.ReadLine();
-
-                    string sqlClient = @"
-                INSERT INTO client
-                    (id_client /*, autres colonnes spécifiques */)
-                VALUES
-                    (@IdClient /*, @ChampClient */)";
-                    using (var cmd = new MySqlCommand(sqlClient, connexion, transaction))
-                    {
-                        cmd.Parameters.AddWithValue("@IdClient", newUserId);
-                        // cmd.Parameters.AddWithValue("@ChampClient", champClient);
-                        cmd.ExecuteNonQuery();
-                    }
-
-
-
-                }
-
-                if (choix == "2" || choix == "3")
-                {
-                    // Lire les infos propres au cuisinier si besoin :
-                    // Console.WriteLine("Entrez Y pour le cuisinier : …");
-                    // var champCuisinier = Console.ReadLine();
-
-                    string sqlCuisinier = @"
-                INSERT INTO cuisinier
-                    (id_cuisinier /*, autres colonnes spécifiques */)
-                VALUES
-                    (@IdCuisinier /*, @ChampCuisinier */)";
-                    using (var cmd = new MySqlCommand(sqlCuisinier, connexion, transaction))
-                    {
-                        cmd.Parameters.AddWithValue("@IdCuisinier", newUserId);
-                        // cmd.Parameters.AddWithValue("@ChampCuisinier", champCuisinier);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-
-                // 4) Validation globale
-                transaction.Commit();
-            }
-
-            Console.WriteLine("Utilisateur et rôle(s) ajoutés avec succès.");
-            MainInterface();
-        }
-
 
         static private void AjoutUtilisateur()
         {
@@ -456,20 +361,21 @@ namespace livinparis_dufourmantelle_veyrie
             string adresse = Console.ReadLine();
             string entreprise = Console.ReadLine();
             string mdp = Console.ReadLine();
-            int id = maxindice("utilisateur", "id");
+           
             using (var transaction = connexion.BeginTransaction())
-            {
+            { 
+                int iduser = maxindice("utilisateur", "id")+1;
                 // 1) INSERT utilisateur (une seule instruction)
                 string sqlInsertUser = @"
             INSERT INTO utilisateur
                 (id,Prenom, Nom, email, tel, adresse, entreprise, mdp)
             VALUES
                 (@id, @Prenom, @Nom, @Email, @Tel, @Adresse, @Entreprise, @Mdp)";
-                int newUserId;
+                
                 using (var cmd = new MySqlCommand(sqlInsertUser, connexion, transaction))
                 {
 
-                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@id", iduser);
                     cmd.Parameters.AddWithValue("@Prenom", prenom);
                     cmd.Parameters.AddWithValue("@Nom", nom);
                     cmd.Parameters.AddWithValue("@Email", email);
@@ -483,46 +389,52 @@ namespace livinparis_dufourmantelle_veyrie
 
                     cmd.ExecuteNonQuery();
                     // on récupère ici l’ID généré par l’auto-increment
-                    newUserId = (int)cmd.LastInsertedId;
+                   
                 }
 
                 // 2) Choix du ou des rôles
                 Console.WriteLine(
                     "Voulez-vous vous enregistrer comme :\n" +
-                    " 1 = Client   |   2 = Cuisinier   |   3 = Les deux   |   Autre = Aucun"
-                );
+                    " 1 = Client   |   2 = Cuisinier   |   3 = Les deux   ");
                 string choix = Console.ReadLine()?.Trim();
 
-                // 3) INSERT dans client si besoin (une instruction)
-                if (choix == "1" || choix == "3")
-                {
-                    string sqlClient = @"
-                INSERT INTO client (id_client)
-                VALUES (@IdClient)";
-                    using (var cmd = new MySqlCommand(sqlClient, connexion, transaction))
-                    {
-                        cmd.Parameters.AddWithValue("@IdClient", newUserId);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+               
 
                 // 4) INSERT dans cuisinier si besoin (une instruction)
                 if (choix == "2" || choix == "3")
                 {
                     string sqlCuisinier = @"
-                INSERT INTO cuisinier (id_cuisinier)
-                VALUES (@IdCuisinier)";
-                    using (var cmd = new MySqlCommand(sqlCuisinier, connexion, transaction))
+                INSERT INTO cuisinier (id_cuisinier,id)
+                VALUES (@IdCuisinier,@id)";
+                    using (var cmd2 = new MySqlCommand(sqlCuisinier, connexion, transaction))
                     {
-                        cmd.Parameters.AddWithValue("@IdCuisinier", newUserId);
-                        cmd.ExecuteNonQuery();
+                        int id_cuisinier = maxindice("cuisinier", "id_cuisinier")+1;
+                        cmd2.Parameters.AddWithValue("@IdCuisinier", id_cuisinier);
+                        cmd2.Parameters.AddWithValue("@id", iduser);
+                        cmd2.ExecuteNonQuery();
+                    }
+                } 
+                
+                // 3) INSERT dans client si besoin (une instruction)
+                if (choix == "1" || choix == "3")
+                {
+                    string sqlClient = @"
+                INSERT INTO custommer (id_client,id)
+                VALUES (@IdClient,@id)";
+                    using (var cmd3 = new MySqlCommand(sqlClient, connexion, transaction))
+                    {
+                    int    id_client = maxindice("custommer", "id_client")+1;
+                        cmd3.Parameters.AddWithValue("@IdClient", id_client);
+                        cmd3.Parameters.AddWithValue("@id", iduser);
+
+                        cmd3.ExecuteNonQuery();
                     }
                 }
 
                 // 5) Commit global
                 transaction.Commit();
 
-                Console.WriteLine($"Utilisateur #{newUserId} créé avec succès.");
+                Console.WriteLine($"Utilisateur #{iduser} créé avec succès.");
             }
 
             MainInterface();

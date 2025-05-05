@@ -253,7 +253,142 @@ namespace livinparis_dufourmantelle_veyrie
 
         }
 
+        public static void ChoisirStatsClient(MySqlConnection conn, int idClient)
+        {
+            Console.Clear();
+            Console.WriteLine(
+                $"Statistiques pour le client #{idClient}\n" +
+                "1 : Afficher ses commandes sur une période\n" +
+                "2 : Afficher la moyenne du prix de SES commandes\n" +
+                "3 : Afficher le montant total qu’il a dépensé\n" +
+                "4 : Afficher ses commandes par nationalité sur une période\n" +
+                "0 : Retour"
+            );
+            char choix = Convert.ToChar(Console.ReadLine());
+            switch (choix)
+            {
+                case '1': CommandesParPeriodeClient(conn, idClient); break;
+                case '2': MoyenneCommandeClient(conn, idClient); break;
+                case '3': TotalDepenseClient(conn, idClient); break;
+                case '4': CommandesParNationaliteEtPeriode(conn, idClient); break;
+                default: return;
+            }
+        }
 
+        /* ---------- 1. Commandes du client entre deux dates ---------- */
+        private static void CommandesParPeriodeClient(MySqlConnection c, int idClient)
+        {
+            Console.Write("Date début (yyyy-MM-dd) : ");
+            DateTime d1 = DateTime.Parse(Console.ReadLine() + " 00:00:00");
+            Console.Write("Date fin   (yyyy-MM-dd) : ");
+            DateTime d2 = DateTime.Parse(Console.ReadLine() + " 23:59:59");
+
+            const string sql = @"
+            SELECT co.commande,
+                   co.date_heure_commande,
+                   SUM(p.prix) AS total_commande
+            FROM   commande            co
+            JOIN   ligne_de_commande_  ldc  ON ldc.commande = co.commande
+            JOIN   inclue             i    ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+            JOIN   plat               p    ON p.id = i.id
+            WHERE  co.id_client = @cli
+              AND  co.date_heure_commande BETWEEN @d1 AND @d2
+            GROUP  BY co.commande , co.date_heure_commande
+            ORDER  BY co.date_heure_commande;";
+
+            using var cmd = new MySqlCommand(sql, c);
+            cmd.Parameters.AddWithValue("@cli", idClient);
+            cmd.Parameters.AddWithValue("@d1", d1);
+            cmd.Parameters.AddWithValue("@d2", d2);
+
+            using var r = cmd.ExecuteReader();
+            if (!r.HasRows) { Console.WriteLine("Aucune commande."); return; }
+
+            Console.WriteLine("\n# |     Date et heure     | Total (€)");
+            while (r.Read())
+                Console.WriteLine($"{r.GetInt32(0),2} | {r.GetDateTime(1):yyyy-MM-dd HH:mm} | {r.GetDecimal(2):F2}");
+        }
+
+        /* ---------- 2. Moyenne du prix de SES commandes ---------- */
+        private static void MoyenneCommandeClient(MySqlConnection c, int idClient)
+        {
+            const string sql = @"
+            SELECT AVG(montant) FROM (
+              SELECT co.commande,
+                     SUM(p.prix) AS montant
+              FROM   commande co
+              JOIN   ligne_de_commande_ ldc ON ldc.commande = co.commande
+              JOIN   inclue i              ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+              JOIN   plat   p              ON p.id = i.id
+              WHERE  co.id_client = @cli
+              GROUP  BY co.commande
+            ) t;";
+
+            using var cmd = new MySqlCommand(sql, c);
+            cmd.Parameters.AddWithValue("@cli", idClient);
+            var res = cmd.ExecuteScalar();
+            Console.WriteLine(res == DBNull.Value
+                ? "Aucune commande."
+                : $"Moyenne de ses commandes : {Convert.ToDecimal(res):F2} €");
+        }
+
+        /* ---------- 3. Montant cumulé dépensé par le client ---------- */
+        private static void TotalDepenseClient(MySqlConnection c, int idClient)
+        {
+            const string sql = @"
+            SELECT SUM(p.prix)
+            FROM   commande            co
+            JOIN   ligne_de_commande_  ldc ON ldc.commande = co.commande
+            JOIN   inclue              i   ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+            JOIN   plat                p   ON p.id = i.id
+            WHERE  co.id_client = @cli;";
+
+            using var cmd = new MySqlCommand(sql, c);
+            cmd.Parameters.AddWithValue("@cli", idClient);
+            var res = cmd.ExecuteScalar();
+            Console.WriteLine(res == DBNull.Value
+                ? "Aucune dépense enregistrée."
+                : $"Montant total dépensé : {Convert.ToDecimal(res):F2} €");
+        }
+
+        /* ---------- 4. Commandes par nationalité + période ---------- */
+        private static void CommandesParNationaliteEtPeriode(MySqlConnection c, int idClient)
+        {
+            Console.Write("Nationalité de cuisine (ex. Italien) : ");
+            string pays = Console.ReadLine();
+            Console.Write("Date début (yyyy-MM-dd) : ");
+            DateTime d1 = DateTime.Parse(Console.ReadLine() + " 00:00:00");
+            Console.Write("Date fin   (yyyy-MM-dd) : ");
+            DateTime d2 = DateTime.Parse(Console.ReadLine() + " 23:59:59");
+
+            const string sql = @"
+            SELECT co.commande,
+                   co.date_heure_commande,
+                   p.nom
+            FROM   commande            co
+            JOIN   ligne_de_commande_  ldc ON ldc.commande = co.commande
+            JOIN   inclue              i   ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+            JOIN   plat                p   ON p.id = i.id
+            JOIN   pays                pa  ON pa.idpays = p.idpays
+            WHERE  co.id_client   = @cli
+              AND  pa.nom         = @pays
+              AND  co.date_heure_commande BETWEEN @d1 AND @d2
+            ORDER  BY co.date_heure_commande;";
+
+            using var cmd = new MySqlCommand(sql, c);
+            cmd.Parameters.AddWithValue("@cli", idClient);
+            cmd.Parameters.AddWithValue("@pays", pays);
+            cmd.Parameters.AddWithValue("@d1", d1);
+            cmd.Parameters.AddWithValue("@d2", d2);
+
+            using var r = cmd.ExecuteReader();
+            if (!r.HasRows) { Console.WriteLine("Aucun résultat."); return; }
+
+            Console.WriteLine("\n# |     Date      | Plat");
+            while (r.Read())
+                Console.WriteLine($"{r.GetInt32(0),2} | {r.GetDateTime(1):yyyy-MM-dd} | {r.GetString(2)}");
+        }
     }
 }
+
 
