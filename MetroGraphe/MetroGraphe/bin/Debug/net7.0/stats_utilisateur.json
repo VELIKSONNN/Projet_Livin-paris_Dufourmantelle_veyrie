@@ -1,0 +1,13 @@
+{
+  "type": "client_cuisinier",
+  "commandes": [
+    {
+      "commande": 24,
+      "date": "2025-05-06T19:58:31",
+      "total": 34.1
+    }
+  ],
+  "moyenne": 34.1,
+  "total": 34.1,
+  "livraisons": 0
+}

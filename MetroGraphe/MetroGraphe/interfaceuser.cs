@@ -103,6 +103,7 @@ namespace livinparis_dufourmantelle_veyrie
 
                     AjoutUtilisateur();
                     break;
+                
 
             }
 
@@ -118,7 +119,7 @@ namespace livinparis_dufourmantelle_veyrie
         static public void interface_utilisateur(string idutil,string mdp)
         {
             Console.Clear ();
-            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?'3'--");
+            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?'3'--\n -- Afficher les statistiques d'un utilisateur en JSON '4");
             char rep= Convert.ToChar(Console.ReadLine());
             switch (rep)
             {
@@ -180,9 +181,12 @@ namespace livinparis_dufourmantelle_veyrie
                     statistiques.ChoisirStatsClient(connexion, idClient);
 
                     break;
+                case '4':
+                    statistiques.ExporterStatistiquesJson(connexion, idutil, mdp);
+                    break;
 
 
-            }      
+            }
 
         }
 
@@ -257,7 +261,7 @@ namespace livinparis_dufourmantelle_veyrie
         static public void adminInterface()
         {
 
-            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6'");
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'");
 
 
             char actionprimaire = Convert.ToChar(Console.ReadLine());
@@ -286,6 +290,13 @@ namespace livinparis_dufourmantelle_veyrie
                 case '6':
                     Console.Clear();
                     Console.WriteLine("Merci d'avoir utilisé livinParis et à très bientôt !!");
+                    break;
+                case '7':
+                    Console.WriteLine("Nom de l'utilisateur : ");
+                    string nom = Console.ReadLine();
+                    Console.WriteLine("Mot de passe : ");
+                    string mdp = Console.ReadLine();
+                    statistiques.ExporterStatistiquesJson(connexion, nom, mdp);
                     break;
             }
         }
