@@ -40,7 +40,7 @@ namespace livinparis_dufourmantelle_veyrie
                
 
             }
-            ExporterStatsUtilisateursJson(conn);
+            
             
             
         }
@@ -336,7 +336,7 @@ namespace livinparis_dufourmantelle_veyrie
         }
 
         /* ---------- 3. Montant cumulé dépensé par le client ---------- */
-        private static void TotalDepenseClient(MySqlConnection c, int idClient)
+        private static  void TotalDepenseClient(MySqlConnection c, int idClient)
         {
             const string sql = @"
             SELECT SUM(p.prix)
@@ -391,68 +391,158 @@ namespace livinparis_dufourmantelle_veyrie
             while (r.Read())
                 Console.WriteLine($"{r.GetInt32(0),2} | {r.GetDateTime(1):yyyy-MM-dd} | {r.GetString(2)}");
         }
-        public static void ExporterStatsUtilisateursJson(MySqlConnection c)
+
+
+        public static void ExporterStatistiquesJson(MySqlConnection conn, string nom, string mdp)
         {
-            string nomFichier = "stats_utilisateurs.json";
+            bool isClient = false, isCuisinier = false;
+            int idClient = -1, idCuisinier = -1;
 
-            // Étendre la longueur max pour GROUP_CONCAT
-            using (var cmdInit = new MySqlCommand("SET SESSION group_concat_max_len=1000000;", c))
+            using (var cmd = new MySqlCommand(@"
+        SELECT cust.id_client 
+        FROM utilisateur u 
+        JOIN custommer cust ON cust.id = u.id 
+        WHERE u.nom = @nom AND u.mdp = @mdp", conn))
             {
-                cmdInit.ExecuteNonQuery();
-            }
-
-            string requete = @"
-        SELECT CONCAT('[', GROUP_CONCAT(
-            JSON_OBJECT(
-                'id_utilisateur', u.id,
-                'nom_complet', CONCAT(u.Prenom, ' ', u.Nom),
-                'email', u.email,
-                'total_commandes', IFNULL(nb_cmd, 0),
-                'montant_total', IFNULL(montant, 0),
-                'moyenne_par_commande', IFNULL(montant / nb_cmd, 0)
-            )
-        ), ']') AS json
-        FROM utilisateur u
-        LEFT JOIN (
-            SELECT cl.id,
-                   COUNT(co.commande) AS nb_cmd,
-                   SUM(p.prix) AS montant
-            FROM custommer cl
-            JOIN commande co ON co.id_client = cl.id_client
-            JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
-            JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
-            JOIN plat p ON p.id = i.id
-            GROUP BY cl.id
-        ) stats ON stats.id = u.id;
-    ";
-
-            using (var cmd = new MySqlCommand(requete, c))
-            using (var reader = cmd.ExecuteReader())
-            {
-                if (reader.Read())
+                cmd.Parameters.AddWithValue("@nom", nom);
+                cmd.Parameters.AddWithValue("@mdp", mdp);
+                var res = cmd.ExecuteScalar();
+                if (res != null && res != DBNull.Value)
                 {
-                    string jsonResultat = reader.GetString("json");
-                    File.WriteAllText(nomFichier, jsonResultat);
-
-                    var p = new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = nomFichier,
-                        UseShellExecute = true
-                    };
-                    System.Diagnostics.Process.Start(p);
-
-                    Console.WriteLine($"✅ Statistiques exportées dans {nomFichier}");
-                }
-                else
-                {
-                    Console.WriteLine("❌ Aucune statistique trouvée.");
+                    isClient = true;
+                    idClient = Convert.ToInt32(res);
                 }
             }
 
+            using (var cmd = new MySqlCommand(@"
+        SELECT cui.id_cuisinier 
+        FROM utilisateur u 
+        JOIN cuisinier cui ON cui.id = u.id 
+        WHERE u.nom = @nom AND u.mdp = @mdp", conn))
+            {
+                cmd.Parameters.AddWithValue("@nom", nom);
+                cmd.Parameters.AddWithValue("@mdp", mdp);
+                var res = cmd.ExecuteScalar();
+                if (res != null && res != DBNull.Value)
+                {
+                    isCuisinier = true;
+                    idCuisinier = Convert.ToInt32(res);
+                }
+            }
+
+            var stats = new Dictionary<string, object>();
+
+            if (isClient)
+            {
+                stats["type"] = "client";
+                stats["commandes"] = ExtraireCommandesClient(conn, idClient);
+                stats["moyenne"] = CalculerMoyenneClient(conn, idClient);
+                stats["total"] = CalculerTotalDepenseClient(conn, idClient);
+            }
+
+            if (isCuisinier)
+            {
+                stats["type"] = isClient ? "client_cuisinier" : "cuisinier";
+                stats["livraisons"] = NombreLivraisonsCuisinier(conn, idCuisinier);
+            }
+
+            string json = System.Text.Json.JsonSerializer.Serialize(stats, new System.Text.Json.JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+            string fichier = "stats_utilisateur.json";
+            File.WriteAllText(fichier, json);
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = fichier,
+                UseShellExecute = true
+            });
+
+            Console.WriteLine($"\u2705 Statistiques exportées dans le fichier : {fichier}");
             interfaceuser.adminInterface();
         }
 
+        private static List<Dictionary<string, object>> ExtraireCommandesClient(MySqlConnection conn, int idClient)
+        {
+            string sql = @"
+        SELECT co.commande, co.date_heure_commande, SUM(p.prix) AS total
+        FROM commande co
+        JOIN ligne_de_commande_ ldc ON co.commande = ldc.commande
+        JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+        JOIN plat p ON p.id = i.id
+        WHERE co.id_client = @cli
+        GROUP BY co.commande, co.date_heure_commande
+        ORDER BY co.date_heure_commande";
 
+            using var cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@cli", idClient);
+            using var r = cmd.ExecuteReader();
+            var result = new List<Dictionary<string, object>>();
+
+            while (r.Read())
+            {
+                result.Add(new Dictionary<string, object>
+                {
+                    ["commande"] = r.GetInt32("commande"),
+                    ["date"] = r.GetDateTime("date_heure_commande"),
+                    ["total"] = r.GetDecimal("total")
+                });
+            }
+
+            return result;
+        }
+
+        private static decimal CalculerMoyenneClient(MySqlConnection conn, int idClient)
+        {
+            const string sql = @"
+        SELECT AVG(montant) FROM (
+          SELECT co.commande,
+                 SUM(p.prix) AS montant
+          FROM commande co
+          JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
+          JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+          JOIN plat p ON p.id = i.id
+          WHERE co.id_client = @cli
+          GROUP BY co.commande
+        ) t;";
+
+            using var cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@cli", idClient);
+            var res = cmd.ExecuteScalar();
+            return res == DBNull.Value ? 0 : Convert.ToDecimal(res);
+        }
+
+        private static decimal CalculerTotalDepenseClient(MySqlConnection conn, int idClient)
+        {
+            const string sql = @"
+        SELECT SUM(p.prix)
+        FROM commande co
+        JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
+        JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+        JOIN plat p ON p.id = i.id
+        WHERE co.id_client = @cli;";
+
+            using var cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@cli", idClient);
+            var res = cmd.ExecuteScalar();
+            return res == DBNull.Value ? 0 : Convert.ToDecimal(res);
+        }
+
+        private static int NombreLivraisonsCuisinier(MySqlConnection conn, int idCuisinier)
+        {
+            const string sql = @"
+        SELECT COUNT(DISTINCT ldc.id_ligne_de_commande)
+        FROM commande co
+        JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
+        WHERE co.id_cuisinier = @idCui;";
+
+            using var cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@idCui", idCuisinier);
+            var res = cmd.ExecuteScalar();
+            return res == DBNull.Value ? 0 : Convert.ToInt32(res);
+        }
     }
 }
 
