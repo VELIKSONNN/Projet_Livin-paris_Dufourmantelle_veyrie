@@ -14,7 +14,7 @@ namespace livinparis_dufourmantelle_veyrie
             Console.Clear();
             Console.WriteLine("Que voulez vous faire ? -afficher une commande par période '1'\n-afficher la moyenne des prix des commandes '2' \n-afficher la moyenne de prix par client (compte dans le sujet) '3'" +
                 "\n-afficher les commande par période et nationalité '4'\n-afficher le nombre de livraisons par cuisinier '5'\n-Afficher le montant des achats cumulé par clients '6' " +
-                " ");
+                "\n -exporter les statistiques utilisateurs en JSON"+ " " );
             char choixquery = Convert.ToChar(Console.ReadLine());
             switch (choixquery)
             {
@@ -37,8 +37,11 @@ namespace livinparis_dufourmantelle_veyrie
                 case '6':
                     achatcumuléparclient(conn);
                     break;
+               
 
             }
+            ExporterStatsUtilisateursJson(conn);
+            
             
         }
 
@@ -388,6 +391,68 @@ namespace livinparis_dufourmantelle_veyrie
             while (r.Read())
                 Console.WriteLine($"{r.GetInt32(0),2} | {r.GetDateTime(1):yyyy-MM-dd} | {r.GetString(2)}");
         }
+        public static void ExporterStatsUtilisateursJson(MySqlConnection c)
+        {
+            string nomFichier = "stats_utilisateurs.json";
+
+            // Étendre la longueur max pour GROUP_CONCAT
+            using (var cmdInit = new MySqlCommand("SET SESSION group_concat_max_len=1000000;", c))
+            {
+                cmdInit.ExecuteNonQuery();
+            }
+
+            string requete = @"
+        SELECT CONCAT('[', GROUP_CONCAT(
+            JSON_OBJECT(
+                'id_utilisateur', u.id,
+                'nom_complet', CONCAT(u.Prenom, ' ', u.Nom),
+                'email', u.email,
+                'total_commandes', IFNULL(nb_cmd, 0),
+                'montant_total', IFNULL(montant, 0),
+                'moyenne_par_commande', IFNULL(montant / nb_cmd, 0)
+            )
+        ), ']') AS json
+        FROM utilisateur u
+        LEFT JOIN (
+            SELECT cl.id,
+                   COUNT(co.commande) AS nb_cmd,
+                   SUM(p.prix) AS montant
+            FROM custommer cl
+            JOIN commande co ON co.id_client = cl.id_client
+            JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
+            JOIN inclue i ON i.id_ligne_de_commande = ldc.id_ligne_de_commande
+            JOIN plat p ON p.id = i.id
+            GROUP BY cl.id
+        ) stats ON stats.id = u.id;
+    ";
+
+            using (var cmd = new MySqlCommand(requete, c))
+            using (var reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    string jsonResultat = reader.GetString("json");
+                    File.WriteAllText(nomFichier, jsonResultat);
+
+                    var p = new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = nomFichier,
+                        UseShellExecute = true
+                    };
+                    System.Diagnostics.Process.Start(p);
+
+                    Console.WriteLine($"✅ Statistiques exportées dans {nomFichier}");
+                }
+                else
+                {
+                    Console.WriteLine("❌ Aucune statistique trouvée.");
+                }
+            }
+
+            interfaceuser.adminInterface();
+        }
+
+
     }
 }
 
