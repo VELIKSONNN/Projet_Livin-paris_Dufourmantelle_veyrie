@@ -3,11 +3,16 @@
   "commandes": [
     {
       "commande": 24,
-      "date": "2025-05-06T19:58:31",
+      "date": "2025--05--06--19: 58:31",
       "total": 34.1
+    },
+    {
+      "commande": 25,
+      "date": "2025--05--06--22: 13:43",
+      "total": 14.1
     }
   ],
-  "moyenne": 34.1,
-  "total": 34.1,
+  "moyenne": 24.1,
+  "total": 48.2,
   "livraisons": 0
 }

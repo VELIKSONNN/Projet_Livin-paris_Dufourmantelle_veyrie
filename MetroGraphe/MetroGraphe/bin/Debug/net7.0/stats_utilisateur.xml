@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statistiques>
+  <Type>client_cuisinier</Type>
+  <Commandes>
+    <Commande id="24">
+      <Date>2025-05-06T19:58:31</Date>
+      <Total>34.1</Total>
+    </Commande>
+    <Commande id="25">
+      <Date>2025-05-06T22:13:43</Date>
+      <Total>14.1</Total>
+    </Commande>
+  </Commandes>
+  <Moyenne>24.1</Moyenne>
+  <TotalDepense>48.2</TotalDepense>
+  <Livraisons>
+    <Total>0</Total>
+  </Livraisons>
+</Statistiques>

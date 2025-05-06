@@ -486,7 +486,7 @@ namespace livinparis_dufourmantelle_veyrie
                 result.Add(new Dictionary<string, object>
                 {
                     ["commande"] = r.GetInt32("commande"),
-                    ["date"] = r.GetDateTime("date_heure_commande"),
+                    ["date"] = r.GetDateTime("date_heure_commande").ToString("yyyy/MM/dd/HH: mm:ss"),
                     ["total"] = r.GetDecimal("total")
                 });
             }
@@ -543,6 +543,83 @@ namespace livinparis_dufourmantelle_veyrie
             var res = cmd.ExecuteScalar();
             return res == DBNull.Value ? 0 : Convert.ToInt32(res);
         }
+        public static void ExporterStatistiquesXml(MySqlConnection conn, string nom, string mdp)
+        {
+            bool isClient = false, isCuisinier = false;
+            int idClient = -1, idCuisinier = -1;
+
+            using (var cmd = new MySqlCommand(@"
+        SELECT cust.id_client 
+        FROM utilisateur u 
+        JOIN custommer cust ON cust.id = u.id 
+        WHERE u.nom = @nom AND u.mdp = @mdp", conn))
+            {
+                cmd.Parameters.AddWithValue("@nom", nom);
+                cmd.Parameters.AddWithValue("@mdp", mdp);
+                var res = cmd.ExecuteScalar();
+                if (res != null && res != DBNull.Value)
+                {
+                    isClient = true;
+                    idClient = Convert.ToInt32(res);
+                }
+            }
+
+            using (var cmd = new MySqlCommand(@"
+        SELECT cui.id_cuisinier 
+        FROM utilisateur u 
+        JOIN cuisinier cui ON cui.id = u.id 
+        WHERE u.nom = @nom AND u.mdp = @mdp", conn))
+            {
+                cmd.Parameters.AddWithValue("@nom", nom);
+                cmd.Parameters.AddWithValue("@mdp", mdp);
+                var res = cmd.ExecuteScalar();
+                if (res != null && res != DBNull.Value)
+                {
+                    isCuisinier = true;
+                    idCuisinier = Convert.ToInt32(res);
+                }
+            }
+
+            var xml = new System.Xml.Linq.XElement("Statistiques");
+
+            if (isClient)
+            {
+                var commandes = ExtraireCommandesClient(conn, idClient);
+                var commandesElem = new System.Xml.Linq.XElement("Commandes");
+                foreach (var cmd in commandes)
+                {
+                    commandesElem.Add(new System.Xml.Linq.XElement("Commande",
+                        new System.Xml.Linq.XAttribute("id", cmd["commande"]),
+                        new System.Xml.Linq.XElement("Date", cmd["date"]),
+                        new System.Xml.Linq.XElement("Total", cmd["total"])
+                    ));
+                }
+                xml.Add(new System.Xml.Linq.XElement("Type", isCuisinier ? "client_cuisinier" : "client"));
+                xml.Add(commandesElem);
+                xml.Add(new System.Xml.Linq.XElement("Moyenne", CalculerMoyenneClient(conn, idClient)));
+                xml.Add(new System.Xml.Linq.XElement("TotalDepense", CalculerTotalDepenseClient(conn, idClient)));
+            }
+
+            if (isCuisinier)
+            {
+                xml.Add(new System.Xml.Linq.XElement("Livraisons",
+                    new System.Xml.Linq.XElement("Total", NombreLivraisonsCuisinier(conn, idCuisinier))
+                ));
+            }
+
+            string fichier = "stats_utilisateur.xml";
+            xml.Save(fichier);
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = fichier,
+                UseShellExecute = true
+            });
+
+            Console.WriteLine($"\u2705 Statistiques exportées dans le fichier : {fichier}");
+            interfaceuser.adminInterface();
+        }
+
     }
 }
 

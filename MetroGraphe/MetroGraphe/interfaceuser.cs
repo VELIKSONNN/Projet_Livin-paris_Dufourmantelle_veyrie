@@ -113,7 +113,7 @@ namespace livinparis_dufourmantelle_veyrie
         static public void interface_utilisateur(string idutil,string mdp)
         {
             Console.Clear ();
-            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?'3'--\n -- Afficher les statistiques d'un utilisateur en JSON '4");
+            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?'3'--\n -- Afficher les statistiques d'un utilisateur en JSON '4--\n----Exporter vos statistiques en XML '5'--");
             char rep= Convert.ToChar(Console.ReadLine());
             switch (rep)
             {
@@ -178,7 +178,9 @@ namespace livinparis_dufourmantelle_veyrie
                 case '4':
                     statistiques.ExporterStatistiquesJson(connexion, idutil, mdp);
                     break;
-
+                case '5':
+                    statistiques.ExporterStatistiquesXml(connexion, idutil, mdp);
+                    break;
 
             }
 
@@ -248,7 +250,7 @@ namespace livinparis_dufourmantelle_veyrie
         static public void adminInterface()
         {
 
-            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'");
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'--Exporter les statistiques d'un utilisateur en XML '8'");
 
 
             char actionprimaire = Convert.ToChar(Console.ReadLine());
@@ -285,6 +287,14 @@ namespace livinparis_dufourmantelle_veyrie
                     string mdp = Console.ReadLine();
                     statistiques.ExporterStatistiquesJson(connexion, nom, mdp);
                     break;
+                case '8':
+                    Console.Write("Nom de l'utilisateur : ");
+                    string nomXml = Console.ReadLine();
+                    Console.Write("Mot de passe : ");
+                    string mdpXml = Console.ReadLine();
+                    statistiques.ExporterStatistiquesXml(connexion, nomXml, mdpXml);
+                    break;
+
             }
         }
 
