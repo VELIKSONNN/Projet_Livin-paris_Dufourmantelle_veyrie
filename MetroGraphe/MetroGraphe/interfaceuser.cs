@@ -36,79 +36,85 @@ namespace livinparis_dufourmantelle_veyrie
         static public void MainInterface()
         {
             Console.WriteLine("Bienvenue !\n--Se connecter en tant qu'utilisateur'1'--\n--Se connecter en tant qu'admin '2--\n--S'enregistrer '3'--\n");
-            char choixactio =Convert.ToChar(Console.ReadLine());
+            char choixactio = Convert.ToChar(Console.ReadLine());
             switch (choixactio)
             {
                 case '1':
-                Console.WriteLine(" Veuillez entrer votre mot de passe et identifiants pour vous connecter");
-                    Console.Write("identifiant :");
+                    Console.WriteLine(" Veuillez entrer votre mot de passe et nom de famille pour vous connecter");
+                    Console.Write("nom :");
                     string idutil = Console.ReadLine();
                     Console.Write("mot de passe :");
                     string mdp = Console.ReadLine();
-                    
-                        string query = @"
+
+                    string query = @"
                                             SELECT COUNT(*) 
                                             FROM utilisateur 
                                             WHERE Nom = @nom 
                                               AND mdp = @mdp;
                                         ";
 
-                        using (var command = new MySqlCommand(query, connexion))
+                    using (var command = new MySqlCommand(query, connexion))
+                    {
+                        command.Parameters.AddWithValue("@nom", idutil);
+                        command.Parameters.AddWithValue("@mdp", mdp);
+
+
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+
+                        if (count == 1)
                         {
-                            // Remplacez identifiants et motDePasse par vos variables réelles
-                            command.Parameters.AddWithValue("@nom", idutil);
-                            command.Parameters.AddWithValue("@mdp", mdp);
+                            Console.Clear();
+                            Console.WriteLine("Authentification réussie !");
+                            interface_utilisateur(idutil, mdp);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("nom ou mot de passe incorrecte :/");
+                            MainInterface();
+                        }
 
 
-                        int count = Convert.ToInt32(command.ExecuteScalar()); // récupère le nombre de lignes
-
-                        if (count ==1)
-                            {
-                                Console.Clear();
-                                Console.WriteLine("Authentification réussie !");
-                                interface_utilisateur(idutil,mdp);
-
-                            }
-                            else
-                            {
-                                Console.WriteLine("Identifiant ou mot de passe incorrecte :/");
-                                MainInterface();
-                            }
-
-                        
                     }
-                    
+
                     break;
 
-                case '2': Console.WriteLine("--Veuillez entrer votre mot de passe et identifiants admin pour vous connecter--");
-            Console.Write("identifiant: ");
-            string identifiant = Console.ReadLine();
-            Console.Write("Mot de passe: ");
-            string motdepasse = Console.ReadLine(); 
+                case '2':
+                    Console.WriteLine("--Veuillez entrer votre mot de passe et identifiants admin pour vous connecter-- (appuyer simplement sur entrée lors du test)");
+                    Console.Write("identifiant: ");
+                    string identifiant = Console.ReadLine();
+                    Console.Write("Mot de passe: ");
+                    string motdepasse = Console.ReadLine();
 
 
-            if (identifiant == "" && motdepasse == "")
-            {
-                Console.Clear();
-                Console.WriteLine("Ouverture de l'interface admin");
-                
-                adminInterface();
-                        
-            }
+                    if (identifiant == "" && motdepasse == "")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Ouverture de l'interface admin");
+
+                        adminInterface();
+
+                    }
 
                     break;
                 case '3':
 
-                  
+
 
                     AjoutUtilisateur();
                     break;
 
             }
-            
-            
-            
+
+
+
         }
+
+        /// <summary>
+        /// Permet à l'utilisateur de choisir l'aciton qu'il souhaite réaliser
+        /// </summary>
+        /// <param name="idutil"></param>
+        /// <param name="mdp"></param>
         static public void interface_utilisateur(string idutil,string mdp)
         {
             Console.Clear ();
@@ -143,7 +149,7 @@ namespace livinparis_dufourmantelle_veyrie
                         if (res == null || res == DBNull.Value)
                         {
                             Console.WriteLine("Vous n’êtes pas enregistré comme client.");
-                            return;          // on sort sans appeler ajoutcommande
+                            return;          
                         }
                         idClient = Convert.ToInt32(res);
                     }
@@ -167,7 +173,7 @@ namespace livinparis_dufourmantelle_veyrie
                         if (res == null || res == DBNull.Value)
                         {
                             Console.WriteLine("Vous n’êtes pas enregistré comme client.");
-                            return;          // on sort sans appeler ajoutcommande
+                            return;          
                         }
                         idClient = Convert.ToInt32(res);
                     }
@@ -179,6 +185,13 @@ namespace livinparis_dufourmantelle_veyrie
             }      
 
         }
+
+        /// <summary>
+        /// Cette commande affiche toute les commande d'un utilisateur
+        /// 
+        /// </summary>
+        /// <param name="idutil"></param>
+        /// <param name="mdp"></param>
         public static void affiche_commandes_util(string idutil,string mdp)
         {
              string query = @"SELECT
@@ -188,14 +201,14 @@ namespace livinparis_dufourmantelle_veyrie
                               CONCAT(cu.`Prenom`, ' ', cu.`Nom`) AS cuisinier,
                               CONCAT(cl.`Prenom`, ' ', cl.`Nom`) AS client
                             FROM `utilisateur` AS cl
-                              JOIN `custommer`      AS csm ON csm.`id`               = cl.`id`
-                              JOIN `commande`       AS cmd ON cmd.`id_client`        = csm.`id_client`
-                              JOIN `cuisinier`      AS cs  ON cs.`id_cuisinier`      = cmd.`id_cuisinier`
-                              JOIN `utilisateur`    AS cu  ON cu.`id`                = cs.`id`
-                              JOIN `ligne_de_commande_` AS ldc ON ldc.`commande`     = cmd.`commande`
-                              JOIN `livraison`      AS l   ON l.`id_livraison`       = ldc.`id_livraison`
-                              JOIN `inclue`         AS inc ON inc.`id_ligne_de_commande` = ldc.`id_ligne_de_commande`
-                              JOIN `plat`           AS p   ON p.`id`                = inc.`id`
+                              JOIN `custommer` AS csm ON csm.`id`= cl.`id`
+                              JOIN `commande` AS cmd ON cmd.`id_client`= csm.`id_client`
+                              JOIN `cuisinier` AS cs  ON cs.`id_cuisinier`= cmd.`id_cuisinier`
+                              JOIN `utilisateur` AS cu  ON cu.`id`= cs.`id`
+                              JOIN `ligne_de_commande_` AS ldc ON ldc.`commande` = cmd.`commande`
+                              JOIN `livraison`      AS l   ON l.`id_livraison`= ldc.`id_livraison`
+                              JOIN `inclue` AS inc ON inc.`id_ligne_de_commande` = ldc.`id_ligne_de_commande`
+                              JOIN `plat` AS p   ON p.`id`                = inc.`id`
                             WHERE
                               cl.`Nom` = @idutil
                               AND cl.`mdp` = @mdp
@@ -278,7 +291,7 @@ namespace livinparis_dufourmantelle_veyrie
         }
 
         /// <summary>
-        /// Récupère les adresses du cuisinier et du client pour une commande donnée et affiche le chemin le plus court.
+        /// Récupère les adresses du cuisinier et du client pour une commande donnée et appelle la fonction affichechemincuisinier qui affiche le chemin le plus court.
         /// </summary>
         /// <param name="idcommande">L'identifiant de la commande.</param>
         static void recupdépartarrivé(int idcommande)
@@ -305,7 +318,6 @@ namespace livinparis_dufourmantelle_veyrie
                         string adresseCuisinier = reader.GetString("adresseCuisinier");
                         string adresseClient = reader.GetString("adresseClient");
 
-                        // Appel de la méthode pour calculer et afficher le chemin le plus court
                         Program.affichechemincuisinier(adresseCuisinier, adresseClient, Program.creationgraphe());
                     }
                     else
@@ -337,11 +349,10 @@ namespace livinparis_dufourmantelle_veyrie
             }
         }
 
+        
         /// <summary>
-        /// Gère l'ajout d'un tuple dans la base de données selon le type d'entité choisi par l'utilisateur.
+        /// Ajoute un compte en demandant à l'utilisateur de renseigner ses coordonnée, puis ajoute un tuple dans les table cuisinier et custommer en fonctions des besoin de l'utilisateur
         /// </summary>
-        /// 
-
         static private void AjoutUtilisateur()
         {
             Console.WriteLine(
@@ -350,14 +361,16 @@ namespace livinparis_dufourmantelle_veyrie
             string nom = Console.ReadLine();
             string email = Console.ReadLine();
 
-            // Validation basique du téléphone
             string tel = Console.ReadLine();
             while (tel.Length != 10)
             {
                 Console.WriteLine("Format de numéro invalide. Réessayez :");
                 tel = Console.ReadLine();
             }
-
+          
+            Console.WriteLine();
+            affichestations();
+            Console.WriteLine("Stations de metro la plus proche de chez vous ?");
             string adresse = Console.ReadLine();
             string entreprise = Console.ReadLine();
             string mdp = Console.ReadLine();
@@ -365,7 +378,6 @@ namespace livinparis_dufourmantelle_veyrie
             using (var transaction = connexion.BeginTransaction())
             { 
                 int iduser = maxindice("utilisateur", "id")+1;
-                // 1) INSERT utilisateur (une seule instruction)
                 string sqlInsertUser = @"
             INSERT INTO utilisateur
                 (id,Prenom, Nom, email, tel, adresse, entreprise, mdp)
@@ -388,11 +400,9 @@ namespace livinparis_dufourmantelle_veyrie
                     cmd.Parameters.AddWithValue("@Mdp", mdp);
 
                     cmd.ExecuteNonQuery();
-                    // on récupère ici l’ID généré par l’auto-increment
                    
                 }
 
-                // 2) Choix du ou des rôles
                 Console.WriteLine(
                     "Voulez-vous vous enregistrer comme :\n" +
                     " 1 = Client   |   2 = Cuisinier   |   3 = Les deux   ");
@@ -400,7 +410,6 @@ namespace livinparis_dufourmantelle_veyrie
 
                
 
-                // 4) INSERT dans cuisinier si besoin (une instruction)
                 if (choix == "2" || choix == "3")
                 {
                     string sqlCuisinier = @"
@@ -415,7 +424,6 @@ namespace livinparis_dufourmantelle_veyrie
                     }
                 } 
                 
-                // 3) INSERT dans client si besoin (une instruction)
                 if (choix == "1" || choix == "3")
                 {
                     string sqlClient = @"
@@ -431,7 +439,6 @@ namespace livinparis_dufourmantelle_veyrie
                     }
                 }
 
-                // 5) Commit global
                 transaction.Commit();
 
                 Console.WriteLine($"Utilisateur #{iduser} créé avec succès.");
@@ -441,6 +448,9 @@ namespace livinparis_dufourmantelle_veyrie
         }
 
 
+        /// <summary>
+        /// permet à l'admin d'ajouter un tuple
+        /// </summary>
         static private void ajouttuple()
         {
             Console.Clear();
@@ -595,18 +605,21 @@ namespace livinparis_dufourmantelle_veyrie
             adminInterface();
         }
 
+        /// <summary>
+        /// permet la création d'une nouvelle commande par un admin ou un utilisateur
+        /// </summary>
+        /// <param name="idclient"></param>
+        /// <param name="idcuisinier"></param>
         static void ajoutcommande(int idclient, int idcuisinier)
         {
            
 
             
 
-            // Générer un nouvel ID de commande (supposant que la PK de commande s'appelle "commande")
             int commande = maxindice("commande", "commande") + 1;
 
             using (var transaction = connexion.BeginTransaction())
             {
-                // 1) Insertion dans la table commande
                 string insertQuery = @"
             INSERT INTO commande (commande, date_heure_commande, id_client, id_cuisinier)
             VALUES (@id, @date, @id_custommer, @id_cuisinier)";
@@ -619,7 +632,6 @@ namespace livinparis_dufourmantelle_veyrie
                     command.ExecuteNonQuery();
                 }
 
-                // 2) Demander le nombre de lignes de commande pour cette commande
                 Console.Write("Combien de lignes de commande pour cette commande ? ");
                 int nbLignes = int.Parse(Console.ReadLine());
 
@@ -627,10 +639,8 @@ namespace livinparis_dufourmantelle_veyrie
                 {
                     Console.WriteLine($"\n=== Création de la ligne de commande n°{i + 1} ===");
 
-                    // Calculer un nouvel id_ligne_de_commande
                     int idmaxligne = maxindice("ligne_de_commande_", "id_ligne_de_commande") + 1;
 
-                    // Demander la date de livraison pour cette ligne
                     Console.Write("Entrez la date de livraison (yyyy-MM-dd HH:mm:ss) : ");
                     string dateLivraisonStr = Console.ReadLine();
                     DateTime dateLivraison;
@@ -640,7 +650,6 @@ namespace livinparis_dufourmantelle_veyrie
                         dateLivraison = DateTime.Now;
                     }
                     int idmaxlivraison = maxindice("livraison", "id_livraison") + 1;
-                    // Insertion dans la table livraison
                     string insertLivraisonQuery = @"
                 INSERT INTO livraison (id_livraison, date_heure_livraison)
                 VALUES (@id_livraison, @dateLivraison)";
@@ -651,7 +660,6 @@ namespace livinparis_dufourmantelle_veyrie
                         cmdLivraison.ExecuteNonQuery();
                     }
 
-                    // Insertion dans la table ligne_de_commande_
                     string insertLigneQuery = @"
                 INSERT INTO ligne_de_commande_ (id_ligne_de_commande, id_livraison, id_client, commande)
                 VALUES (@idLigne, @idLivraison, @idClient, @commande)";
@@ -665,7 +673,6 @@ namespace livinparis_dufourmantelle_veyrie
                     }
                     Console.WriteLine($"Ligne de commande {idmaxligne} insérée.");
 
-                    // 3) Demander le nombre de plats pour cette ligne
                     Console.Write("Combien de plats pour cette ligne ? ");
                     int nbPlats = int.Parse(Console.ReadLine());
                     for (int j = 0; j < nbPlats; j++)
@@ -673,7 +680,6 @@ namespace livinparis_dufourmantelle_veyrie
                         Console.Write($"ID du plat n°{j + 1} : ");
                         int idPlat = int.Parse(Console.ReadLine());
 
-                        // Insertion dans la table inclue (association plat - ligne_de_commande_)
                         string insertInclueQuery = @"
                     INSERT INTO inclue (id, id_ligne_de_commande)
                     VALUES (@idPlat, @idLigneCommande)";
@@ -687,7 +693,6 @@ namespace livinparis_dufourmantelle_veyrie
                     }
                 }
 
-                // 4) Calculer et afficher le prix total de la commande
                 string queryprixcommande = @"SELECT SUM(p.prix) AS prixtotal
                                                     FROM commande co
                                                     JOIN ligne_de_commande_ ldc ON ldc.commande = co.commande
@@ -728,7 +733,6 @@ namespace livinparis_dufourmantelle_veyrie
             switch (actionsuppr)
             {
                 case '1':
-                    //string attribut = rechercheattribut();
                     string table = recherchetable();
                     AfficherTable(table);
                     supprtuple(table);
@@ -736,12 +740,12 @@ namespace livinparis_dufourmantelle_veyrie
 
                 case '2':
                     Console.WriteLine();
-                    // attribut = rechercheattribut();
                     table = recherchetable();
                     supprtuple(table);
                     break;
             }
         }
+
 
         /// <summary>
         /// Affiche le contenu d'une table spécifiée.
@@ -755,7 +759,6 @@ namespace livinparis_dufourmantelle_veyrie
             switch (table.ToLower())
             {
                 case "cuisinier":
-                    // Jointure pour récupérer Nom, Prénom...
                     query = @"
                 SELECT c.id_cuisinier, u.Nom, u.Prenom
                 FROM cuisinier c
@@ -772,7 +775,6 @@ namespace livinparis_dufourmantelle_veyrie
                     break;
 
                 case "custommer":
-                    // Jointure pour récupérer Nom, Prénom...
                     query = @"
                 SELECT cust.id_client, u.Nom, u.Prenom
                 FROM custommer cust
@@ -801,7 +803,6 @@ namespace livinparis_dufourmantelle_veyrie
                     break;
 
                 default:
-                    // Cas par défaut : demande d'un attribut à afficher
                     Console.Write("Quel attribut veux-tu voir ? ");
                     string attribut = Console.ReadLine();
                     query = $"SELECT id, {attribut} FROM {table}";
@@ -827,7 +828,6 @@ namespace livinparis_dufourmantelle_veyrie
             Console.WriteLine();
             Console.WriteLine("Quel est l'id du tuple à supprimer ?");
 
-            // S'assurer que les contraintes de clé étrangère sont présentes pour le DELETE en cascade
             EnsureForeignKeyConstraint(connexion, "baselivinparis", "cuisinier", "cuisinier_ibfk_1", "id", "utilisateur", "id");
             EnsureForeignKeyConstraint(connexion, "baselivinparis", "custommer", "custommer_ibfk_1", "id", "utilisateur", "id");
             EnsureForeignKeyConstraint(connexion, "baselivinparis", "commande", "commande_ibfk_1", "id_client", "custommer", "id_client");
@@ -872,7 +872,6 @@ namespace livinparis_dufourmantelle_veyrie
         /// <param name="referencedColumn">La colonne référencée dans la table référencée.</param>
         public static void EnsureForeignKeyConstraint(MySqlConnection connexion, string databaseName, string tableName, string constraintName, string foreignKeyColumn, string referencedTable, string referencedColumn)
         {
-            // Requête pour vérifier si la contrainte existe déjà
             string checkQuery = @"SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA = @databaseName 
             AND TABLE_NAME = @tableName AND CONSTRAINT_NAME = @constraintName;";
 
@@ -883,7 +882,6 @@ namespace livinparis_dufourmantelle_veyrie
                 checkCmd.Parameters.AddWithValue("@constraintName", constraintName);
                 int count = Convert.ToInt32(checkCmd.ExecuteScalar());
 
-                // Si la contrainte existe, la supprimer
                 if (count > 0)
                 {
                     string dropQuery = $"ALTER TABLE {tableName} DROP FOREIGN KEY {constraintName};";
@@ -894,7 +892,6 @@ namespace livinparis_dufourmantelle_veyrie
                 }
             }
 
-            // Ajouter la contrainte avec ON DELETE CASCADE
             string addQuery = $@"
                     ALTER TABLE {tableName} 
                     ADD CONSTRAINT {constraintName} 
@@ -928,6 +925,128 @@ namespace livinparis_dufourmantelle_veyrie
             Console.WriteLine("Dans quelle table souhaitez-vous faire une recherche");
             string tablederecherche = Console.ReadLine();
             return tablederecherche;
+        }
+
+        /// <summary>
+        /// affiche toutes les stations parisienne à l'aide d'une liste
+        /// </summary>
+        static void affichestations()
+        {
+            string[] stations = {
+    /* 001 */ "Abbesses",                 /* 002 */ "Alésia",                       /* 003 */ "Alexandre‑Dumas",
+    /* 004 */ "Alma‑Marceau",             /* 005 */ "Anatole‑France",               /* 006 */ "Anvers",
+    /* 007 */ "Arcueil‑Cachan",           /* 008 */ "Argentine",                    /* 009 */ "Arts‑et‑Métiers",
+    /* 010 */ "Assemblée‑Nationale",      /* 011 */ "Aubervilliers‑Hôtel‑de‑Ville", /* 012 */ "Aubervilliers‑Pantin 4 Chemins",
+    /* 013 */ "Avron",                    /* 014 */ "Balard",                       /* 015 */ "Barbès‑Rochechouart",
+    /* 016 */ "Bastille",                 /* 017 */ "Bérault",                      /* 018 */ "Belleville",
+    /* 019 */ "Bel‑Air",                  /* 020 */ "Bel‑Est",                      /* 021 */ "Belgrand",
+    /* 022 */ "Berault‑Fontenay‑s‑Bois",  /* 023 */ "Bercy",                        /* 024 */ "Bibliothèque‑F.‑Mitterrand",
+    /* 025 */ "Bir‑Hakeim‑Tour‑Eiffel",   /* 026 */ "Blanche",                      /* 027 */ "Bobigny‑Pablo‑Picasso",
+    /* 028 */ "Bobigny‑Raymond‑Queneau",  /* 029 */ "Boissière",                    /* 030 */ "Bolivar",
+    /* 031 */ "Bonne‑Nouvelle",           /* 032 */ "Botzaris",                     /* 033 */ "Boulogne‑Jean‑Jaurès",
+    /* 034 */ "Boulogne‑Pont‑de‑Saint‑Cloud",      /* 035 */ "Boulogne‑Pont‑de‑Sèvres",    /* 036 */ "Boucicaut",
+    /* 037 */ "Bourse",                   /* 038 */ "Brochant",                     /* 039 */ "Bréguet‑Sabin",
+    /* 040 */ "Buttes‑Chaumont",          /* 041 */ "Cadet",                        /* 042 */ "Cambronne",
+    /* 043 */ "Campo‑Formio",             /* 044 */ "Cardinal‑Lemoine",             /* 045 */ "Carreau‑du‑Temple",
+    /* 046 */ "Censier‑Daubenton",        /* 047 */ "Champs‑Élysées‑Clemenceau",    /* 048 */ "Champ‑de‑Mars‑Tour‑Eiffel",
+    /* 049 */ "Chardon‑Lagache",          /* 050 */ "Charenton‑Écoles",             /* 051 */ "Charles‑de‑Gaulle‑Étoile",
+    /* 052 */ "Château‑d'Eau",            /* 053 */ "Château‑Landon",               /* 054 */ "Château‑Rouge",
+    /* 055 */ "Château‑de‑Vincennes",     /* 056 */ "Châtelet",                     /* 057 */ "Chaussée‑d'Antin‑La Fayette",
+    /* 058 */ "Chemin‑Vert",              /* 059 */ "Chevaleret",                   /* 060 */ "Chilly‑Mazarin",
+    /* 061 */ "Corentin‑Celton",          /* 062 */ "Colonel‑Fabien",               /* 063 */ "Commerce",
+    /* 064 */ "Concorde",                 /* 065 */ "Convention",                   /* 066 */ "Corvisart",
+    /* 067 */ "Couronnes",                /* 068 */ "Cour Saint‑Émilion",           /* 069 */ "Courcelles",
+    /* 070 */ "Créteil‑L'Échat",          /* 071 */ "Créteil‑Préfecture",           /* 072 */ "Créteil‑Université",
+    /* 073 */ "Crimée",                   /* 074 */ "Croix‑de‑Chavaux",             /* 075 */ "Danube",
+    /* 076 */ "Daumesnil",                /* 077 */ "Denfert‑Rochereau",            /* 078 */ "Dugommier",
+    /* 079 */ "Dupleix",                  /* 080 */ "Duroc",                        /* 081 */ "École Militaire",
+    /* 082 */ "Église d'Auteuil",         /* 083 */ "Église de Pantin",             /* 084 */ "Église de Pantin‑H4",
+    /* 085 */ "Église de Pantin‑H5",      /* 086 */ "Etienne‑Marcel",               /* 087 */ "Exelmans",
+    /* 088 */ "Faidherbe‑Chaligny",       /* 089 */ "Falguière",                    /* 090 */ "Felix‑Faure",
+    /* 091 */ "Filles du‑Calvaire",       /* 092 */ "Fort d'Aubervilliers",         /* 093 */ "Franklin‑D.-Roosevelt",
+    /* 094 */ "Gambetta",                 /* 095 */ "Gare‑de‑l'Est",               /* 096 */ "Gare‑de‑Lyon",
+    /* 097 */ "Gare‑du‑Nord",             /* 098 */ "Garches‑Marnes‑la‑Coquette",   /* 099 */ "Goncourt",
+    /* 100 */ "George V",                 /* 101 */ "Glacière",                    /* 102 */ "Goncourt‑Hôpital St‑Louis",
+    /* 103 */ "Grands‑Boulevards",        /* 104 */ "Gratuit‑Musée‑d'Orsay",        /* 105 */ "Guy‑Môquet",
+    /* 106 */ "Havre‑Caumartin",          /* 107 */ "Hôtel‑de‑Ville",              /* 108 */ "Invalides",
+    /* 109 */ "Jasmin",                   /* 110 */ "Jaurès",                       /* 111 */ "Javel‑André‑Citroën",
+    /* 112 */ "Jean‑Jaurès",              /* 113 */ "Jourdain",                     /* 114 */ "Kléber",
+    /* 115 */ "La Chapelle",              /* 116 */ "La Courneuve‑8 Mai 1945",      /* 117 */ "La Défense‑Grande‑Arche",
+    /* 118 */ "La Fourche",               /* 119 */ "La Motte‑Picquet‑Grenelle",     /* 120 */ "La Muette",
+    /* 121 */ "Laumière",                /* 122 */ "Le Kremlin‑Bicêtre",           /* 123 */ "Le Peletier",
+    /* 124 */ "Les Gobelins",             /* 125 */ "Les Halles",                  /* 126 */ "Liège",
+    /* 127 */ "Louis‑Blanc",              /* 128 */ "Louvre‑Rivoli",               /* 129 */ "Mabillon",
+    /* 130 */ "Madeleine",               /* 131 */ "Malesherbes",                  /* 132 */ "Mairie‑d'Ivry",
+    /* 133 */ "Mairie‑de‑Clichy",        /* 134 */ "Mairie‑de‑Montreuil",          /* 135 */ "Mairie‑de‑Saint‑Ouen",
+    /* 136 */ "Mairie‑de‑Saint‑Denis",   /* 137 */ "Mairie‑d'Issy",                /* 138 */ "Mairie‑des‑Lilas",
+    /* 139 */ "Mairie‑du‑15ᵉ",           /* 140 */ "Maison Blanche",               /* 141 */ "Maisons‑Alfort‑Alfortville",
+    /* 142 */ "Maisons‑Alfort‑Stade",    /* 143 */ "Maisons‑Alfort‑Les Juilliottes",/* 144 */ "Malakoff‑Plateau‑de‑Vanves",
+    /* 145 */ "Malakoff‑Rue‑Étienne‑Dolet",/* 146 */ "Maraîchers",                 /* 147 */ "Marcadet‑Poissonniers",
+    /* 148 */ "Marcel‑Sembat",            /* 149 */ "Marx‑Dormoy",                 /* 150 */ "Masséna",
+    /* 151 */ "Maubert‑Mutualité",        /* 152 */ "Michel‑Ange‑Auteuil",          /* 153 */ "Michel‑Ange‑Molitor",
+    /* 154 */ "Michel‑Bizot",             /* 155 */ "Miromesnil",                   /* 156 */ "Monceau",
+    /* 157 */ "Monge",                    /* 158 */ "Montgallet",                   /* 159 */ "Montparnasse‑Bienvenue",
+    /* 160 */ "Nation",                   /* 161 */ "Notre‑Dame‑des‑Champs",        /* 162 */ "Notre‑Dame‑de‑Lorette",
+    /* 163 */ "Oberkampf",                /* 164 */ "Odéon",                        /* 165 */ "Opéra",
+    /* 166 */ "Ourcq",                    /* 167 */ "Palais‑Royal‑Musée‑du‑Louvre", /* 168 */ "Passy",
+    /* 169 */ "Pasteur",                  /* 170 */ "Pelleport",                    /* 171 */ "Père‑Lachaise",
+    /* 172 */ "Philippe‑Auguste",         /* 173 */ "Picpus",                       /* 174 */ "Pigalle",
+    /* 175 */ "Place‑d'Italie",           /* 176 */ "Place‑de‑Clichy",              /* 177 */ "Place‑des‑Fêtes",
+    /* 178 */ "Place‑Monge",              /* 179 */ "Plaisance",                    /* 180 */ "Pointe‑du‑Lac",
+    /* 181 */ "Poissonnière",             /* 182 */ "Pont‑de‑Neuilly",              /* 183 */ "Pont‑de‑Sèvres",
+    /* 184 */ "Pont‑Marie",               /* 185 */ "Pont‑Neuf",                    /* 186 */ "Porte‑de‑Bagnolet",
+    /* 187 */ "Porte‑de‑Champ‑rette",     /* 188 */ "Porte‑de‑Charenton",           /* 189 */ "Porte‑de‑Choisy",
+    /* 190 */ "Porte‑de‑Clignancourt",    /* 191 */ "Porte‑de‑Clichy",              /* 192 */ "Porte‑de‑la Chapelle",
+    /* 193 */ "Porte‑de‑la Villette",     /* 194 */ "Porte‑de‑Lil as",              /* 195 */ "Porte‑de‑Pantin",
+    /* 196 */ "Porte‑de‑Saint‑Cloud",     /* 197 */ "Porte‑de‑Saint‑Ouen",          /* 198 */ "Porte‑de‑Vanves",
+    /* 199 */ "Porte‑Dauphine",           /* 200 */ "Porte‑d'Ivry",                 /* 201 */ "Porte‑Dorée",
+    /* 202 */ "Porte‑d'Orléans",          /* 203 */ "Porte‑Maillot",                /* 204 */ "Poterne‑des‑Peupliers",
+    /* 205 */ "Pré‑Saint‑Gervais",        /* 206 */ "Pretto‑Porte‑d'Italie",        /* 207 */ "Pyramides",
+    /* 208 */ "Quai‑de‑la Gare",         /* 209 */ "Quai‑de‑la Rapée",             /* 210 */ "Quatre‑Septembre",
+    /* 211 */ "Rambuteau",                /* 212 */ "Ranelagh",                     /* 213 */ "Raspail",
+    /* 214 */ "Réaumur‑Sébastopol",       /* 215 */ "Rennes",                       /* 216 */ "Reuilly‑Diderot",
+    /* 217 */ "Ricardo‑Rezai",            /* 218 */ "Richard‑Lenoir",               /* 219 */ "Richelieu‑Drouot",
+    /* 220 */ "Riquet",                   /* 221 */ "Robespierre",                  /* 222 */ "Rome",
+    /* 223 */ "Rue‑des‑Boulets",          /* 224 */ "Rue‑du‑Bac",                   /* 225 */ "Rue‑Saint‑Maur",
+    /* 226 */ "Saint‑Ambroise",           /* 227 */ "Saint‑Augustin",               /* 228 */ "Saint‑Denis‑Pleyel",
+    /* 229 */ "Saint‑Fargeau",            /* 230 */ "Saint‑François‑Xavier",        /* 231 */ "Saint‑Germain‑des‑Prés",
+    /* 232 */ "Saint‑Jacques",            /* 233 */ "Saint‑Lazare",                 /* 234 */ "Saint‑Mandé",
+    /* 235 */ "Saint‑Marcel",             /* 236 */ "Saint‑Michel",                 /* 237 */ "Saint‑Paul",
+    /* 238 */ "Saint‑Philippe‑du‑Roule",  /* 239 */ "Saint‑Placide",               /* 240 */ "Saint‑Sébastien‑Froissart",
+    /* 241 */ "Saint‑Sulpice",            /* 242 */ "Saint‑Surpier",               /* 243 */ "Sèvres‑Babylone",
+    /* 244 */ "Sèvres‑Lecourbe",          /* 245 */ "Simplon",                      /* 246 */ "Solférino",
+    /* 247 */ "Stalingrad",               /* 248 */ "Strasbourg‑Saint‑Denis",       /* 249 */ "Sully‑Morland",
+    /* 250 */ "Télégraphe",               /* 251 */ "Temple",                       /* 252 */ "Ternes",
+    /* 253 */ "Tolbiac",                  /* 254 */ "Trinité‑d'Estienne‑d'Orves",    /* 255 */ "Trocadéro",
+    /* 256 */ "Tuileries",                /* 257 */ "Université",                   /* 258 */ "Val‑de‑Fontenay",
+    /* 259 */ "Vaneau",                   /* 260 */ "Varennes",                     /* 261 */ "Vaugirard",
+    /* 262 */ "Vavin",                    /* 263 */ "Victor‑Hugo",                  /* 264 */ "Villejuif‑Louis‑Aragon",
+    /* 265 */ "Villejuif‑Léo‑Lagrange",   /* 266 */ "Villejuif‑Paul‑Vaillant‑Couturier", /* 267 */ "Villejuif‑Gustave‑Roussy",
+    /* 268 */ "Villemomble‑Bondy",        /* 269 */ "Villeparisis‑Mitry‑Le Neuf",   /* 270 */ "Villiers",
+    /* 271 */ "Volontaires",              /* 272 */ "Voltaire",                     /* 273 */ "Wagram",
+    /* 274 */ "White‑House",              /* 275 */ "Zola‑III‑Orly Aéroport T4",    /* 276 */ "Orly‑Aéroport T3",
+    /* 277 */ "Pont‑Carrefour‑Silic",     /* 278 */ "Pont‑Rungis‑Aéroport d'Orly",  /* 279 */ "La Bourgogne",
+    /* 280 */ "Aéroport d'Orly T1‑T2",    /* 281 */ "Maison‑Blanche‑Paris‑13",      /* 282 */ "Institut‑Gustave‑Roussy",
+    /* 283 */ "L'Haÿ‑les‑Roses",          /* 284 */ "Chevilly‑Trois‑Communes",      /* 285 */ "Thiais‑Orly‑Ville",
+    /* 286 */ "Mines‑Pont‑de‑Sèvres",     /* 287 */ "Saint‑Maur‑Créteil‑Hôpital",   /* 288 */ "Bagneux‑Lucie‑Aubrac",
+    /* 289 */ "Barbara",                  /* 290 */ "Arcueil‑Cachan‑Centre",        /* 291 */ "Pôle‑Université Lumière",
+    /* 292 */ "Athis‑Mons‑Paray",         /* 293 */ "Vitry‑Centre",                 /* 294 */ "Vitry‑Les Ardoines",
+    /* 295 */ "Pont‑de‑Bondy",            /* 296 */ "Drancy‑Bobigny",               /* 297 */ "Clichy‑Montfermeil",
+    /* 298 */ "Hôpital‑Ballanger",        /* 299 */ "Aulnay‑Parc‑Relais",           /* 300 */ "Triangle de Gonesse",
+    /* 301 */ "Le Bourget‑Aéroport",      /* 302 */ "Stains‑La‑Cerisaie",           /* 303 */ "Saint‑Denis‑Université",
+    /* 304 */ "La Courneuve‑Six Routes",  /* 305 */ "Mairie‑d'Aubervilliers",       /* 306 */ "Wagram",
+    /* 307 */ "Pleyel‑Hub‑Olympique",     /* 308 */ "Église de Pantin"
+};
+
+            // -----------------------------------------------------------------------------
+            // Impression : 3 stations par ligne.
+            for (int i = 0; i < stations.Length; i += 3)
+            {
+                string s1 = stations[i];
+                string s2 = (i + 1 < stations.Length) ? stations[i + 1] : "";
+                string s3 = (i + 2 < stations.Length) ? stations[i + 2] : "";
+                Console.WriteLine($"{s1,-35}{s2,-35}{s3}");
+            }
         }
     }
 }

@@ -25,12 +25,11 @@ namespace livinparis_dufourmantelle_veyrie
             var liens = new List<Lien<int>>();
             var noeudsDict = new Dictionary<int, Noeud<int>>();
 
-            // Lecture des coordonnées GPS depuis MetroParis.xlsx
             var coordonnees = new Dictionary<int, (double lat, double lon)>();
             using (var stream = File.Open("MetroParis.xlsx", FileMode.Open, FileAccess.Read))
             using (var reader = ExcelReaderFactory.CreateReader(stream))
             {
-                reader.Read(); // Ignorer l'en-tête
+                reader.Read(); 
                 while (reader.Read())
                 {
                     int id = Convert.ToInt32(reader.GetValue(0));
@@ -40,11 +39,10 @@ namespace livinparis_dufourmantelle_veyrie
                 }
             }
 
-            // Lecture des connexions entre stations depuis Liens_corrige.xlsx
             using (var stream = File.Open("Liens_corrige.xlsx", FileMode.Open, FileAccess.Read))
             using (var reader = ExcelReaderFactory.CreateReader(stream))
             {
-                reader.Read(); // Ignorer l'en-tête
+                reader.Read(); 
 
                 while (reader.Read())
                 {
@@ -59,7 +57,6 @@ namespace livinparis_dufourmantelle_veyrie
                     double latitude = coordonnees.ContainsKey(id) ? coordonnees[id].lat : 0;
                     double longitude = coordonnees.ContainsKey(id) ? coordonnees[id].lon : 0;
 
-                    // Création du nœud s'il n'existe pas encore
                     if (!noeudsDict.ContainsKey(id))
                     {
                         var noeud = new Noeud<int>(id, nom, latitude, longitude);
@@ -79,7 +76,6 @@ namespace livinparis_dufourmantelle_veyrie
                         double.TryParse(distanceStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var d))
                         distance = d;
 
-                    // Ajout du lien suivant (bidirectionnel)
                     if (int.TryParse(suivantStr, out int nextId))
                     {
                         if (!noeudsDict.ContainsKey(nextId))
@@ -92,7 +88,6 @@ namespace livinparis_dufourmantelle_veyrie
                         liens.Add(new Lien<int>(noeudsDict[nextId], noeudsDict[id], distance));
                     }
 
-                    // Ajout du lien précédent (bidirectionnel)
                     if (int.TryParse(precedentStr, out int prevId))
                     {
                         if (!noeudsDict.ContainsKey(prevId))
@@ -169,10 +164,8 @@ namespace livinparis_dufourmantelle_veyrie
                 Console.WriteLine($"{station.ID} - {station.NOM}");
             }
 
-            // Visualisation graphique du chemin
             var coloration = graphe.ColorationWelshPowell();
 
-            // 3. Informations
             int nbCouleurs = coloration.Values.Max() + 1;
             bool estBiparti = nbCouleurs <= 2;
             bool estPlanaire = nbCouleurs <= 4;
