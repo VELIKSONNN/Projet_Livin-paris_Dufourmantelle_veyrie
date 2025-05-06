@@ -202,7 +202,6 @@ namespace livinparis_dufourmantelle_veyrie
         /// </summary>
         public Dictionary<Noeud<T>, int> ColorationWelshPowell()
         {
-            // 1. Trier les nœuds par degré décroissant
             var ordre = Noeuds
                 .OrderByDescending(n => ListeAdjacente[Convert.ToInt32(n.ID)].Count)
                 .ToList();
@@ -210,15 +209,12 @@ namespace livinparis_dufourmantelle_veyrie
             var couleurNoeud = new Dictionary<Noeud<T>, int>();
             int couleurCourante = 0;
 
-            // 2. Tant qu'il reste des nœuds non colorés
             while (ordre.Any())
             {
-                // Liste des nœuds colorés à cette passe
                 var coloCetteCouleur = new List<Noeud<T>>();
 
                 foreach (var noeud in ordre.ToList())
                 {
-                    // Vérifier que ce noeud n'a pas de voisin déjà de la couleurCourante
                     bool conflit = ListeAdjacente[Convert.ToInt32(noeud.ID)]
                         .Select(l => l.Destination)
                         .Any(v => coloCetteCouleur.Contains(v));

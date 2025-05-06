@@ -56,20 +56,17 @@ namespace livinparis_dufourmantelle_veyrie
                 positions[noeud.ID] = new SKPoint(x, y);
             }
 
-            // Liens
             foreach (var lien in _graphe.Liens)
             {
                 var p1 = positions[lien.Source.ID];
                 var p2 = positions[lien.Destination.ID];
                 canvas.DrawLine(p1, p2, paintLien);
 
-                // Étiquette distance
                 var milieu = new SKPoint((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
                 if (lien.Distancesuivant > 0)
                     canvas.DrawText($"{lien.Distancesuivant:F2} km", milieu.X - 10, milieu.Y + 20, paintTexte);
             }
 
-            // Chemin optimal
             double totalKm = 0;
             if (_chemin != null && _chemin.Count > 1)
             {
@@ -89,29 +86,24 @@ namespace livinparis_dufourmantelle_veyrie
                 }
             }
 
-            // Noeuds
+            
             foreach (var noeud in _graphe.Noeuds)
             {
                 var pos = positions[noeud.ID];
 
-                // 1) On cherche l'indice de couleur pour ce noeud
                 int idxCouleur = 0;
                 if (coloration.TryGetValue(noeud, out int c))
                     idxCouleur = c;
 
-                // 2) On choisi la couleur dans la palette (modulo si nécessaire)
                 paintNoeud.Color = couleurs[idxCouleur % couleurs.Length];
 
-                // 3) On dessine le cercle
                 canvas.DrawCircle(pos, 10, paintNoeud);
 
-                // 4) Optionnel : nom du noeud
                 if (!string.IsNullOrEmpty(noeud.NOM))
                     canvas.DrawText(noeud.NOM, pos.X + 12, pos.Y - 12, paintTexte);
             }
 
 
-            // Distance finale
             if (_chemin != null && _chemin.Count > 1)
             {
                 canvas.DrawText($"Distance totale du chemin : {totalKm:F2} km", 100, hauteur - 40, paintTexte);
