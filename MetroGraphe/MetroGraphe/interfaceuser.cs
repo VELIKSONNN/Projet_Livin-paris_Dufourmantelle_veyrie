@@ -265,8 +265,13 @@ namespace livinparis_dufourmantelle_veyrie
         {
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'--Exporter les statistiques d'un utilisateur en XML '8'");
 
+=======
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'");
+            Console.WriteLine("Afficher le graphe colorée des liens entre les utilisateur '8' ");
+>>>>>>> Stashed changes
 =======
             Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'");
             Console.WriteLine("Afficher le graphe colorée des liens entre les utilisateur '8' ");
@@ -315,6 +320,7 @@ namespace livinparis_dufourmantelle_veyrie
                     break;
                 case '8':
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     Console.Write("Nom de l'utilisateur : ");
                     string nomXml = Console.ReadLine();
                     Console.Write("Mot de passe : ");
@@ -323,11 +329,16 @@ namespace livinparis_dufourmantelle_veyrie
                     break;
 
 =======
+=======
+>>>>>>> Stashed changes
                     afficheGrapheCommandes(connexion);
                     adminInterface();
                     break;
                     
                     
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             }
         }
