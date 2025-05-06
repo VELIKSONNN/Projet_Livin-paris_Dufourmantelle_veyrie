@@ -2098,11 +2098,12 @@
       },
       "Rendu2livinparis_dufourmantelle_veyrie/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
+        "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "ExcelDataReader": "3.7.0",
           "MySql.Data": "9.2.0",
-          "SkiaSharp": "3.116.1"
+          "SkiaSharp": "3.116.1",
+          "xunit": "2.9.3"
         },
         "compile": {
           "bin/placeholder/Rendu2livinparis_dufourmantelle_veyrie.dll": {}
@@ -6637,19 +6638,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\joach\\.nuget\\packages\\": {}
+    "C:\\Users\\enfants\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\TestProject1.csproj",
+      "projectUniqueName": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\TestProject1.csproj",
       "projectName": "TestProject1",
-      "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\TestProject1.csproj",
-      "packagesPath": "C:\\Users\\joach\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\obj\\",
+      "projectPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\TestProject1.csproj",
+      "packagesPath": "C:\\Users\\enfants\\.nuget\\packages\\",
+      "outputPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TestProject1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\joach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\enfants\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6663,8 +6664,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj": {
-              "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj"
+            "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj": {
+              "projectPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj"
             }
           }
         }
@@ -6725,8 +6726,19 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Avertissement comme erreur : Passage à une version antérieure du package détecté : xunit de 2.9.3 à 2.4.2. Référencez le package directement à partir du projet pour sélectionner une version différente. \r\n TestProject1 -> Rendu2livinparis_dufourmantelle_veyrie -> xunit (>= 2.9.3) \r\n TestProject1 -> xunit (>= 2.4.2)",
+      "libraryId": "xunit",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

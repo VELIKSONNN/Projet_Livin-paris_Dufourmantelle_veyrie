@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace livinparis_dufourmantelle_veyrie
 {
+
     /// <summary>
     /// Représente un graphe orienté pondéré à l’aide d’une liste d’adjacence.
     /// </summary>

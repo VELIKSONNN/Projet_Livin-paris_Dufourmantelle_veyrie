@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj": {}
+    "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj": {
+    "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
+        "projectUniqueName": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
         "projectName": "Rendu2livinparis_dufourmantelle_veyrie",
-        "projectPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
-        "packagesPath": "C:\\Users\\joach\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\obj\\",
+        "projectPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Rendu2livinparis_dufourmantelle_veyrie.csproj",
+        "packagesPath": "C:\\Users\\enfants\\.nuget\\packages\\",
+        "outputPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\joach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\enfants\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -42,8 +42,8 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "ExcelDataReader": {
               "target": "Package",
@@ -56,6 +56,10 @@
             "SkiaSharp": {
               "target": "Package",
               "version": "[3.116.1, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.3, )"
             }
           },
           "imports": [
@@ -69,30 +73,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.16, 7.0.16]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.16, 7.0.16]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.16, 7.0.16]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.16, 7.0.16]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,34 +1,55 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\",
+  "WorkspaceRootPath": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\",
   "Documents": [
     {
+<<<<<<< Updated upstream
       "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\statistiques.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:statistiques.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\interfaceuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:interfaceuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\interfaceuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:interfaceuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\visualisation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> Stashed changes
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\visualisation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:visualisation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+<<<<<<< Updated upstream
       "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\statistiques.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:statistiques.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> Stashed changes
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{953D3EEA-D196-4E0A-8B3A-5B5AE08DEEB0}|..\\TESTfinale1\\TESTfinale1.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\testfinale1\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|c:\\users\\joach\\documents\\esilv\\github\\projet_livin-paris\\metrographe\\metrographe\\noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:noeud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|f:\\ecole\\github\\projet_livin-paris\\metrographe\\metrographe\\lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEEC14F9-B692-452E-957E-14F8BD6C14DA}|Rendu2livinparis_dufourmantelle_veyrie.csproj|solutionrelative:lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,17 +59,42 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< Updated upstream
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
+=======
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TESTfinale1\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "..\\TESTfinale1\\UnitTest1.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\TESTfinale1\\UnitTest1.cs",
+              "RelativeToolTip": "..\\TESTfinale1\\UnitTest1.cs",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAcwIEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T19:22:29.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+>>>>>>> Stashed changes
               "Title": "statistiques.cs",
-              "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\statistiques.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\statistiques.cs",
               "RelativeDocumentMoniker": "statistiques.cs",
-              "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\statistiques.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\statistiques.cs",
               "RelativeToolTip": "statistiques.cs",
+<<<<<<< Updated upstream
               "ViewState": "AQIAAMgBAAAAAAAAAAAQwOgBAABZAAAA",
+=======
+              "ViewState": "AQIAAAsAAAAAAAAAAAAuwCgAAAAAAAAA",
+>>>>>>> Stashed changes
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-04T14:07:04.296Z",
               "EditorCaption": ""
@@ -57,11 +103,15 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "interfaceuser.cs",
-              "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\interfaceuser.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\interfaceuser.cs",
               "RelativeDocumentMoniker": "interfaceuser.cs",
-              "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\interfaceuser.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\interfaceuser.cs",
               "RelativeToolTip": "interfaceuser.cs",
+<<<<<<< Updated upstream
               "ViewState": "AQIAADECAAAAAAAAAAAIwCgBAAAAAAAA",
+=======
+              "ViewState": "AQIAAEcAAAAAAAAAAAAwwG0AAAAAAAAA",
+>>>>>>> Stashed changes
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-04T14:07:02.716Z",
               "EditorCaption": ""
@@ -70,10 +120,11 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Visualisation.cs",
-              "DocumentMoniker": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Visualisation.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Visualisation.cs",
               "RelativeDocumentMoniker": "Visualisation.cs",
-              "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Visualisation.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Visualisation.cs",
               "RelativeToolTip": "Visualisation.cs",
+<<<<<<< Updated upstream
               "ViewState": "AQIAAIoAAAAAAAAAAAAAAAUAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-04T13:28:20.956Z",
@@ -124,8 +175,64 @@
               "ToolTip": "C:\\Users\\joach\\Documents\\ESILV\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAGoAAAAAAAAAAAAQwHwAAABJAAAA",
+=======
+              "ViewState": "AQIAAAsAAAAAAAAAAAAQwBgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T13:28:21.058Z"
+              "WhenOpened": "2025-04-04T13:28:20.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Noeud.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Noeud.cs",
+              "RelativeDocumentMoniker": "Noeud.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Noeud.cs",
+              "RelativeToolTip": "Noeud.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAswC8AAAAJAAAA",
+>>>>>>> Stashed changes
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T13:28:21.051Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Graphe.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Graphe.cs",
+              "RelativeDocumentMoniker": "Graphe.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Graphe.cs",
+              "RelativeToolTip": "Graphe.cs",
+              "ViewState": "AQIAAMYAAAAAAAAAAAAmwNoAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T13:28:21.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Lien.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Lien.cs",
+              "RelativeDocumentMoniker": "Lien.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Lien.cs",
+              "RelativeToolTip": "Lien.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T13:28:21.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAHgAAAAAAAAAAAAowIcAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T13:28:21.058Z",
+              "EditorCaption": ""
             }
           ]
         }

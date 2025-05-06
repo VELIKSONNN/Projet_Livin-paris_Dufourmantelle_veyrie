@@ -140,3 +140,7 @@ C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe
 C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\obj\Debug\net8.0\Rendu2livinparis_dufourmantelle_veyrie.pdb
 C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\obj\Debug\net8.0\Rendu2livinparis_dufourmantelle_veyrie.genruntimeconfig.cache
 C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\obj\Debug\net8.0\ref\Rendu2livinparis_dufourmantelle_veyrie.dll
+F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.abstractions.dll
+F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.assert.dll
+F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.core.dll
+F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.execution.dotnet.dll

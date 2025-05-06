@@ -117,7 +117,7 @@ namespace livinparis_dufourmantelle_veyrie
             {
                 string connexionString = "SERVER=localhost;PORT=3306;" +
                                          "DATABASE=baselivinparis;" +
-                                         "user=root;PASSWORD=Saucisson@15;AllowBatch=true;";
+                                         "user=root;PASSWORD=Sabrelaser00;";
 
                 connexion = new MySqlConnection(connexionString);
                 connexion.Open();
@@ -133,10 +133,10 @@ namespace livinparis_dufourmantelle_veyrie
             
             var graphe = creationgraphe();
             Console.WriteLine($"Graphe initialisé : {graphe.Noeuds.Count} stations, {graphe.Liens.Count} liens");
-            
+             
             interfaceuser interface1 = new interfaceuser(connexion);
 
-
+           
          //   affichechemincuisinier("Concorde", "Nation", graphe);
             // Ici, d'autres appels peuvent être faits si besoin
         }
@@ -175,6 +175,12 @@ namespace livinparis_dufourmantelle_veyrie
             Console.WriteLine($"Nombre minimal de couleurs : {nbCouleurs}");
             Console.WriteLine($"Biparti : {estBiparti}");
             Console.WriteLine($"Planaire (test par 4-couleurs) : {estPlanaire}");
+        }
+        public static void affichelienscommande(Graphe<int> graphe1)
+        {
+            var coloration = graphe1.ColorationWelshPowell();
+            var visualisation1 = new Visualisation<int>(graphe1,null,coloration);
+            
         }
     }
 }

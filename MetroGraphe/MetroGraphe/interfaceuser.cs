@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using livinparis_dufourmantelle_veyrie;
 using System.ComponentModel.Design;
 using System.Data;
+using System.Reflection;
 
 namespace livinparis_dufourmantelle_veyrie
 {
@@ -263,8 +264,13 @@ namespace livinparis_dufourmantelle_veyrie
         static public void adminInterface()
         {
 
+<<<<<<< Updated upstream
             Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'--Exporter les statistiques d'un utilisateur en XML '8'");
 
+=======
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'");
+            Console.WriteLine("Afficher le graphe colorée des liens entre les utilisateur '8' ");
+>>>>>>> Stashed changes
 
             char actionprimaire = Convert.ToChar(Console.ReadLine());
 
@@ -272,26 +278,32 @@ namespace livinparis_dufourmantelle_veyrie
             {
                 case '1':
                     ajouttuple();
+                    adminInterface();
                     break;
                 case '2':
                     supprselection();
+                    adminInterface();
                     break;
                 case '3':
                     statistiques.choisirstats(connexion);
+                    adminInterface();
                     break;
                 case '4':
                     Console.WriteLine("Quelle est la table à afficher");
                     string table = Console.ReadLine();
                     AfficherTable(table);
+                    adminInterface();
                     break;
                 case '5':
                     Console.WriteLine("quelle est l'id de la commande dont vous voulez calcule le plus court chemins ? ");
                     int idcommande = int.Parse(Console.ReadLine());
                     recupdépartarrivé(idcommande);
+                    adminInterface();
                     break;
                 case '6':
                     Console.Clear();
                     Console.WriteLine("Merci d'avoir utilisé livinParis et à très bientôt !!");
+                    adminInterface();
                     break;
                 case '7':
                     Console.WriteLine("Nom de l'utilisateur : ");
@@ -299,8 +311,10 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine("Mot de passe : ");
                     string mdp = Console.ReadLine();
                     statistiques.ExporterStatistiquesJson(connexion, nom, mdp);
+                    adminInterface();
                     break;
                 case '8':
+<<<<<<< Updated upstream
                     Console.Write("Nom de l'utilisateur : ");
                     string nomXml = Console.ReadLine();
                     Console.Write("Mot de passe : ");
@@ -308,6 +322,13 @@ namespace livinparis_dufourmantelle_veyrie
                     statistiques.ExporterStatistiquesXml(connexion, nomXml, mdpXml);
                     break;
 
+=======
+                    afficheGrapheCommandes(connexion);
+                    adminInterface();
+                    break;
+                    
+                    
+>>>>>>> Stashed changes
             }
         }
 
@@ -377,7 +398,7 @@ namespace livinparis_dufourmantelle_veyrie
         static private void AjoutUtilisateur()
         {
             Console.WriteLine(
-                "Veuillez entrer, l’un après l’autre : prénom, nom, email, téléphone (10 chiffres), adresse, entreprise (ou vide), mot de passe.");
+                "Veuillez renseigner l’un après l’autre en appyant sur 'entrée' à chaque fois: prénom, nom, email, téléphone (10 chiffres), adresse, entreprise (ou vide), mot de passe.");
             string prenom = Console.ReadLine();
             string nom = Console.ReadLine();
             string email = Console.ReadLine();
@@ -1069,5 +1090,81 @@ namespace livinparis_dufourmantelle_veyrie
                 Console.WriteLine($"{s1,-35}{s2,-35}{s3}");
             }
         }
+
+
+
+
+        /// <summary>
+        /// Construit le graphe « clients – cuisiniers » à partir de toutes les commandes.
+        /// Chaque commande engendre une arête non orientée (donc deux Lien opposés).
+        /// </summary>
+        public static Graphe<int> afficheGrapheCommandes(MySqlConnection connexion)
+        {
+            // ---------- collections temporaires ----------
+            var noeudsDict = new Dictionary<int, Noeud<int>>();   // id → nœud
+            var liens = new List<Lien<int>>();
+
+            /*  La requête récupère, pour chaque commande :
+                - l’identifiant client  + son nom
+                - l’identifiant cuisinier + son nom
+               (schéma conforme aux inserts vus dans interfaceuser : tables custommer / cuisinier
+                qui pointent elles‑mêmes vers utilisateur) :contentReference[oaicite:0]{index=0} */
+            const string sql = @"
+    SELECT  c.id_client,
+            uc.Nom  AS nom_client,
+            c2.id_cuisinier,
+            uu.Nom  AS nom_cuisinier
+    FROM commande          AS cmd
+    JOIN custommer  c  ON c.id_client       = cmd.id_client
+    JOIN utilisateur uc ON uc.id            = c.id
+    JOIN cuisinier  c2 ON c2.id_cuisinier   = cmd.id_cuisinier
+    JOIN utilisateur uu ON uu.id            = c2.id;";
+
+            using var cmd = new MySqlCommand(sql, connexion);
+            using var rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                int idClient = rdr.GetInt32(0);
+                string nomClient = rdr.GetString(1);
+                int idCuisinier = rdr.GetInt32(2);
+                string nomCuisinier = rdr.GetString(3);
+
+                // -- nœuds : on ne garde QUE les utilisateurs impliqués dans au moins une commande
+                if (!noeudsDict.TryGetValue(idClient, out var nClient))
+                {
+                    nClient = new Noeud<int>(idClient, nomClient, 0, 0);
+                    noeudsDict[idClient] = nClient;
+                }
+                if (!noeudsDict.TryGetValue(idCuisinier, out var nCuisinier))
+                {
+                    nCuisinier = new Noeud<int>(idCuisinier, nomCuisinier, 0, 0);
+                    noeudsDict[idCuisinier] = nCuisinier;
+                }
+
+                // -- une arête par commande (poids = 1) –> graphe non orienté ⇔ deux liens opposés
+                liens.Add(new Lien<int>(nClient, noeudsDict[idCuisinier], 1));
+                liens.Add(new Lien<int>(noeudsDict[idCuisinier], nClient, 1));
+            }
+
+            // ---------- construction du graphe ----------
+            var graphe = new Graphe<int>(noeudsDict.Values.ToList(), liens);
+
+            // ---------- coloration & export visuel ----------
+            var coloration = graphe.ColorationWelshPowell();
+            var visu = new Visualisation<int>(graphe, null, coloration);
+            visu.DessinerCercle("graph_commandes.png");      // image dans le répertoire de l’exécutable
+
+            Console.WriteLine("Graphe des commandes créé́.");
+            return graphe;
+        }
+
+
+
+
+
     }
+
+
+
 }
