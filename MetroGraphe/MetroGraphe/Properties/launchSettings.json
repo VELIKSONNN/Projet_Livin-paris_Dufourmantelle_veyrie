@@ -2,7 +2,7 @@
   "profiles": {
     "Rendu2livinparis_dufourmantelle_veyrie": {
       "commandName": "Project",
-      "workingDirectory": "F:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\bin\\Debug\\net8.0"
+      "workingDirectory": "C:\\ECOLE\\GITHUB\\Projet_Livin-paris\\MetroGraphe\\MetroGraphe\\bin\\Debug\\net8.0"
     }
   }
 }

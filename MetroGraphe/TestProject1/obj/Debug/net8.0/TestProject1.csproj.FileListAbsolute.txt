@@ -1,6 +1,0 @@
-F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\TestProject1\obj\Debug\net8.0\TestProject1.csproj.AssemblyReference.cache
-F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\TestProject1\obj\Debug\net8.0\TestProject1.GeneratedMSBuildEditorConfig.editorconfig
-F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\TestProject1\obj\Debug\net8.0\TestProject1.AssemblyInfoInputs.cache
-F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\TestProject1\obj\Debug\net8.0\TestProject1.AssemblyInfo.cs
-F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\TestProject1\obj\Debug\net8.0\TestProject1.csproj.CoreCompileInputs.cache
-F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\TestProject1\obj\Debug\net8.0\TestProject1.sourcelink.json
