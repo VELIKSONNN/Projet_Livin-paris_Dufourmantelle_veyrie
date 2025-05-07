@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Rendu2livinparis_dufourmantelle_veyrie")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6190d66f4638d45c30235174fd9b76740cfcbaf3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1e3ef3b88eddf2ab45a9a655cf60144b507da72")]
 [assembly: System.Reflection.AssemblyProductAttribute("Rendu2livinparis_dufourmantelle_veyrie")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Rendu2livinparis_dufourmantelle_veyrie")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

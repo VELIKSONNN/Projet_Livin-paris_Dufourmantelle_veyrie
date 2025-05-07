@@ -144,3 +144,7 @@ F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xuni
 F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.assert.dll
 F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.core.dll
 F:\ECOLE\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.execution.dotnet.dll
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.abstractions.dll
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.assert.dll
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.core.dll
+C:\Users\joach\Documents\ESILV\GITHUB\Projet_Livin-paris\MetroGraphe\MetroGraphe\bin\Debug\net8.0\xunit.execution.dotnet.dll

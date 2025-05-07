@@ -2,18 +2,18 @@
 <Statistiques>
   <Type>client_cuisinier</Type>
   <Commandes>
-    <Commande id="24">
-      <Date>2025-05-06T19:58:31</Date>
-      <Total>34.1</Total>
+    <Commande id="21">
+      <Date>2025/04/04/15: 19:47</Date>
+      <Total>16.8</Total>
     </Commande>
-    <Commande id="25">
-      <Date>2025-05-06T22:13:43</Date>
-      <Total>14.1</Total>
+    <Commande id="22">
+      <Date>2025/04/04/17: 33:50</Date>
+      <Total>11.8</Total>
     </Commande>
   </Commandes>
-  <Moyenne>24.1</Moyenne>
-  <TotalDepense>48.2</TotalDepense>
+  <Moyenne>14.3</Moyenne>
+  <TotalDepense>28.6</TotalDepense>
   <Livraisons>
-    <Total>0</Total>
+    <Total>12</Total>
   </Livraisons>
 </Statistiques>

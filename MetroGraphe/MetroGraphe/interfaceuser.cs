@@ -265,14 +265,9 @@ namespace livinparis_dufourmantelle_veyrie
         {
 
 
-            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'--Exporter les statistiques d'un utilisateur en XML '8'");
 
-
-            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'");
-            Console.WriteLine("Afficher le graphe colorée des liens entre les utilisateur '8' ");
-
-            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6' \nExporter les statistiques d'un admin en JSON '7'");
-            Console.WriteLine("Afficher le graphe colorée des liens entre les utilisateur '8' ");
+            Console.WriteLine("Que voulez vous faire ?\n Ajouter un tuple '1' (commande)\nSupprimer un tuple '2'\nExectuer une query(stats) '3'\nSimplement afficher une table '4' \nAfficher directement un chemin le plus court pour une livraison? '5'\nSortir du programme '6'");
+            Console.WriteLine("Afficher le graphe colorée des liens entre les utilisateur '7' ");
 
 
             char actionprimaire = Convert.ToChar(Console.ReadLine());
@@ -308,22 +303,10 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine("Merci d'avoir utilisé livinParis et à très bientôt !!");
                     adminInterface();
                     break;
+             
                 case '7':
-                    Console.WriteLine("Nom de l'utilisateur : ");
-                    string nom = Console.ReadLine();
-                    Console.WriteLine("Mot de passe : ");
-                    string mdp = Console.ReadLine();
-                    statistiques.ExporterStatistiquesJson(connexion, nom, mdp);
-                    adminInterface();
-                    break;
-                case '8':
 
-                    Console.Write("Nom de l'utilisateur : ");
-                    string nomXml = Console.ReadLine();
-                    Console.Write("Mot de passe : ");
-                    string mdpXml = Console.ReadLine();
-                    statistiques.ExporterStatistiquesXml(connexion, nomXml, mdpXml);
-                    break;
+                  
 
 
                     afficheGrapheCommandes(connexion);
@@ -553,7 +536,7 @@ namespace livinparis_dufourmantelle_veyrie
 
                     using (var transaction = connexion.BeginTransaction())
                     {
-                        // Insertion dans la table utilisateur
+                      
                         string insertQuery = @"
                                 INSERT INTO utilisateur (id, Prenom, email, tel, adresse, entreprise, Nom, mdp)
                                 VALUES (@id, @Prenom, @Email, @Tel, @Adresse, @Entreprise, @Nom, @Mdp)";
@@ -570,7 +553,7 @@ namespace livinparis_dufourmantelle_veyrie
                             command.Parameters.AddWithValue("@Mdp", mdp);
                             command.ExecuteNonQuery();
                         }
-                        // Insertion dans la table cuisinier
+                       
                         string insertQuery2 = @"INSERT INTO cuisinier(id_cuisinier, id) VALUES (@id, @id)";
                         using (MySqlCommand command = new MySqlCommand(insertQuery2, connexion))
                         {
@@ -582,7 +565,7 @@ namespace livinparis_dufourmantelle_veyrie
 
                         int id_cuisinier = maxindice("cuisinier", "id_cuisinier");
                         insertQuery = $"INSERT INTO cuisinier(id_client, id) VALUES (@id,@id))";
-                        transaction.Commit(); // Valide la transaction
+                        transaction.Commit(); 
                     }
 
                     AfficherTable("cuisinier");
