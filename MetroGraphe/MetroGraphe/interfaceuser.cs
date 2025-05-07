@@ -523,7 +523,7 @@ namespace livinparis_dufourmantelle_veyrie
                             command.ExecuteNonQuery();
                         }
 
-                        transaction.Commit(); // Valide la transaction
+                        transaction.Commit(); 
                     }
 
                     AfficherTable("utilisateur");
@@ -1072,8 +1072,7 @@ namespace livinparis_dufourmantelle_veyrie
     /* 307 */ "Pleyel‑Hub‑Olympique",     /* 308 */ "Église de Pantin"
 };
 
-            // -----------------------------------------------------------------------------
-            // Impression : 3 stations par ligne.
+           
             for (int i = 0; i < stations.Length; i += 3)
             {
                 string s1 = stations[i];
@@ -1092,15 +1091,10 @@ namespace livinparis_dufourmantelle_veyrie
         /// </summary>
         public static Graphe<int> afficheGrapheCommandes(MySqlConnection connexion)
         {
-            // ---------- collections temporaires ----------
-            var noeudsDict = new Dictionary<int, Noeud<int>>();   // id → nœud
+            var noeudsDict = new Dictionary<int, Noeud<int>>();   
             var liens = new List<Lien<int>>();
 
-            /*  La requête récupère, pour chaque commande :
-                - l’identifiant client  + son nom
-                - l’identifiant cuisinier + son nom
-               (schéma conforme aux inserts vus dans interfaceuser : tables custommer / cuisinier
-                qui pointent elles‑mêmes vers utilisateur) :contentReference[oaicite:0]{index=0} */
+          
             const string sql = @"
     SELECT  c.id_client,
             uc.Nom  AS nom_client,
@@ -1122,7 +1116,7 @@ namespace livinparis_dufourmantelle_veyrie
                 int idCuisinier = rdr.GetInt32(2);
                 string nomCuisinier = rdr.GetString(3);
 
-                // -- nœuds : on ne garde QUE les utilisateurs impliqués dans au moins une commande
+             
                 if (!noeudsDict.TryGetValue(idClient, out var nClient))
                 {
                     nClient = new Noeud<int>(idClient, nomClient, 0, 0);
@@ -1134,18 +1128,16 @@ namespace livinparis_dufourmantelle_veyrie
                     noeudsDict[idCuisinier] = nCuisinier;
                 }
 
-                // -- une arête par commande (poids = 1) –> graphe non orienté ⇔ deux liens opposés
+               
                 liens.Add(new Lien<int>(nClient, noeudsDict[idCuisinier], 1));
                 liens.Add(new Lien<int>(noeudsDict[idCuisinier], nClient, 1));
             }
 
-            // ---------- construction du graphe ----------
             var graphe = new Graphe<int>(noeudsDict.Values.ToList(), liens);
 
-            // ---------- coloration & export visuel ----------
             var coloration = graphe.ColorationWelshPowell();
             var visu = new Visualisation<int>(graphe, null, coloration);
-            visu.DessinerCercle("graph_commandes.png");      // image dans le répertoire de l’exécutable
+            visu.DessinerCercle("graph_commandes.png");    
 
             Console.WriteLine("Graphe des commandes créé́.");
             return graphe;
