@@ -486,7 +486,7 @@ namespace livinparis_dufourmantelle_veyrie
                 result.Add(new Dictionary<string, object>
                 {
                     ["commande"] = r.GetInt32("commande"),
-                    ["date"] = r.GetDateTime("date_heure_commande").ToString("yyyy/MM/dd/HH: mm:ss"),
+                    ["date"] = r.GetDateTime("date_heure_commande").ToString("yyyy/MM/dd/HH:mm:ss"),
                     ["total"] = r.GetDecimal("total")
                 });
             }

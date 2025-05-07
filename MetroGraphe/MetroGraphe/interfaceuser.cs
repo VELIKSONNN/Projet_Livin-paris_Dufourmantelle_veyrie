@@ -120,7 +120,7 @@ namespace livinparis_dufourmantelle_veyrie
         static public void interface_utilisateur(string idutil,string mdp)
         {
             Console.Clear ();
-            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?'3'--\n -- Afficher les statistiques d'un utilisateur en JSON '4--\n----Exporter vos statistiques en XML '5'--");
+            Console.WriteLine("Que souhaitez vous faire ? \n--Afficher le plus court trajet pour l'une de vos commandes '1'--\n--Faire une nouvelle commandes '2'--\n --Voir les statistiques de votre compte ?'3'--\n -- Afficher les statistiques d'un utilisateur en JSON '4--\n----Exporter vos statistiques en XML '5'--\n Sortir du programme '6'");
             char rep= Convert.ToChar(Console.ReadLine());
             switch (rep)
             {
@@ -130,6 +130,7 @@ namespace livinparis_dufourmantelle_veyrie
                     Console.WriteLine("Quelle est l'id de la commande à afficher ? ");
                     int idcommande = int.Parse(Console.ReadLine());
                     recupdépartarrivé(idcommande);
+                    interface_utilisateur(idutil, mdp);
                     break;
                 case '2':
                     Console.Clear () ;
@@ -180,13 +181,18 @@ namespace livinparis_dufourmantelle_veyrie
                         idClient = Convert.ToInt32(res);
                     }
                     statistiques.ChoisirStatsClient(connexion, idClient);
+                    interface_utilisateur(idutil, mdp);
 
                     break;
                 case '4':
                     statistiques.ExporterStatistiquesJson(connexion, idutil, mdp);
+                    interface_utilisateur(idutil, mdp);
                     break;
                 case '5':
                     statistiques.ExporterStatistiquesXml(connexion, idutil, mdp);
+                    interface_utilisateur(idutil, mdp);
+                    break;
+                case '6':
                     break;
 
             }

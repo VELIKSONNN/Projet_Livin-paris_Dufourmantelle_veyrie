@@ -2,17 +2,17 @@
   "type": "client_cuisinier",
   "commandes": [
     {
-      "commande": 24,
-      "date": "2025--05--06--19: 58:31",
-      "total": 34.1
+      "commande": 21,
+      "date": "2025/04/04/15:19:47",
+      "total": 16.8
     },
     {
-      "commande": 25,
-      "date": "2025--05--06--22: 13:43",
-      "total": 14.1
+      "commande": 22,
+      "date": "2025/04/04/17:33:50",
+      "total": 11.8
     }
   ],
-  "moyenne": 24.1,
-  "total": 48.2,
-  "livraisons": 0
+  "moyenne": 14.3,
+  "total": 28.6,
+  "livraisons": 12
 }

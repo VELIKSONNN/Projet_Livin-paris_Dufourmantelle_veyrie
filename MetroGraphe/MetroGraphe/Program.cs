@@ -19,7 +19,7 @@ namespace livinparis_dufourmantelle_veyrie
         /// <returns>Un objet Graphe<int> représentant le métro</returns>
         public static Graphe<int> creationgraphe()
         {
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+           
 
             var noeuds = new List<Noeud<int>>();
             var liens = new List<Lien<int>>();
